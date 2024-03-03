@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FirebaseService } from '../../../../core/services/firebase.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-registration',
@@ -15,7 +16,8 @@ export class RegistrationComponent implements OnInit {
   loading = false;
 
   constructor(
-    private readonly firebaseService: FirebaseService,
+    private readonly firebaseService: AuthService,
+    private readonly dataService: FirebaseService,
     private readonly toastrService: ToastrService,
     private readonly router: Router
   ) {}
@@ -48,15 +50,13 @@ export class RegistrationComponent implements OnInit {
 
     this.firebaseService
       .createUser(user)
-      .then((res) => {
+      .then((res:any) => {
         console.log('res:', res)
-
-        console.log('i am in');
-
+        this.dataService.set('users',res.user.uid,{data:'i am in'})
         this.toastrService.success('User registred successfuly');
         this.router.navigateByUrl('home');
       })
-      .catch((error) => this.toastrService.error(error.message))
+      .catch((error:any) => this.toastrService.error(error.message))
       .finally(() => (this.loading = false));
   }
 }

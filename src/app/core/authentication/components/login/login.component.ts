@@ -3,7 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FirebaseService } from '../../../../core/services/firebase.service';
-
+import { AuthService } from 'src/app/core/services/auth.service';
+// import { AngularFireDatabase} from '@angular/fire/compat/database';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,13 +16,12 @@ export class LoginComponent implements OnInit {
   loading = false;
 
   constructor(
-    private readonly firebaseService: FirebaseService,
+    private readonly firebaseService: AuthService,
     private readonly toastrService: ToastrService,
     private readonly router: Router
   ) {}
 
   ngOnInit() {
-    debugger
     this.loginForm = new FormGroup({
       email: new FormControl<string>('', [
         Validators.required,
@@ -44,11 +44,12 @@ export class LoginComponent implements OnInit {
 
     this.firebaseService
       .login(this.loginForm.value.email, this.loginForm.value.password)
-      .then(() => {
+      .then((user:any) => {
         this.toastrService.success('User logged in successfuly');
-        this.router.navigate(['/', 'admin']);
+        this.router.navigate(['/', 'home']);
       })
-      .catch((error) => this.toastrService.error(error.message))
+      .catch((error) =>  {console.log('error',error);
+       this.toastrService.error('sasas')})
       .finally(() => (this.loading = false));
   }
 }

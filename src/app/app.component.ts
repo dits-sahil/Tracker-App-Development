@@ -1,10 +1,16 @@
 import { Component } from '@angular/core';
+import { FirebaseService } from './core/services/firebase.service';
 
 @Component({
   selector: 'app-root',
-  template: ` <router-outlet></router-outlet> `,
-  styleUrls: ['./app.component.scss'],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'firebase-authentication';
+  constructor(private db:FirebaseService){}
+
+  ngOnInit(){
+
+  }
+  title = 'tracker-app';
 }

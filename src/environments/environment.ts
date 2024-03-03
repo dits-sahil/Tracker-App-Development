@@ -1,13 +1,12 @@
 export const environment = {
   production: false,
-  firebase: {
-    apiKey: 'YOUR_API_KEY',
-    authDomain: 'YOUR_AUTH_DOMAIN',
-    databaseURL: 'YOUR_DATABASE_URL',
-    projectId: 'YOUR_PROJECT_ID',
-    storageBucket: 'YOUR_STORAGE_BUCKET',
-    messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
-    appId: 'YOUR_APP_ID'
+  firebase:{
+    apiKey: "AIzaSyA-8tXzCsjOd59M2rMj69kH-ktdoK5OcD8",
+    authDomain: "tracker-app-5a80b.firebaseapp.com",
+    projectId: "tracker-app-5a80b",
+    storageBucket: "tracker-app-5a80b.appspot.com",
+    messagingSenderId: "722773943990",
+    appId: "1:722773943990:web:bdd36b513cb8d3d9452817",
+    measurementId: "G-SKLC53498S"
   }
 };
-
