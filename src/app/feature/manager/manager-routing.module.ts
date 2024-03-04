@@ -1,9 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ManagerComponent } from './manager.component';
+import { AssignmentListComponent } from './components/assignment-list/assignment-list.component';
 const routes: Routes = [
 
-  { path: 'manager', component: ManagerComponent },
+  { path: '', 
+  component: ManagerComponent,
+  children: [
+    {
+      path: 'assignmentList',
+      component: AssignmentListComponent
+    }
+  ]
+},
 ];
 
 @NgModule({

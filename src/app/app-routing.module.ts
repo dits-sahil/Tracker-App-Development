@@ -1,3 +1,4 @@
+import { UserModule } from './feature/user/user.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RegistrationComponent } from './core/authentication/components/registration/registration.component';
@@ -17,9 +18,17 @@ const routes: Routes = [
     loadChildren: () =>
       import('./feature/admin/admin.module').then((m) => m.AdminModule),
   },
-
+  {
+    path: 'manager',
+    loadChildren: () =>
+      import('./feature/manager/manager.module').then((m) => m.ManagerModule),
+  },
+  {
+    path: 'user',
+    loadChildren: () =>
+      import('./feature/user/user.module').then((m) => m.UserModule), 
+  }
 ];
-
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
