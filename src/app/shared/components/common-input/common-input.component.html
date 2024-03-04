@@ -1,0 +1,7 @@
+<ng-container [formGroup]="form">
+    <mat-form-field class="d-block" appearance="outline">
+        <mat-label>{{label}}</mat-label>
+        <input matInput  [readonly]="readonly"  [type]="type" [maxlength]="maxlength"  [formControlName]="control" [placeholder]="placeholder">
+        <mat-error *ngIf="error">{{error}}</mat-error>
+    </mat-form-field>
+</ng-container>

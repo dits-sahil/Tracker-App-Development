@@ -41,7 +41,6 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-debugger
     this.firebaseService
       .login(this.loginForm.value.email, this.loginForm.value.password)
       .then((user:any) => {
@@ -49,7 +48,7 @@ debugger
         this.router.navigate(['/', 'admin']);
       })
       .catch((error) =>  {console.log('error',error);
-       this.toastrService.error('sasas')})
+       this.toastrService.error(error.message)})
       .finally(() => (this.loading = false));
   }
 }

@@ -9,6 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { HomeComponent } from './components/home/home.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { UiModule } from 'src/app/ui/ui.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { HomeComponent } from './components/home/home.component';
     MatButtonModule,
     MatProgressSpinnerModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    SharedModule,
+    UiModule
   ]
 })
 export class AuthenticationModule { }

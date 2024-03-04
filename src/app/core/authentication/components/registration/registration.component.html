@@ -2,46 +2,45 @@
   <mat-spinner *ngIf="loading"></mat-spinner>
   <h1>Sign Up</h1>
   <form [formGroup]="registrationForm">
-    <mat-form-field appearance="outline">
-      <mat-label>E-mail</mat-label>
-      <input type="email" matInput formControlName="email" />
-      <mat-error
-        *ngIf="
-          registrationForm.get('email')?.hasError('email') &&
-          !registrationForm.get('email')?.hasError('required')
-        "
-      >
-        Please enter a valid email address
-      </mat-error>
-      <mat-error
-        *ngIf="registrationForm.get('email')?.hasError('required')"
-      >
-        Name is required
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Name</mat-label>
-      <input type="text" matInput formControlName="name" />
-      <mat-error *ngIf="registrationForm.get('name')?.hasError('required')">
-        Name is required
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Password</mat-label>
-      <input
-        [type]="showPassword ? 'text' : 'password'"
-        matInput
-        formControlName="password"
-      />
+    <app-common-input
+      [control]="'email'"
+      [type]="'email'"
+      [label]="'Email'"
+      [class]="'formControl'"
+      [error]="getErrorValidator('email', 'Email')"
+      [form]="registrationForm"
+    ></app-common-input>
+    <app-common-input
+      [control]="'name'"
+      [type]="'text'"
+      [label]="'Name'"
+      [class]="'formControl'"
+      [error]="getErrorValidator('name', 'Nmail')"
+      [form]="registrationForm"
+    ></app-common-input>
+    <app-common-select
+      [label]="'Select Role'"
+      [control]="'role'"
+      [form]="registrationForm"
+      [List]="roles"
+      [error]="getErrorValidator('role', 'Role')"
+      (selectedId)="getRole($event)"
+    ></app-common-select>
+
+    <app-common-input
+      [control]="'password'"
+      [label]="'Password'"
+      [class]="'formControl'"
+      [error]="getErrorValidator('password', 'Password')"
+      [form]="registrationForm"
+      [type]="showPassword ? 'text' : 'password'"
+    ></app-common-input>
+    <div class="viewMode absolute">
       <mat-icon matSuffix (click)="toggleDisplayPassword()">{{
-        showPassword ? 'visibility' : 'visibility_off'
+        showPassword ? "visibility" : "visibility_off"
       }}</mat-icon>
-      <mat-error
-        *ngIf="registrationForm.get('password')?.hasError('required')"
-      >
-        PAssword is required
-      </mat-error>
-    </mat-form-field>
+    </div>
+
     <button mat-flat-button color="primary" (click)="createUser()">
       Sign Up
     </button>
