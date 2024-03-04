@@ -17,8 +17,6 @@ export class AppComponent {
     private readonly router: Router){}
 
   ngOnInit(){
-    this.firebaseService.createUser('',)
-
   }
   title = 'tracker-app';
 }

@@ -28,17 +28,17 @@ const firebaseConfig = {
 export class AuthService {
   app = initializeApp(firebaseConfig);
   auth = getAuth();
-  db = getFirestore(this.app);
+  db = getFirestore();
   functions = getFunctions(this.app, 'europe-west1');
 
   constructor() {
-    onAuthStateChanged(this.auth, (user) => {
+    // onAuthStateChanged(this.auth, (user) => {
       // if (user) {
       //   localStorage.setItem('user', JSON.stringify(user));
       // } else {
       //   localStorage.removeItem('user');
       // }
-    });
+    // });
   }
 
   createUser(user: any): Promise<any> {

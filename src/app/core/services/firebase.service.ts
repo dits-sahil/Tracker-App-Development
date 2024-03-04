@@ -6,7 +6,6 @@ import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/datab
   providedIn: 'root'
 })
 export class FirebaseService {
-  private dbPath = '/tutorials';
 
   dataRef!: AngularFireList<any>;
 
@@ -14,8 +13,8 @@ export class FirebaseService {
     // this.dataRef = db.list(this.dbPath);
   }
 
-  getAll(): AngularFireList<any> {
-    return this.dataRef;
+  getAll(url:any): AngularFireList<any> {
+    return this.db.list(url)
   }
 
   create(url: string, data: any): any {

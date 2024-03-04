@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FirebaseService } from '../../../../core/services/firebase.service';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { map } from 'rxjs';
+import { StorageService } from 'src/app/core/services/storage.service';
 // import { AngularFireDatabase} from '@angular/fire/compat/database';
 @Component({
   selector: 'app-login',
@@ -17,9 +19,11 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private readonly firebaseService: AuthService,
+    private readonly dbService: FirebaseService,
     private readonly toastrService: ToastrService,
+    private storageService: StorageService,
     private readonly router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -43,12 +47,31 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.firebaseService
       .login(this.loginForm.value.email, this.loginForm.value.password)
-      .then((user:any) => {
-        this.toastrService.success('User logged in successfuly');
-        this.router.navigate(['/', 'admin']);
+      .then((user: any) => {
+        let userId = user.user.uid
+        this.dbService.getAll(`users/${userId}`).snapshotChanges().pipe(
+          map(changes =>
+            changes.map(c => ({
+              key: c.payload.key,
+              value: c.payload.val()
+            }))
+          )
+        ).subscribe(data => {
+          console.log('data:', data)
+          this.storageService.setStorage('user', data)
+          this.router.navigate(['/', 'home']);
+          this.toastrService.success('User logged in successfuly');
+        });
+
+
+
+        // window.location.assign('/home')
+        // this.router.navigate(['/','home']);
       })
-      .catch((error) =>  {console.log('error',error);
-       this.toastrService.error(error.message)})
+      .catch((error) => {
+        console.log('error', error);
+        this.toastrService.error(error.message)
+      })
       .finally(() => (this.loading = false));
   }
 }
