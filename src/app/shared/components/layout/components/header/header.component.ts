@@ -8,11 +8,15 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
   constructor(private _router:Router) { }
+  userDetails = 'Tracker Appp';
 
   ngOnInit(): void {
   }
-  clear(){
-    localStorage.clear()
-    this._router.navigate(['/'])
+  routeToHome() {
+    this._router.navigate(['login'])
+  }
+
+  onLogoutClick() {
+    // this._helper.logout();
   }
 }
