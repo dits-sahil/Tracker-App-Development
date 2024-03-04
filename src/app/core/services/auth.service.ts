@@ -32,9 +32,6 @@ export class AuthService {
   functions = getFunctions(this.app, 'europe-west1');
 
   constructor() {
-    // The onAuthStateChanged will be triggered when the user login, logout
-    // and when the user register also.
-    // That's how the user is saved/removed in localStorage
     onAuthStateChanged(this.auth, (user) => {
       // if (user) {
       //   localStorage.setItem('user', JSON.stringify(user));
