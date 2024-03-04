@@ -41,12 +41,12 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-
+debugger
     this.firebaseService
       .login(this.loginForm.value.email, this.loginForm.value.password)
       .then((user:any) => {
         this.toastrService.success('User logged in successfuly');
-        this.router.navigate(['/', 'home']);
+        this.router.navigate(['/', 'admin']);
       })
       .catch((error) =>  {console.log('error',error);
        this.toastrService.error('sasas')})

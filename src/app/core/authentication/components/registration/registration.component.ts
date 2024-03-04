@@ -41,10 +41,10 @@ export class RegistrationComponent implements OnInit {
   }
 
   createUser(): void {
+    debugger
     if (this.registrationForm.invalid) {
       return;
-    }
-
+    }3
     this.loading = true;
     const user = this.registrationForm.value;
 
