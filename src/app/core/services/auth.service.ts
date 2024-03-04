@@ -36,11 +36,11 @@ export class AuthService {
     // and when the user register also.
     // That's how the user is saved/removed in localStorage
     onAuthStateChanged(this.auth, (user) => {
-      if (user) {
-        localStorage.setItem('user', JSON.stringify(user));
-      } else {
-        localStorage.removeItem('user');
-      }
+      // if (user) {
+      //   localStorage.setItem('user', JSON.stringify(user));
+      // } else {
+      //   localStorage.removeItem('user');
+      // }
     });
   }
 

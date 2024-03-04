@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { AuthenticationModule } from './core/authentication/authentication.module';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -18,10 +19,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
-AngularFireDatabaseModule,
-AuthenticationModule,
-ToastrModule,
-ToastrModule.forRoot(),
+    AngularFireDatabaseModule,
+    AuthenticationModule,
+    SharedModule,
+    ToastrModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

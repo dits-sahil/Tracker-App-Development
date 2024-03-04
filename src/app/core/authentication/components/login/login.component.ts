@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/', 'home']);
       })
       .catch((error) =>  {console.log('error',error);
-       this.toastrService.error('sasas')})
+       this.toastrService.error(error.message)})
       .finally(() => (this.loading = false));
   }
 }

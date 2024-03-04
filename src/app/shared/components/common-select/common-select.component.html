@@ -1,0 +1,22 @@
+
+<form [formGroup]="form" *ngIf="form">
+  <mat-form-field class="d-block" appearance="outline">
+    <mat-label>{{label}}</mat-label>
+    <mat-select [formControlName]="control" (selectionChange)="getDropDownValue($event.value)">
+      <mat-option *ngFor="let data of List"  [value]="data.id">
+        {{data.name}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="error">{{error}}</mat-error>
+  </mat-form-field>
+  <!-- <mat-form-field class="d-block">
+    <mat-label>{{label}}</mat-label>
+    <mat-select [formControlName]="control">
+      <mat-option *ngFor="let specialist of specialists" [value]="specialist.value">
+        {{specialist.viewValue}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="error">{{error}}</mat-error>
+  </mat-form-field> -->
+</form>
+
