@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { SidenavService } from 'src/app/core/services/sidenav.service';
 
 @Component({
   selector: 'app-admin',
@@ -6,7 +8,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent {
-  
-  ngOnInit(){
+  constructor(private router:Router){
+    // router.navigate(['admin','users'])
   }
+ 
 }

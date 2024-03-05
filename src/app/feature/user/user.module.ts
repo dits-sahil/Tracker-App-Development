@@ -2,15 +2,21 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserComponent } from './user.component';
 import { UserRoutingModule } from './user-routing.module';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { LayoutModule } from 'src/app/shared/components/layout/layout.module';
+import { AssignmentTableListComponent } from './components/assignment-table-list/assignment-table-list.component';
 
 
 @NgModule({
   declarations: [
-    UserComponent
+    UserComponent,
+    AssignmentTableListComponent
   ],
   imports: [
     CommonModule,
-    UserRoutingModule
+        SharedModule,
+        UserRoutingModule,
+        LayoutModule
   ]
 })
 export class UserModule { }

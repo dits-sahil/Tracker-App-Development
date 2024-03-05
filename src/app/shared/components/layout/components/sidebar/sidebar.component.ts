@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,21 +7,25 @@ import { Router } from '@angular/router';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
-  constructor(  private readonly router: Router,){}
+  constructor(private readonly router: Router,) { }
   sidenavWidth = 4;
   ngStyle!: string;
+  SideNavToggle: any
 
-  increase() {
-    this.sidenavWidth = 15;
-    console.log('increase sidenav width');
+  @Output() closeSideNav = new EventEmitter();
+
+  openSidenav() {
+    this.SideNavToggle.emit();
   }
-  decrease() {
-    this.sidenavWidth = 4;
-    console.log('decrease sidenav width');
+  onclick() {
+
+
   }
-  onclick(){
-    debugger
-   this.router.navigate(['user'])
+  onToggleClose() {
+    this.router.navigate(['/users'])
+    this.closeSideNav.emit();
   }
+
+
 }
 
