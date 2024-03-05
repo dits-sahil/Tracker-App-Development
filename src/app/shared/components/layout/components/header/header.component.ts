@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { FirebaseService } from 'src/app/core/services/firebase.service';
 
 @Component({
   selector: 'app-header',
@@ -7,16 +9,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  constructor(private _router:Router) { }
-  userDetails = 'Tracker Appp';
+  constructor(private router:Router,private readonly firebaseService: AuthService, ) { }
+  @Output() SideNavToggle = new EventEmitter();  
 
-  ngOnInit(): void {
-  }
-  routeToHome() {
-    this._router.navigate(['login'])
-  }
-
-  onLogoutClick() {
-    // this._helper.logout();
-  }
+  openSidenav() {
+   this.SideNavToggle.emit();
+}
+logout() {
+  this.firebaseService
+    .logout()
+    .then(() => this.router.navigate(['/', 'login']));
+}
 }

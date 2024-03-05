@@ -1,9 +1,11 @@
-<app-header></app-header>
-
-<div class="main_layout">
-    <router-outlet></router-outlet>
+<app-header (toggleSidebar)="toggleSidebar()"></app-header>
+<div class="main-container">
+    <div class="row" style="display: flex;">
+        <div class="col-md-4" style="width:30%">  <app-sidebar (closeSideNav)="closeSidebar()"></app-sidebar></div>
+        <div class="col-md-8" style="width:70%">Your main content goes here     Your main content goes here    Your main content goes here    Your main content goes here    Your main content goes here
+            <router-outlet></router-outlet> <!-- If using routing --></div>
+    </div>
 </div>
 
-<app-sidebar></app-sidebar>
 
 
