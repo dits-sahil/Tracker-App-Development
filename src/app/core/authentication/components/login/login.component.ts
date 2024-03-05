@@ -49,24 +49,12 @@ export class LoginComponent implements OnInit {
       .login(this.loginForm.value.email, this.loginForm.value.password)
       .then((user: any) => {
         let userId = user.user.uid
-        this.dbService.getAll(`users/${userId}`).snapshotChanges().pipe(
-          map(changes =>
-            changes.map(c => ({
-              key: c.payload.key,
-              value: c.payload.val()
-            }))
-          )
-        ).subscribe(data => {
-          console.log('data:', data)
-          this.storageService.setStorage('user', data)
+        this.dbService.getAll(`users/${userId}`).subscribe((data:any) => {
+          let finalData  = this.dbService.convertToObject(data)
+          this.storageService.setStorage('user',finalData)
           this.router.navigate(['/', 'home']);
           this.toastrService.success('User logged in successfuly');
         });
-
-
-
-        // window.location.assign('/home')
-        // this.router.navigate(['/','home']);
       })
       .catch((error) => {
         console.log('error', error);

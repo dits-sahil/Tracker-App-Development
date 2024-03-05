@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationComponent },
-  { path: 'home',component:HomeComponent},
+  { path: 'home',component:HomeComponent,canActivate:[AuthGuard]},
   {
     path: 'admin',
     loadChildren: () =>

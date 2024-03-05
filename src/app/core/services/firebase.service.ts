@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
+import { map, tap } from 'rxjs';
 
 
 @Injectable({
@@ -13,8 +14,15 @@ export class FirebaseService {
     // this.dataRef = db.list(this.dbPath);
   }
 
-  getAll(url:any): AngularFireList<any> {
-    return this.db.list(url)
+  getAll(url:any):any {
+    return this.db.list(url).snapshotChanges().pipe(
+      map((changes: any) =>
+        changes.map((c: any) => ({
+          key: c.payload.key,
+          value: c.payload.val()
+        }))
+      )
+    );
   }
 
   create(url: string, data: any): any {
@@ -35,4 +43,11 @@ export class FirebaseService {
   deleteAll(): Promise<void> {
     return this.dataRef.remove();
   }
+  convertToObject(data:any) {
+    const result:any = {};
+    data.forEach((item:any) => {
+        result[item.key] = item.value;
+    });
+    return result;
+}
 }
