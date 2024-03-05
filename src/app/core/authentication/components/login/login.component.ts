@@ -48,8 +48,8 @@ export class LoginComponent implements OnInit {
     this.firebaseService
       .login(this.loginForm.value.email, this.loginForm.value.password)
       .then((user: any) => {
-        let userId = user.user.uid
-        this.dbService.getAll(`users/${userId}`).subscribe((data:any) => {
+          let userId = user.user.uid
+          this.dbService.getAll(`users/${userId}`).subscribe((data:any) => {
           let finalData  = this.dbService.convertToObject(data)
           this.storageService.setStorage('user',finalData)
           this.router.navigate(['/', 'home']);
