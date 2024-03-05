@@ -4,12 +4,12 @@ import { ManagerComponent } from './manager.component';
 import { SharedModule } from "../../shared/shared.module";
 import { ManagerRoutingModule } from './manager-routing.module';
 import { LayoutModule } from 'src/app/shared/components/layout/layout.module';
-import { UsersComponent } from './components/users/users.component';
+import { ManagerUserComponent } from './manager-user/manager-user.component';
 
 @NgModule({
     declarations: [
         ManagerComponent,
-        UsersComponent,
+        ManagerUserComponent,
     ],
     imports: [
         CommonModule,

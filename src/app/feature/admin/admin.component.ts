@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { SidenavService } from 'src/app/core/services/sidenav.service';
 
 @Component({
@@ -7,17 +8,9 @@ import { SidenavService } from 'src/app/core/services/sidenav.service';
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent {
-  constructor(private sidenav: SidenavService){
-
+  constructor(private router:Router){
+    router.navigate(['admin','users'])
   }
-  toggleSidebar() {
-    // Handle opening/closing of sidebar
-  }
-
-  closeSidebar() {
-    // Handle closing of sidebar
-  }
-  
   ngOnInit(){
   }
 }
