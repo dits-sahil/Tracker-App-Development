@@ -1,11 +1,17 @@
-<div class="headerWrapper">
-  <div class="logo"><img src="../../../../../assets/images/logo.png" alt="logo" (click)="routeToHome()" /></div>
-  <ul>
-      <li>
-          <span class="userName"><mat-icon>perm_identity</mat-icon>{{userDetails}}</span>
-      </li>
-      <li>
-          <span class="logout" (click)="onLogoutClick()"><mat-icon>power_settings_new</mat-icon> Logout </span>
-      </li>
-  </ul>
-</div>
+<mat-toolbar color="primary">
+    <div class="menu">
+        <button mat-icon-button (click)="openSidenav()">
+            <mat-icon>menu</mat-icon>
+        </button>
+    </div>
+    <div class="logo">NGHOTEL</div>
+    <div class="spacer"></div>
+    <div>
+        <button mat-icon-button (click)="logout()">
+            <mat-icon>power_settings_new</mat-icon>
+            <span>Logout</span>
+        </button>
+    </div>
+</mat-toolbar>
+
+
