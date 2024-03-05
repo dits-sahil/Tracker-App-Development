@@ -7,24 +7,24 @@ import { Router } from '@angular/router';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
-  constructor(  private readonly router: Router,){}
+  constructor(private readonly router: Router,) { }
   sidenavWidth = 4;
   ngStyle!: string;
-  SideNavToggle:any
+  SideNavToggle: any
 
   @Output() closeSideNav = new EventEmitter();
 
-openSidenav() {
-  this.SideNavToggle.emit();
-}
-  onclick(){
-
-  
+  openSidenav() {
+    this.SideNavToggle.emit();
   }
-   onToggleClose() {
-    this.router.navigate(['user'])
+  onclick() {
+
+
+  }
+  onToggleClose() {
+    this.router.navigate(['/users'])
     this.closeSideNav.emit();
-}
+  }
 
 
 }
