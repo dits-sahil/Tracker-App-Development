@@ -5,29 +5,39 @@ import { RegistrationComponent } from './core/authentication/components/registra
 import { LoginComponent } from './core/authentication/components/login/login.component';
 import { HomeComponent } from './core/authentication/components/home/home.component';
 import { AuthGuard } from './core/guards/auth.guard';
-import { AdminComponent } from './feature/admin/admin.component';
+import { roleGuard } from './core/guards/role.guard';
+import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
+import { unauthGuard } from './core/guards/unauth.guard';
 
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegistrationComponent },
-  { path: 'home',component:HomeComponent},
+  { path: 'login', component: LoginComponent,canActivate:[unauthGuard] },
+  { path: 'register', component: RegistrationComponent,canActivate:[unauthGuard] },
+  { path: 'home',component:HomeComponent,canActivate:[roleGuard]},
   {
     path: 'admin',
     loadChildren: () =>
       import('./feature/admin/admin.module').then((m) => m.AdminModule),
+      canActivate:[AuthGuard],
+      data:{role:1}
   },
   {
     path: 'manager',
     loadChildren: () =>
       import('./feature/manager/manager.module').then((m) => m.ManagerModule),
+      canActivate:[AuthGuard],
+      data:{role:2}
   },
   {
     path: 'user',
     loadChildren: () =>
-      import('./feature/user/user.module').then((m) => m.UserModule), 
-  }
+      import('./feature/user/user.module').then((m) => m.UserModule),
+      canActivate:[AuthGuard],
+      data:{role:3}
+  },
+  { path: '404', component: PageNotFoundComponent },
+  { path: '**', redirectTo: '404' },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -1,0 +1,25 @@
+.errorPage{
+  height: 100vh;
+
+  .errorContent{
+      h1{
+          font-size: var(--font-size-140);
+          line-height: normal;
+          font-weight: var(--font-weight-bold);
+          margin-bottom: 0;
+      }
+      h3{
+          font-size: var(--font-size-30);
+          font-weight: var(--font-weight-medium);
+          margin-bottom: 20px;
+      }
+      p{
+          font-size: var(--font-size-18);
+          color: var(--secondary-color);
+          margin-bottom: 20px;
+      }
+
+  }
+
+}
+

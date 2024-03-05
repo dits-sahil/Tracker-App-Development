@@ -4,6 +4,7 @@ import { UiModule } from '../ui/ui.module';
 import { CommonInputComponent } from './components/common-input/common-input.component';
 import { CommonSelectComponent } from './components/common-select/common-select.component';
 import { CommonTableComponent } from './components/common-table/common-table.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 
 
@@ -11,7 +12,8 @@ import { CommonTableComponent } from './components/common-table/common-table.com
   declarations: [
     CommonInputComponent,
     CommonSelectComponent,
-    CommonTableComponent
+    CommonTableComponent,
+    PageNotFoundComponent
   ],  
   imports: [
     CommonModule,

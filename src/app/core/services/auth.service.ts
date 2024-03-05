@@ -33,11 +33,11 @@ export class AuthService {
 
   constructor() {
     // onAuthStateChanged(this.auth, (user) => {
-      // if (user) {
-      //   localStorage.setItem('user', JSON.stringify(user));
-      // } else {
-      //   localStorage.removeItem('user');
-      // }
+    //   if (user) {
+    //     localStorage.setItem('user', JSON.stringify(user));
+    //   } else {
+    //     localStorage.removeItem('user');
+    //   }
     // });
   }
 
