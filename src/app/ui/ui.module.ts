@@ -28,6 +28,8 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatDividerModule } from '@angular/material/divider';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatChipsModule } from '@angular/material/chips';
+import {MatListModule} from '@angular/material/list'
+
 
 const matApi = [
   MatStepperModule,
@@ -59,7 +61,15 @@ const matApi = [
   FormsModule,
   DragDropModule,
   MatDividerModule,
-  MatChipsModule
+  MatChipsModule,
+  MatSidenavModule,
+  MatSidenavModule,
+  MatSlideToggleModule,
+  MatListModule,
+  MatMenuModule,
+  MatSlideToggleModule,
+  MatSidenavModule,
+
 ]
 @NgModule({
   declarations: [],
