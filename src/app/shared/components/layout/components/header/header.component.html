@@ -2,10 +2,10 @@
   <div class="logo"><img src="../../../../../assets/images/logo.png" alt="logo" (click)="routeToHome()" /></div>
   <ul>
       <li>
-          <span class="userName">{{userDetails}}</span>
+          <span class="userName"><mat-icon>perm_identity</mat-icon>{{userDetails}}</span>
       </li>
       <li>
-          <span class="logout" (click)="onLogoutClick()"> Logout </span>
+          <span class="logout" (click)="onLogoutClick()"><mat-icon>power_settings_new</mat-icon> Logout </span>
       </li>
   </ul>
 </div>
