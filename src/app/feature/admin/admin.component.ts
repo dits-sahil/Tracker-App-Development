@@ -9,8 +9,7 @@ import { SidenavService } from 'src/app/core/services/sidenav.service';
 })
 export class AdminComponent {
   constructor(private router:Router){
-    router.navigate(['admin','users'])
+    // router.navigate(['admin','users'])
   }
-  ngOnInit(){
-  }
+ 
 }

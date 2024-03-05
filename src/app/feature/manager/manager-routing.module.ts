@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ManagerComponent } from './manager.component';
-import { ManagerUserComponent } from './manager-user/manager-user.component';
+import { MUserListComponent } from './components/m-user-list/m-user-list.component';
+import { MAssignmentListComponent } from './components/m-assignment-list/m-assignment-list.component';
 
 const routes: Routes = [
 
@@ -10,7 +11,11 @@ const routes: Routes = [
   children: [
     {
       path: 'users',
-      component:ManagerUserComponent
+      component:MUserListComponent
+    },
+    {
+      path: 'assignments',
+      component:MAssignmentListComponent
     }
   ]
 },

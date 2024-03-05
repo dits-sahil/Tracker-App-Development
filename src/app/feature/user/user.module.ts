@@ -4,13 +4,13 @@ import { UserComponent } from './user.component';
 import { UserRoutingModule } from './user-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { LayoutModule } from 'src/app/shared/components/layout/layout.module';
-import { AssignmentComponent } from './component/assignment/assignment.component';
+import { AssignmentTableListComponent } from './components/assignment-table-list/assignment-table-list.component';
 
 
 @NgModule({
   declarations: [
     UserComponent,
-    AssignmentComponent
+    AssignmentTableListComponent
   ],
   imports: [
     CommonModule,

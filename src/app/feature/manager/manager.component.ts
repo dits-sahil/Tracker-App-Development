@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class ManagerComponent {
   constructor(private router:Router){
-    router.navigate(['manager','users'])
+    // router.navigate(['manager','users'])
   }
 
 }

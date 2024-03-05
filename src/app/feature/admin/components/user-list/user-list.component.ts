@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
 })
 export class UserListComponent {
 
+  columnHeadings = ['name', 'email', 'phoneNo', 'noOfAssignments', 'actions'];
+
 }

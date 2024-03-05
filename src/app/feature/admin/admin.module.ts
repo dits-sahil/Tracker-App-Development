@@ -5,6 +5,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { AdminRoutingModule } from './admin-routing.module';
 import { LayoutModule } from 'src/app/shared/components/layout/layout.module';
 import { UserListComponent } from './components/user-list/user-list.component';
+import { ManagerListComponent } from './components/manager-list/manager-list.component';
+import { AAssignmentListComponent } from './components/a-assignment-list/a-assignment-list.component';
 
 
 
@@ -12,6 +14,8 @@ import { UserListComponent } from './components/user-list/user-list.component';
   declarations: [
     AdminComponent,
     UserListComponent,
+    AAssignmentListComponent,
+    ManagerListComponent,
 
     
   ],
