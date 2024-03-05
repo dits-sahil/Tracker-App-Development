@@ -65,12 +65,13 @@ export class RegistrationComponent implements OnInit {
       .createUser(user)
       .then((res:any) => {
         let uid = res.user.uid
+        let accessToken = res.user.accessToken
         delete user.password
-        user = {...user,uid}
+        user = {...user,uid,accessToken}
         this.dataService.set('users',res.user.uid,user)
         localStorage.setItem('user',JSON.stringify(user))
         this.toastrService.success('User registred successfuly');
-        this.router.navigateByUrl('home');
+        // this.router.navigateByUrl('home');
       })
       .catch((error:any) => this.toastrService.error(error.message))
       .finally(() => (this.loading = false));

@@ -48,18 +48,27 @@ export class LoginComponent implements OnInit {
     this.firebaseService
       .login(this.loginForm.value.email, this.loginForm.value.password)
       .then((user: any) => {
-          let userId = user.user.uid
-          this.dbService.getAll(`users/${userId}`).subscribe((data:any) => {
-          let finalData  = this.dbService.convertToObject(data)
-          this.storageService.setStorage('user',finalData)
-          this.router.navigate(['/', 'home']);
-          this.toastrService.success('User logged in successfuly');
-        });
+        this.getUserData(user)
       })
       .catch((error) => {
-        console.log('error', error);
         this.toastrService.error(error.message)
       })
       .finally(() => (this.loading = false));
   }
+
+
+ async getUserData(user:any){
+    let userId = user.user.uid
+    // await this.updateDeviceToken(userId)
+    this.dbService.getAll(`users/${userId}`).subscribe((data: any) => {
+      let finalData = this.dbService.convertToObject(data)
+      let accessToken = user.user.accessToken
+      finalData = { ...finalData, accessToken }
+      this.storageService.setStorage('user', finalData)
+      this.router.navigate(['/', 'home']);
+      this.toastrService.success('User logged in successfuly');
+    });
+  }
+
+
 }

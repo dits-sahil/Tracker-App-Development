@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -7,7 +8,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  constructor(private _router:Router) { }
+
+    constructor(private _router: Router,private readonly firebaseService: AuthService,) { }
   userDetails = 'Tracker Appp';
 
   ngOnInit(): void {
@@ -18,5 +20,10 @@ export class HeaderComponent {
 
   onLogoutClick() {
     // this._helper.logout();
+  }
+  logout() {
+    this.firebaseService
+      .logout()
+      .then(() => this._router.navigate(['/', 'login']));
   }
 }

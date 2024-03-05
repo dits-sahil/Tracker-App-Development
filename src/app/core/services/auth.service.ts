@@ -10,17 +10,13 @@ import {
 } from 'firebase/auth';
 import { doc, getFirestore, setDoc } from 'firebase/firestore';
 import { getFunctions, httpsCallable } from 'firebase/functions';
-import { Database} from '@firebase/database';
+import { Database } from '@firebase/database';
+import { environment } from 'src/environments/environment';
+import { getMessaging, getToken } from 'firebase/messaging';
+import { FirebaseService } from './firebase.service';
+import { ToastrService } from 'ngx-toastr';
 
-const firebaseConfig = {
-  apiKey: "AIzaSyA-8tXzCsjOd59M2rMj69kH-ktdoK5OcD8",
-  authDomain: "tracker-app-5a80b.firebaseapp.com",
-  projectId: "tracker-app-5a80b",
-  storageBucket: "tracker-app-5a80b.appspot.com",
-  messagingSenderId: "722773943990",
-  appId: "1:722773943990:web:bdd36b513cb8d3d9452817",
-  measurementId: "G-SKLC53498S"
-};
+const firebaseConfig = environment.firebase;
 
 @Injectable({
   providedIn: 'root',
@@ -31,14 +27,25 @@ export class AuthService {
   db = getFirestore();
   functions = getFunctions(this.app, 'europe-west1');
 
-  constructor() {
-    // onAuthStateChanged(this.auth, (user) => {
-    //   if (user) {
-    //     localStorage.setItem('user', JSON.stringify(user));
-    //   } else {
-    //     localStorage.removeItem('user');
-    //   }
-    // });
+
+
+  constructor(private readonly dbService: FirebaseService, private readonly toastrService: ToastrService) {
+    onAuthStateChanged(this.auth, async (user: any) => {
+      if (user) {
+        let deviceToken: any;
+        try {
+          const token = await this.requestPermission();
+          if (token) {
+            deviceToken = token;
+            this.updateDeviceToken(user.uid, deviceToken)
+          }
+        } catch (err) {
+
+        }
+
+      }
+
+    });
   }
 
   createUser(user: any): Promise<any> {
@@ -57,5 +64,28 @@ export class AuthService {
     return signOut(this.auth).then(() => {
       localStorage.removeItem('user');
     });
+  }
+
+  async requestPermission() {
+    const messaging = getMessaging();
+    try {
+      const currentToken = await getToken(messaging, { vapidKey: environment.firebase.vapidKey });
+      if (currentToken) {
+        return currentToken;
+      } else {
+        return null;
+      }
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async updateDeviceToken(userId: string, deviceToken: string) {
+    this.dbService.update(`users`, userId, { deviceToken }).then((res: any) => {
+      console.log('res',res);
+    })
+      .catch((error) => {
+        this.toastrService.error(error.message)
+      })
   }
 }
