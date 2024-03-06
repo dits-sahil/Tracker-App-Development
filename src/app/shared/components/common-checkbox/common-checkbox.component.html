@@ -1,0 +1,10 @@
+<mat-form-field class="d-block">
+<section class="example-section">
+    <mat-label>{{label}}</mat-label>
+    <mat-radio-group [formControlName]="control" (selectionChange)="getDropDownValue($event)">
+      <mat-radio-button *ngFor="let data of List"  [value]="data.id">
+        {{data.name}}</mat-radio-button>
+    </mat-radio-group>
+  </section>
+  <mat-error *ngIf="error">{{error}}</mat-error>
+</mat-form-field>

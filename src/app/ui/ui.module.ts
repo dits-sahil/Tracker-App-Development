@@ -28,7 +28,8 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatDividerModule } from '@angular/material/divider';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatChipsModule } from '@angular/material/chips';
-import {MatListModule} from '@angular/material/list'
+import {MatListModule} from '@angular/material/list';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 const matApi = [
@@ -69,6 +70,7 @@ const matApi = [
   MatMenuModule,
   MatSlideToggleModule,
   MatSidenavModule,
+  MatRadioModule
 
 ]
 @NgModule({

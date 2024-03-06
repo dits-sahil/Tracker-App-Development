@@ -42,7 +42,14 @@ export class ValidationService {
         }
         break;
 
-
+        case 'phoneNumber':
+          if (control.hasError('minlength')) {
+            return 'Not a valid min length';
+          }
+          if (control.hasError('maxlength')) {
+            return 'Not a valid max length';
+          }
+          break;
 
       case 'gender':
         return ''; // No additional error message for 'gender'

@@ -5,7 +5,9 @@ import { CommonInputComponent } from './components/common-input/common-input.com
 import { CommonSelectComponent } from './components/common-select/common-select.component';
 import { CommonTableComponent } from './components/common-table/common-table.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-
+import { AddUserComponent } from './components/dialogs/add-user/add-user.component';
+import { CommonCheckboxComponent } from './components/common-checkbox/common-checkbox.component';
+import { CommonButtonComponent } from './components/common-button/common-button.component';
 
 
 @NgModule({
@@ -13,7 +15,10 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     CommonInputComponent,
     CommonSelectComponent,
     CommonTableComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    AddUserComponent,
+    CommonButtonComponent,
+    CommonCheckboxComponent
   ],  
   imports: [
     CommonModule,
@@ -23,7 +28,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
   exports:[
     CommonInputComponent,
     CommonSelectComponent,
-    CommonTableComponent
+    CommonTableComponent,
+    CommonButtonComponent
 
   ],
 })
