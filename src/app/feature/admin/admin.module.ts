@@ -8,6 +8,8 @@ import { UserListComponent } from './components/user-list/user-list.component';
 import { ManagerListComponent } from './components/manager-list/manager-list.component';
 import { AAssignmentListComponent } from './components/a-assignment-list/a-assignment-list.component';
 import { UiModule } from 'src/app/ui/ui.module';
+import { ManageAssignmentComponent } from './components/manage-assignment/manage-assignment.component';
+import { DatepickerModule } from 'ng2-datepicker';
 
 
 
@@ -17,6 +19,7 @@ import { UiModule } from 'src/app/ui/ui.module';
     UserListComponent,
     AAssignmentListComponent,
     ManagerListComponent,
+    ManageAssignmentComponent,
 
 
   ],
@@ -25,10 +28,11 @@ import { UiModule } from 'src/app/ui/ui.module';
     SharedModule,
     UiModule,
     AdminRoutingModule,
-    LayoutModule
+    LayoutModule,
+  
   ],
   exports:[
-    // UsersComponent,
+
   ]
 })
 export class AdminModule { }

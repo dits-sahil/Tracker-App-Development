@@ -30,6 +30,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatChipsModule } from '@angular/material/chips';
 import {MatListModule} from '@angular/material/list';
 import {MatRadioModule} from '@angular/material/radio';
+import { DatepickerModule } from 'ng2-datepicker';
 
 
 const matApi = [
@@ -70,7 +71,8 @@ const matApi = [
   MatMenuModule,
   MatSlideToggleModule,
   MatSidenavModule,
-  MatRadioModule
+  MatRadioModule,
+  
 
 ]
 @NgModule({
@@ -80,7 +82,8 @@ const matApi = [
     matApi
   ],
   exports: [
-    matApi
+    matApi,
+    // DatepickerModule
   ]
 })
 export class UiModule { }

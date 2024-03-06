@@ -29,6 +29,7 @@ export class FirebaseService {
   }
 
   create(url: string, data: any): any {
+    debugger
     return this.db.list(url).push(data);
   }
 

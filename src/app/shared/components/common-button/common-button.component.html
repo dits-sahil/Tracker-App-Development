@@ -1,2 +1,3 @@
-<button class="cursor-pointer" mat-raised-button (click)="onButtonClicked()">
+<button mat-raised-button color="primary" [style]="{'min-width': width}" (click)="onButtonClicked()"
+    [disabled]="disabled">
     <ng-content></ng-content> </button>

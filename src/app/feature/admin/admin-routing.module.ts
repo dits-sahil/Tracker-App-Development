@@ -4,6 +4,7 @@ import { AdminComponent } from './admin.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { AAssignmentListComponent } from './components/a-assignment-list/a-assignment-list.component';
 import { ManagerListComponent } from './components/manager-list/manager-list.component';
+import { ManageAssignmentComponent } from './components/manage-assignment/manage-assignment.component';
 
 const routes: Routes = [
 
@@ -21,7 +22,11 @@ const routes: Routes = [
       {
         path:'users',
         component:UserListComponent
-      }
+      },
+      {
+        path:'manage-assignment',
+        component:ManageAssignmentComponent
+      },
     ]
   }
 ];

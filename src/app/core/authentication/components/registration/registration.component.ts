@@ -56,6 +56,7 @@ export class RegistrationComponent implements OnInit {
     this.registrationForm.get('role')?.setValue(val);
   }
   createUser() {
+    debugger
     if (this.registrationForm.invalid) {
       return;
     }
