@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,24 +7,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
+  role: any;
   constructor(private readonly router: Router,) { }
-  sidenavWidth = 4;
-  ngStyle!: string;
-  SideNavToggle: any
+  @Input() inputIsExpand: boolean = true
+  @Output() getExpandSidebar = new EventEmitter<boolean>();
 
   @Output() closeSideNav = new EventEmitter();
 
-  openSidenav() {
-    this.SideNavToggle.emit();
+  ngOninit(){
+    debugger
+    this.role = localStorage.getItem('role');
   }
-  onclick() {
 
-
-  }
-  onToggleClose() {
-    this.router.navigate(['/users'])
-    this.closeSideNav.emit();
-  }
 
 
 }

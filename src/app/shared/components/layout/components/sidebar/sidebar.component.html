@@ -1,18 +1,36 @@
-<mat-nav-list class="sidenav-list">
-  <a mat-list-item routerLink="/user" (click)="onToggleClose()">
-    <mat-icon>input</mat-icon>
-    <span>Login</span>
-  </a>
-  <a mat-list-item routerLink="/user" (click)="onToggleClose()">
-    <mat-icon>account_circle</mat-icon>
-    <span>Userlist</span>
-  </a>
-  <a mat-list-item routerLink="/manager" (click)="onToggleClose()">
-    <mat-icon>hotel</mat-icon>
-    <span>Manager</span>
-  </a>
-  <a mat-list-item routerLink="/offers" (click)="onToggleClose()">
-    <mat-icon>loyalty</mat-icon>
-    <span>Offers</span>
-  </a>
-</mat-nav-list>
+<div class="profileSidebar">
+  <div class="dashboardWidget">
+    <nav class="dashboardMenu">
+      <div class="dashboardLogo">
+        <!-- <a [ngClass]="inputIsExpand ? 'showMain' : 'hideMain'" class="mainLogo" (click)="imageClick()"><img
+            src="./assets/img/main-logo.png" alt="Image" /></a>
+        <a [ngClass]="inputIsExpand ? 'showLogo' : 'hideLogo'" class="mainLogo" (click)="imageClick()"><img
+            src="./assets/img/tab-logo.png" alt="Image" /></a> -->
+      </div>
+
+      <!-- Patient Sidebar -->
+      <ul [ngClass]="inputIsExpand ? 'show-expand' : 'hide-expand'">
+        <li routerLink="dashboard" routerLinkActive="active">
+          <a><i class="fas fa-columns"></i><span>Dashboard</span></a>
+        </li>
+        <li routerLink="consultation" routerLinkActive="active">
+          <a><i class="fas fa-calendar-check"></i><span>Instant GP Consult</span></a>
+        </li>
+
+        <li routerLink="dependent-details" routerLinkActive="active">
+          <a><i class="fas fa-users"></i><span >Dependent</span></a>
+        </li>
+        <li routerLink="book-appointment" routerLinkActive="active">
+          <a><i class="fas fa-calendar-check"></i><span >Book a Specialist</span></a>
+        </li>
+        <li routerLink="invoices" routerLinkActive="active">
+          <a><i class="fas fa-file-invoice"></i><span>Invoices</span></a>
+        </li>
+      </ul>
+    </nav>
+
+
+
+
+  </div>
+</div>

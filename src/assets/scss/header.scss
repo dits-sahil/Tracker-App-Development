@@ -1,0 +1,385 @@
+@import "mixin-media";
+.hideDashboard {
+  header {
+    left: 56px;
+    @include for-tablet-portrait {
+      left: 0;
+    }
+  }
+}
+.doctorDashboard {
+  @include for-mini-tablet {
+    .supportList {
+      padding-left: 10px;
+    }
+  }
+  @include for-tablet-landscape {
+    .topNavRight {
+      flex-wrap: wrap;
+      justify-content: end;
+      .supportComponent {
+        flex: 0 0 100%;
+        max-width: 100%;
+        order: 2;
+      }
+      .supportList {
+        display: flex;
+        justify-content: center;
+        padding-top: 12px;
+      }
+    }
+  }
+}
+.headerWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  transition: all 0.5s;
+  @include for-tablet-portrait {
+    z-index: 10 !important;
+  }
+  .hideNav-logo{
+    padding:  8px 0px 8px 0px !important;
+  }
+  .navbar {
+    padding: 8px 0px 8px 210px;
+    background: var(--light-color);
+    transition: all 0.5s;
+    border-bottom: 1px solid var(--border-color);
+    @include for-tablet-portrait {
+      padding: 8px 0px;
+    }
+    .mainNavbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 0;
+      .mobileLogo {
+        display: none;
+      }
+
+      .logoSearchBar{
+        .mainLogo{
+          img{
+            max-width: 90px;
+          }
+        }
+      }
+      @include for-tablet-portrait {
+        .mobileLogo {
+          display: block;
+          width: 80px;
+          margin-right: 20px;
+          img {
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    .mat-mdc-card-content {
+      .searchBar {
+        position: relative;
+        mat-form-field {
+          margin-bottom: 0;
+          .mat-mdc-form-field-subscript-wrapper {
+            display: none;
+          }
+          .mat-mdc-text-field-wrapper {
+            .mat-mdc-form-field-flex {
+              .mat-mdc-form-field-infix input {
+                padding-left: 40px;
+                width: 100%;
+                &:focus-visible {
+                  outline: none;
+                }
+              }
+            }
+          }
+        }
+        .searchIcon {
+          position: absolute;
+          left: 2px;
+          top: 4px;
+          background: var(--light-color);
+          width: 35px;
+          height: 37px;
+          display: flex;
+          align-items: center;
+          color: var(--primary-color);
+          justify-content: center;
+        }
+      }
+    }
+
+    .supportList {
+      padding-right: 10px;
+      @include for-landscape-tablet {
+        padding-right: 0;
+      }
+      @include for-mini-tablet {
+        display: block;
+      }
+      @include for-mobile {
+        display: none  !important;
+      }
+      li {
+        margin-left: 16px;
+        line-height: normal;
+        @include for-landscape-tablet {
+          margin-left: 14px;
+        }
+        a {
+          font-size: var(--font-size-16);
+          color: var(--dark-color);
+          @include for-tablet-landscape {
+            font-size: var(--font-size-14);
+          }
+          i {
+            color: var(--primary-color);
+            margin-right: 4px;
+          }
+        }
+        @include for-mini-tablet {
+          margin-left: 0;
+          padding-bottom: 4px;
+        }
+        @include for-tablet-landscape{
+          padding-bottom: 0;
+          padding-left: 10px;
+        }
+        &:last-child {
+          padding-bottom: 0;
+        }
+      }
+    }
+    .mat-mdc-card-content {
+      padding: 0;
+    }
+    .searchForm {
+      position: relative;
+      width: 250px;
+      mat-form-field{
+        margin-bottom: 0;
+        .mat-mdc-form-field-infix{
+          padding: 0;
+          input{
+            padding-left: 35px;
+          }
+        }
+        .mat-mdc-form-field-subscript-wrapper{
+          display: none;
+        }
+      }
+      input {
+        width: 100%;
+
+        @include for-tablet-landscape {
+          padding: 10px 10px 10px 33px;
+          min-width: 150px;
+        }
+        &:focus-visible {
+          outline: none;
+        }
+      }
+    }
+  }
+
+  .headerDropdown {
+    padding: 10px 0 10px 20px;
+    @include for-tablet-landscape {
+      padding: 10px 0 10px 10px;
+    }
+    cursor: pointer;
+    .mdc-button {
+      display: flex;
+      align-items: center;
+      font-size: var(--font-size-14);
+      font-weight: var(--font-weight-regular);
+      text-align: left;
+      color: var(--dark-color);
+      text-transform: capitalize;
+      text-decoration: none;
+      gap: 10px;
+      background-color: var(--light-color) !important;
+      padding: 0;
+      &:hover {
+        background-color: var(--light-color) !important;
+      }
+      span {
+        background-color: var(--light-color) !important;
+        &.mdc-button__label {
+          display: flex;
+          align-items: center;
+        }
+        i {
+          line-height: normal;
+          margin-left: 2px;
+        }
+      }
+      .profilePic {
+        height: 39px;
+        width: 39px;
+        border-radius: 50%;
+        margin-right: 5px;
+        text-transform: capitalize;
+        object-fit: cover;
+      }
+      &.active {
+        background-color: transparent;
+        color: var(--light-color);
+      }
+    }
+    &.activeInactiveStatus {
+      .mdc-button {
+        background-color: var(--light-hover-color) !important;
+        border-radius: 50px;
+        span {
+          background-color: var(--light-hover-color) !important;
+          height: auto;
+          padding: 10px 34px 10px 16px;
+          border-radius: 50px;
+          i {
+            &.arrowDown {
+              position: absolute;
+              right: 12px;
+              top: 14px;
+            }
+          }
+          li {
+            &.onLine {
+              i {
+                color: var(--success-color);
+              }
+            }
+            &.offLine {
+              i {
+                color: var(--danger-color);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .notificationDiv {
+    color: var(--secondary-color);
+    font-size: var(--font-size-25);
+    transition: all 0.4s;
+    position: relative;
+    cursor: pointer;
+    padding: 10px 20px;
+    @include for-tablet-landscape {
+      padding: 10px 20px 10px 10px;
+    }
+    &:hover {
+      color: var(--primary-color);
+    }
+    .notificationCount {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 3px 7px;
+      background: var(--primary-color);
+      color: var(--light-color);
+      font-size: var(--font-size-12);
+      border-radius: 50px;
+      min-width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+.mat-mdc-menu-content {
+  padding: 0 !important;
+  .listingMenus {
+    width: 100%;
+    li {
+      border-bottom: 1px solid var(--border-color);
+      &:last-child {
+        border-bottom: none;
+      }
+      &.active {
+        background-color: var(--primary-color);
+        a {
+          color: var(--light-color);
+          &:hover {
+            color: var(--light-color);
+          }
+        }
+      }
+      a {
+        color: var(--secondary-color);
+        padding: 10px 17px;
+        font-size: var(--font-size-14);
+        text-transform: capitalize;
+        display: block;
+        font-weight: var(--font-weight-medium);
+        i {
+          margin-right: 8px;
+        }
+        &:hover {
+          color: var(--primary-color);
+        }
+        &:active {
+          background-color: var(--primary-color);
+          color: var(--light-color);
+        }
+      }
+      &.onLine {
+        i {
+          color: var(--success-color);
+        }
+      }
+      &.offLine {
+        i {
+          color: var(--danger-color);
+        }
+      }
+    }
+  }
+}
+.mat-mdc-menu-panel {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) !important;
+  border-radius: 5px !important;
+  margin-top: 10px;
+}
+
+.headerWrapperClass {
+  @include for-tablet-landscape {
+    .navbar {
+      .mainNavbar {
+        padding: 0;
+        .logoSearchBar{
+          max-width: 30%;
+          flex: 0 0 30%;
+        }
+      }
+    }
+  }
+  .profileBar {
+    @include for-tablet-landscape {
+      max-width: 70%;
+      flex: 0 0 70%;
+      .topNavRight {
+        flex-wrap: wrap;
+        justify-content: end;
+
+        .supportComponent {
+          order: 1;
+          flex: 0 0 100%;
+          max-width: 100%;
+          .supportList {
+            display: flex;
+            justify-content: end;
+          }
+        }
+      }
+    }
+  }
+}

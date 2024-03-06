@@ -1,0 +1,258 @@
+.mainDashboard {
+    padding-top: 80px;
+    &.doctorDashboard {
+    //   @include for-tablet-landscape {
+    //     padding-top: 105px;
+    //   }
+    }
+    .menusSidebar {
+      position: fixed;
+      top: 0;
+      z-index: 99;
+    //   @include for-tablet-portrait {
+    //     display: block;
+    //     background-color: #fff;
+    //     height: 100%;
+    //     top: 0;
+    //     right: -320px;
+    //     color: #fff;
+    //     z-index: 9;
+    //     overflow-y: scroll;
+    //     -webkit-transition: right 0.35s;
+    //     transition: right 0.35s;
+    //     -webkit-transition-timing-function: ease-in-out;
+    //     transition-timing-function: ease-in-out;
+    //     box-shadow: 0 5px 8px rgba(255, 255, 255, 0.6);
+    //   }
+      &.showMore {
+        width: 210px;
+        .doctorOnlineTab {
+          display: none;
+        }
+      }
+      &.showLess {
+        width: 56px;
+        // @include for-tablet-portrait {
+        //   left: 0;
+        //   width: 180px;
+        // }
+        .headerWrapper {
+          .navbar {
+            padding: 8px 10px 8px 5px;
+            // @include for-tablet-landscape {
+            //   padding: 8px 10px 8px 0;
+            // }
+          }
+        }
+        .doctorOnlineTab {
+          height: 20px;
+          width: 20px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50px;
+          color: var(--light-color);
+          font-size: var(--font-size-12);
+          padding: 4px;
+          font-weight: var(--font-weight-medium);
+          position: absolute;
+          right: 8px;
+          top: 6px;
+          background: var(--primary-color);
+        }
+      }
+      .dashboardHamburger {
+        padding: 8px 16px 8px 0;
+        // @include for-tablet-landscape {
+        //   padding: 8px 10px 8px 0;
+        // }
+        mat-icon {
+          cursor: pointer;
+          i {
+            color: var(--primary-color);
+            font-size: var(--font-size-22);
+            cursor: pointer;
+          }
+        }
+      }
+    }
+    .dashboardSider {
+      width: 100vw;
+      left: 0;
+      position: relative;
+      transition: all 0.5s;
+      padding: 25px 15px 15px 230px;
+    //   @include for-tablet-portrait {
+    //     padding: 15px;
+    //   }
+    }
+    .hideSidebar{
+      padding: 25px 50px 15px 50px;
+    }
+    &.hideDashboard {
+      .dashboardSider {
+        padding: 15px 15px 15px 75px;
+        // @include for-tablet-portrait {
+        //   padding: 15px;
+        // }
+      }
+    }
+    .dashboardLogo {
+      padding: 10px 20px;
+      text-align: center;
+      .mainLogo {
+        display: inline-block;
+        margin-right: 0px;
+        max-width: 90px;
+        img {
+          width: 100%;
+        }
+        &.hideMain {
+          display: none;
+        }
+        &.showLogo {
+          display: none;
+        }
+      }
+    }
+    &.showDashboard {
+    //   @include for-tablet-landscape {
+    //     .dashboardSider {
+    //       padding: 15px;
+    //     }
+    //   }
+  
+      .headerWrapper {
+        .navbar {
+        //   @include for-landscape-tablet {
+        //     .searchForm {
+        //       max-width: 130px;
+        //       width: 100%;
+        //     }
+        //   }
+        }
+      }
+    }
+    &.hideDashboard {
+      .dashboardLogo {
+        padding: 10px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        // @include for-tablet-portrait {
+        //   display: none;
+        // }
+        .hideLogo {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+  }
+  // SIDEBAR
+  .profileSidebar {
+    background-color: var(--light-color);
+    border: 1px solid var(--border-color);
+    border-radius: 0;
+    border-left: 0;
+    border-top: none;
+    height: 100vh;
+    position: relative;
+    z-index: 9;
+    width: 240px;
+    .dashboardMenu {
+      ul {
+        color: var(--secondary-color);
+        font-size: var(--font-size-14);
+        line-height: 17px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        text-transform: capitalize;
+        transition: all 0.5s;
+        // @include for-tablet-portrait {
+        //   padding-top: 80px;
+        // }
+        li {
+          border-bottom: 1px solid var(--border-color);
+          position: relative;
+          &:hover,
+          &:active {
+            a {
+              color: var(--primary-color);
+              background: var(--light-hover-color);
+            }
+          }
+          &:last-child {
+            border-bottom: none;
+          }
+          &.active {
+            a {
+              color: var(--light-color);
+              background: var(--primary-color);
+            }
+          }
+          a {
+            color: var(--dark-color);
+            display: block;
+            padding: 16px 20px;
+            font-size: var(--font-size-14);
+            font-weight: var(--font-weight-medium);
+            span,
+            i {
+              display: inline-block;
+              vertical-align: middle;
+            }
+            i {
+              margin-right: 7px;
+              font-size: var(--font-size-16);
+              width: 16px;
+            }
+            span {
+              span {
+                background: var(--primary-color);
+                height: 25px;
+                width: 25px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50px;
+                color: var(--light-color);
+                font-size: var(--font-size-12);
+                padding: 4px;
+                font-weight: var(--font-weight-medium);
+                position: absolute;
+                right: 20px;
+                top: 12px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .wrapperDashboard {
+    // @include for-tablet-landscape {
+    //   padding-top: 96px;
+    // }
+  }
+  .mainDashboard {
+    // @include for-tablet-landscape {
+    //   .headerWrapperClass {
+    //     .dashboardLogo {
+    //       padding: 18px 20px;
+    //     }
+    //   }
+    //   &.hideDashboard {
+    //     .headerWrapperClass {
+    //       .dashboardLogo {
+    //         height: 92px;
+    //         padding: 10px;
+    //       }
+    //     }
+    //   }
+    // }
+  }
+  
