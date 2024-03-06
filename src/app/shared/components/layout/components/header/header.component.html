@@ -1,17 +1,19 @@
-<mat-toolbar color="primary">
-    <div class="menu">
-        <button mat-icon-button (click)="openSidenav()">
-            <mat-icon>menu</mat-icon>
-        </button>
-    </div>
-    <div class="logo">NGHOTEL</div>
-    <div class="spacer"></div>
-    <div>
-        <button mat-icon-button (click)="logout()">
-            <mat-icon>power_settings_new</mat-icon>
-            <span>Logout</span>
-        </button>
-    </div>
-</mat-toolbar>
+<header class="headerWrapper">
+    <nav class="navbar">
+      <div class="container-fluid">
+        <div class="mainNavbar">
+          <div class="flex align-center logoSearchBar gap-5">
+            <a *ngIf="!dashboardHamburger"  [ngClass]="inputIsExpand ? 'showMain' : 'hideMain'" class="mainLogo" ><img
+              src="./assets/img/main-logo.png" alt="Image" /></a>
+            <!-- <a class="mobileLogo" (click)="imageClick()"><img src="./assets/img/main-logo.png" /></a> -->
+            <div class="dashboardHamburger">
+              <mat-icon  (click)="hideSideBar()" >menu</mat-icon>
+              <mat-icon  (click)="showSideBar()"  >menu</mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
 
 
