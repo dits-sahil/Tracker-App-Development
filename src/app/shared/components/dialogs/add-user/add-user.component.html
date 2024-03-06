@@ -1,19 +1,12 @@
 <div class="container">
+  <div class="headerUserlist">
     <h1>Add User</h1>
     <mat-icon (click)="closeDialog()">cancel</mat-icon>
-    <form [formGroup]="addUserForm">
+</div>
+  
+  <form [formGroup]="addUserForm">
 
-      <div class="avatar-upload">
-        <div class="avatar-edit">
-          <input type='file' id="imageUpload" max-size="2000" accept=".png, .jpg, .jpeg" #fileInput (change)="uploadFile($event)" />
-        </div>
-        <div class="avatar-preview">
-          <div id="imagePreview" [style.backgroundImage]="'url('+ imageUrl +')'">
-          </div>
-        </div>
-      </div>
-
-      <app-common-input
+    <app-common-input
       [control]="'name'"
       [type]="'text'"
       [label]="'Name'"
@@ -21,42 +14,54 @@
       [error]="getErrorValidator('name', 'Name')"
       [form]="addUserForm"
     ></app-common-input>
-      <app-common-input
-        [control]="'email'"
-        [type]="'email'"
-        [label]="'Email'"
-        [class]="'formControl'"
-        [error]="getErrorValidator('email', 'Email')"
-        [form]="addUserForm"
-      ></app-common-input>
-      <app-common-input
-        [control]="'userId'"
-        [type]="'text'"
-        [label]="'User Id'"
-        [class]="'formControl'"
-        [error]="getErrorValidator('userId', 'User Id')"
-        [form]="addUserForm"
-      ></app-common-input>
-      <app-common-input
-        [control]="'phoneNumber'"
-        [type]="'number'"
-        [label]="'Phone Number'"
-        [class]="'formControl'"
-        [error]="getErrorValidator('phoneNumber', 'Phone Number')"
-        [form]="addUserForm"
-      ></app-common-input>
-      <app-common-select
-      [label]="'Select Role'"
-      [control]="'role'"
+    <app-common-input
+      [control]="'email'"
+      [type]="'email'"
+      [label]="'Email'"
+      [class]="'formControl'"
+      [error]="getErrorValidator('email', 'Email')"
+      [form]="addUserForm"
+    ></app-common-input>
+    <app-common-input
+      [control]="'userId'"
+      [type]="'text'"
+      [label]="'User Id'"
+      [class]="'formControl'"
+      [error]="getErrorValidator('userId', 'User Id')"
+      [form]="addUserForm"
+    ></app-common-input>
+    <app-common-input
+      [control]="'phoneNumber'"
+      [type]="'number'"
+      [label]="'Phone Number'"
+      [class]="'formControl'"
+      [error]="getErrorValidator('phoneNumber', 'Phone Number')"
+      [form]="addUserForm"
+    ></app-common-input>
+    <app-common-select
+      [label]="'Select Gender'"
+      [control]="'gender'"
       [form]="addUserForm"
       [List]="gender"
-      [error]="getErrorValidator('role', 'Role')"
+      [error]="getErrorValidator('gender', 'Gender')"
       (selectedId)="getGender($event)"
     ></app-common-select>
-  
-      <button mat-flat-button color="primary" (click)="createUser()">
-        Save
-      </button>
-    </form>
+
+    <div class="group-gap">
+      <div class="avatar-upload">
+          <div class="avatar-edit">
+              <input type='file' id="imageUpload" max-size="2000" #fileInput (change)="uploadFile($event)" accept=".jpg, .jpeg, .png" />
+          </div>
+          <!-- <div (click)="removeUploadedFile()" class="deleteImage userDeleteImage">
+          </div> -->
+          <button type="submit" mat-flat-button color="primary" (click)="fileInput.click()">Upload Image</button>
+          <div class="imagePath">
+              <h3 class="m-0"></h3>{{fileName}}
+          </div>
+      </div>
+      <!-- <div class="error">{{getImageError(errorMsg)}}</div> -->
   </div>
-  
+
+    <button mat-flat-button color="primary" (click)="createUser()">Save</button>
+  </form>
+</div>

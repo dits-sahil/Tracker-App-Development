@@ -1,6 +1,9 @@
 import { ChangeDetectorRef, Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { FirebaseService } from 'src/app/core/services/firebase.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
 
 @Component({
@@ -16,7 +19,8 @@ export class AddUserComponent {
     { id: 2, name: 'Female' },
     { id: 3, name: 'Other' }
   ];
-  // @ViewChild('fileInput') el: ElementRef;
+  fileName: string = '';
+  @ViewChild('fileInput') el!: ElementRef;
   imageUrl: any ;
   // imageUrl: any = './assets/icons/uploadIconAlarm.svg';
   editFile: boolean = true;
@@ -24,6 +28,9 @@ export class AddUserComponent {
 
   constructor(
     private validationService: ValidationService,
+    private readonly firebaseService: AuthService,
+    private readonly dataService: FirebaseService,
+    private readonly toastrService: ToastrService,
     public dialogRef: MatDialogRef<AddUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private cd: ChangeDetectorRef)
@@ -64,7 +71,16 @@ export class AddUserComponent {
     this.addUserForm.get('gender')?.setValue(val);
   }
 
-  createUser(){}
+  createUser() {
+    if (this.addUserForm.invalid) {
+      return;
+    }
+    let user:any = this.addUserForm.value;
+    this.dataService.create('users',user).then((res:any) => {
+      this.toastrService.success('User added successfuly');
+    })
+    .catch((error:any) => this.toastrService.error(error.message));
+  }
 
   closeDialog() {
     this.dialogRef.close();
@@ -73,6 +89,7 @@ export class AddUserComponent {
   uploadFile(event:any) {
     let reader = new FileReader(); 
     let file = event.target.files[0];
+    this.fileName = file.name;
     if (event.target.files && event.target.files[0]) {
       reader.readAsDataURL(file);
 
@@ -87,6 +104,16 @@ export class AddUserComponent {
       }
       this.cd.markForCheck();        
     }
+  }
+
+  removeUploadedFile() {
+    this.el.nativeElement.value = null;
+    this.imageUrl = 'https://i.pinimg.com/236x/d6/27/d9/d627d9cda385317de4812a4f7bd922e9--man--iron-man.jpg';
+    this.editFile = true;
+    this.removeUpload = false;
+    this.addUserForm.patchValue({
+      file: [null]
+    });
   }
 
 }

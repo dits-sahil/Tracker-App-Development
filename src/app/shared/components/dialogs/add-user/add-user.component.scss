@@ -1,30 +1,55 @@
 .container {
-    max-width: 520px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  mat-icon {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    cursor: pointer;
-  }
-  
-  form {
+  padding: 20px;
+  .headerUserlist {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    h1 {
+      margin: 0;
+    }
+
+    mat-icon {
+      cursor: pointer;
+    }
   }
-  
+
+  form {
+    .group-gap {
+      margin-bottom: 20px;
+    }
+
+    .avatar-upload {
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+      margin-right: 10px;
+
+      .avatar-edit {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 1;
+        opacity: 0;
+        cursor: pointer;
+
+        input {
+          display: none;
+        }
+      }
+
+      .imagePath {
+        margin-top: 5px;
+        font-size: 14px;
+        color: #666;
+      }
+    }
+  }
+
   button {
-    margin-top: 20px;
-    align-self: flex-end;
+    margin-right: 10px;
   }
+}
