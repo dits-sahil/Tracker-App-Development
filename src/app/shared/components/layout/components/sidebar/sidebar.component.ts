@@ -15,11 +15,12 @@ export class SidebarComponent {
   @Output() closeSideNav = new EventEmitter();
 
   ngOninit(){
-    debugger
     this.role = localStorage.getItem('role');
   }
 
+  imageClick(){
 
+  }
 
 }
 

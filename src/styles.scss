@@ -1,7 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../src/assets/scss/sidebar";
 @import "../src/assets/scss/variable";
-
+@import "../src/assets/scss/header";
+@import "~bootstrap/dist/css/bootstrap.css";
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 // regular style toast

@@ -1,0 +1,30 @@
+<div class="headerDropdown">
+    <button mat-button [matMenuTriggerFor]="menu">
+      <img
+        class="roundedCircle profilePic"
+        src="assets/img/doc-1.jpg"
+      />
+      Admin
+      <i class="fas fa-chevron-down"></i>
+    </button>
+    <mat-menu #menu="matMenu">
+      <ul class="listingMenus">
+        <li  [routerLink]="'profile-setting/'+currentUserId" routerLinkActive="active">
+          <a><i class="fas fa-user-cog"></i> My Profile</a>
+        </li>
+        <li
+          routerLink="change-password"
+          routerLinkActive="active"
+        >
+          <a><i class="fas fa-lock"></i> Change Password</a>
+        </li>
+        <li
+
+          routerLinkActive="active"
+          (click)="logout()"
+        >
+          <a><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </li>
+      </ul>
+    </mat-menu>
+  </div>

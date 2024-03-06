@@ -3,6 +3,8 @@ import { FirebaseService } from './core/services/firebase.service';
 import { AuthService } from './core/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +16,40 @@ export class AppComponent {
     private readonly firebaseService: AuthService,
     private readonly dataService: FirebaseService,
     private readonly toastrService: ToastrService,
-    private readonly router: Router){}
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer,
+    private readonly router: Router){
+      this.matIconRegistry.addSvgIcon(
+        `bank-name-icon`,
+        this.domSanitizer.bypassSecurityTrustResourceUrl(
+          './assets/icons/bank.svg'
+        )
+      );
+      this.matIconRegistry.addSvgIcon(
+        `bank-branch-icon`,
+        this.domSanitizer.bypassSecurityTrustResourceUrl(
+          './assets/icons/bank-branch.svg'
+        )
+      );
+      this.matIconRegistry.addSvgIcon(
+        `account-holder-icon`,
+        this.domSanitizer.bypassSecurityTrustResourceUrl(
+          './assets/icons/account-holder.svg'
+        )
+      );
+      this.matIconRegistry.addSvgIcon(
+        `account-holder-icon`,
+        this.domSanitizer.bypassSecurityTrustResourceUrl(
+          './assets/icons/account-holder.svg'
+        )
+      );
+      this.matIconRegistry.addSvgIcon(
+        `account-number-icon`,
+        this.domSanitizer.bypassSecurityTrustResourceUrl(
+          './assets/icons/account-number.svg'
+        )
+      );
+    }
     payload=''
   ngOnInit(){
     // this.firebaseService.getMessage().subscribe(payload => {

@@ -1,19 +1,24 @@
-<header class="headerWrapper">
-    <nav class="navbar">
-      <div class="container-fluid">
-        <div class="mainNavbar">
-          <div class="flex align-center logoSearchBar gap-5">
-            <a *ngIf="!dashboardHamburger"  [ngClass]="inputIsExpand ? 'showMain' : 'hideMain'" class="mainLogo" ><img
-              src="./assets/img/main-logo.png" alt="Image" /></a>
-            <!-- <a class="mobileLogo" (click)="imageClick()"><img src="./assets/img/main-logo.png" /></a> -->
-            <div class="dashboardHamburger">
-              <mat-icon  (click)="hideSideBar()" >menu</mat-icon>
-              <mat-icon  (click)="showSideBar()"  >menu</mat-icon>
-            </div>
+<header class="headerWrapper" [ngClass]="role != 'Admin' ? 'headerWrapperClass' : ''">
+  <nav class="navbar" [ngClass]="!dashboardHamburger ? 'hideNav-logo' : ''">
+    <div class="container-fluid">
+      <div class="mainNavbar">
+        <div class="flex align-center logoSearchBar gap-5">
+          <a *ngIf="!dashboardHamburger"  [ngClass]="inputIsExpand ? 'showMain' : 'hideMain'" class="mainLogo" (click)="imageClick()"><img
+            src="./assets/img/main-logo.png" alt="Image" /></a>
+          <a class="mobileLogo" (click)="imageClick()"><img src="./assets/img/main-logo.png" /></a>
+          <div class="dashboardHamburger" *ngIf="dashboardHamburger">
+            <mat-icon *ngIf="inputIsExpand" (click)="hideSideBar()"><i class="fas fa-bars"></i></mat-icon>
+            <mat-icon *ngIf="!inputIsExpand" (click)="showSideBar()"><i class="fas fa-times"></i></mat-icon>
+          </div>
+        </div>
+
+        <div class="profileBar">
+          <div class="topNavRight flex align-center">
+
+            <app-account-components [UserDetails]="UserDetails"></app-account-components>
           </div>
         </div>
       </div>
-    </nav>
-  </header>
-
-
+    </div>
+  </nav>
+</header>

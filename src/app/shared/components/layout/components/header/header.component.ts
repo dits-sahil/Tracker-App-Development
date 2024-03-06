@@ -12,10 +12,11 @@ import { SidenavService } from 'src/app/core/services/sidenav.service';
 export class HeaderComponent {
   constructor(private router:Router,private readonly firebaseService: AuthService, public header:SidenavService,  ) { }
   @Output() SideNavToggle = new EventEmitter();
-  inputIsExpand: boolean | undefined;
+  inputIsExpand!: boolean;
   dashboardHamburger: boolean = true;
+  UserDetails:any;
   @Output() getExpandSidebar = new EventEmitter<boolean>();
-
+  role='Admin'
   hideSideBar() {
     this.inputIsExpand = false
     this.header.showHideSidebar.next(false);
@@ -32,4 +33,8 @@ logout() {
     .logout()
     .then(() => this.router.navigate(['/', 'login']));
 }
+
+ imageClick() {
+
+  }
 }

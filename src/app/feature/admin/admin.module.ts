@@ -7,6 +7,7 @@ import { LayoutModule } from 'src/app/shared/components/layout/layout.module';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { ManagerListComponent } from './components/manager-list/manager-list.component';
 import { AAssignmentListComponent } from './components/a-assignment-list/a-assignment-list.component';
+import { UiModule } from 'src/app/ui/ui.module';
 
 
 
@@ -17,11 +18,12 @@ import { AAssignmentListComponent } from './components/a-assignment-list/a-assig
     AAssignmentListComponent,
     ManagerListComponent,
 
-    
+
   ],
   imports: [
     CommonModule,
     SharedModule,
+    UiModule,
     AdminRoutingModule,
     LayoutModule
   ],
