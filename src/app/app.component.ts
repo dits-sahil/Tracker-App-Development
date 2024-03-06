@@ -15,8 +15,13 @@ export class AppComponent {
     private readonly dataService: FirebaseService,
     private readonly toastrService: ToastrService,
     private readonly router: Router){}
-
+    payload=''
   ngOnInit(){
+    // this.firebaseService.getMessage().subscribe(payload => {
+    //   this.payload = payload;
+    //   console.log('Payload received in component: ', this.payload);
+    //   // You can now use this.payload in your component
+    // });
   }
   title = 'tracker-app';
 }

@@ -46,6 +46,7 @@ export class FirebaseService {
   deleteAll(): Promise<void> {
     return this.dataRef.remove();
   }
+
   convertToObject(data: any) {
     const result: any = {};
     data.forEach((item: any) => {

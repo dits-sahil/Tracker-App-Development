@@ -12,9 +12,10 @@ import { doc, getFirestore, setDoc } from 'firebase/firestore';
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import { Database } from '@firebase/database';
 import { environment } from 'src/environments/environment';
-import { getMessaging, getToken } from 'firebase/messaging';
+import { getMessaging, getToken, onMessage } from 'firebase/messaging';
 import { FirebaseService } from './firebase.service';
 import { ToastrService } from 'ngx-toastr';
+import { Observable, Subject } from 'rxjs';
 
 const firebaseConfig = environment.firebase;
 
@@ -26,7 +27,7 @@ export class AuthService {
   auth = getAuth();
   db = getFirestore();
   functions = getFunctions(this.app, 'europe-west1');
-
+  private messageSubject = new Subject<any>();
 
 
   constructor(private readonly dbService: FirebaseService, private readonly toastrService: ToastrService) {
@@ -38,6 +39,7 @@ export class AuthService {
           if (token) {
             deviceToken = token;
             this.updateDeviceToken(user.uid, deviceToken)
+            this.listen();
           }
         } catch (err) {
 
@@ -82,10 +84,20 @@ export class AuthService {
 
   async updateDeviceToken(userId: string, deviceToken: string) {
     this.dbService.update(`users`, userId, { deviceToken }).then((res: any) => {
-      console.log('res',res);
     })
       .catch((error) => {
         this.toastrService.error(error.message)
       })
+  }
+
+  listen() {
+    const messaging = getMessaging();
+    onMessage(messaging, (payload) => {
+      this.messageSubject.next(payload);
+    });
+  }
+
+  getMessage(): Observable<any> {
+    return this.messageSubject.asObservable();
   }
 }
