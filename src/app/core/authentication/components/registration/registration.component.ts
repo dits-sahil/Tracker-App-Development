@@ -56,7 +56,6 @@ export class RegistrationComponent implements OnInit {
     this.registrationForm.get('role')?.setValue(val);
   }
   createUser() {
-    debugger
     if (this.registrationForm.invalid) {
       return;
     }
@@ -66,13 +65,12 @@ export class RegistrationComponent implements OnInit {
       .createUser(user)
       .then((res:any) => {
         let uid = res.user.uid
-        let accessToken = res.user.accessToken
         delete user.password
-        user = {...user,uid,accessToken}
+        user = {...user,uid}
         this.dataService.set('users',res.user.uid,user)
         localStorage.setItem('user',JSON.stringify(user))
         this.toastrService.success('User registred successfuly');
-        // this.router.navigateByUrl('home');
+        this.router.navigateByUrl('home');
       })
       .catch((error:any) => this.toastrService.error(error.message))
       .finally(() => (this.loading = false));

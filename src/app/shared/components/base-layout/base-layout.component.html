@@ -1,0 +1,17 @@
+<section
+  class="mainDashboard"
+  [ngClass]="isExpand ? 'showDashboard' : 'hideDashboard'"
+>
+  <div class="dashboardFlex flex">
+    <div class="menusSidebar" [ngClass]="isExpand ? 'showMore' : 'showLess'">
+      <app-layout
+        [inputIsExpand]="isExpand"
+        (getExpandSidebar)="expandOffItem($event)"
+      ></app-layout>
+    </div>
+    <div class="dashboardSider">
+      <mat-spinner *ngIf="loading"></mat-spinner>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</section>

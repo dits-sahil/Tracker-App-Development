@@ -8,6 +8,9 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { AddUserComponent } from './components/dialogs/add-user/add-user.component';
 import { CommonCheckboxComponent } from './components/common-checkbox/common-checkbox.component';
 import { CommonButtonComponent } from './components/common-button/common-button.component';
+import { BaseLayoutComponent } from './components/base-layout/base-layout.component';
+import { LayoutRoutingModule } from './components/layout/layout-routing.module';
+import { LayoutModule } from './components/layout/layout.module';
 
 
 @NgModule({
@@ -18,18 +21,22 @@ import { CommonButtonComponent } from './components/common-button/common-button.
     PageNotFoundComponent,
     AddUserComponent,
     CommonButtonComponent,
-    CommonCheckboxComponent
-  ],  
+    CommonCheckboxComponent,
+    BaseLayoutComponent
+  ],
   imports: [
     CommonModule,
     UiModule,
+    LayoutRoutingModule,
+    LayoutModule
 
   ],
   exports:[
     CommonInputComponent,
     CommonSelectComponent,
     CommonTableComponent,
-    CommonButtonComponent
+    CommonButtonComponent,
+    BaseLayoutComponent
 
   ],
 })
