@@ -12,9 +12,18 @@ export class AccountComponentsComponent {
   @Input() UserDetails: any
   role: any;
   currentUserId: any
+  user: any;
 
   constructor(private router: Router, private loacalService: StorageService, private auth: AuthService) { }
 
+  ngOnInit(){
+    this.user = JSON.parse(localStorage.getItem('user')!);
+
+  }
+  ngOnChanges(changes: SimpleChanges) {
+    let getUserDetail: any = changes['UserDetails'].currentValue
+    this.currentUserId = getUserDetail.id
+  }
   logout() {
     this.auth.logout();
   }

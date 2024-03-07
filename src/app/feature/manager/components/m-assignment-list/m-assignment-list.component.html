@@ -1,3 +1,5 @@
+<app-common-button (click)="openManageAssignmentPopup()">Create Assignment</app-common-button>
+<div *ngIf="showPopupBox" class="popupWrapper">
+    <m-manage-assignment (closeDialog)="closeDialog($event)"></m-manage-assignment>
+</div>
 <app-common-table [columnHeadings]="columnHeadings"></app-common-table>
-
-

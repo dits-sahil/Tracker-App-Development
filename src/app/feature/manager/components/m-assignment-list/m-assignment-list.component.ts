@@ -8,5 +8,14 @@ import { Component } from '@angular/core';
 export class MAssignmentListComponent {
 
   columnHeadings = ['index', 'title', 'description', 'dueDate', 'priority', 'status', 'actions'];
+  showPopupBox: boolean = false;
+  openManageAssignmentPopup(){
+    this.showPopupBox = true;
+  }
+  closeDialog(isChanged: any){
+    if(isChanged){}
+    this.showPopupBox = false;
+
+  }
 
 }

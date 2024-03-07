@@ -22,6 +22,28 @@
 
       </ul>
     </nav>
+    <nav class="dashboardMenu" *ngIf="role == userRoleConfig.MANAGER">
+      <div class="dashboardLogo">
+        <a [ngClass]="inputIsExpand ? 'showMain' : 'hideMain'" class="mainLogo" (click)="imageClick()"><img
+            src="./assets/img/tab-logo.png" alt="Image" /></a>
+        <a [ngClass]="inputIsExpand ? 'showLogo' : 'hideLogo'" class="mainLogo" (click)="imageClick()"><img
+            src="./assets/img/tab-logo.png" alt="Image" /></a>
+      </div>
+
+      <!-- Admin Sidebar -->
+      <ul [ngClass]="inputIsExpand ? 'show-expand' : 'hide-expand'">
+        <li routerLink="dashboard" routerLinkActive="active">
+          <a><i class="fas fa-columns"></i><span *ngIf="inputIsExpand">Dashboard</span></a>
+        </li>
+        <li routerLink="users" routerLinkActive="active">
+          <a><i class="fas fa-columns"></i><span *ngIf="inputIsExpand">Users</span></a>
+        </li>
+        <li routerLink="assignments" routerLinkActive="active">
+          <a><i class="fas fa-columns"></i><span *ngIf="inputIsExpand">Asssignments</span></a>
+        </li>
+
+      </ul>
+    </nav>
 
 
   </div>

@@ -1,0 +1,26 @@
+.popupWrapper {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 9;
+    // @include for-tablet {
+    //     align-items: flex-start;
+    //     overflow: auto;s
+    // }
+    &:before {
+        position: fixed;
+        content: '';
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9;
+        left: 0;
+        top: 0;
+        bottom: 0;
+    }
+}
