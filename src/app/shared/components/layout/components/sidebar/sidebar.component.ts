@@ -23,7 +23,7 @@ export class SidebarComponent {
   private _subscriptions: Subscription = new Subscription();
   patientId!: string | null;
 
-  constructor(private auth: AuthService, private eventService: SharedService, private router: Router, private storageService: StorageService, private route: ActivatedRoute) {
+  constructor(private eventService: SharedService, private router: Router, private storageService: StorageService, private route: ActivatedRoute) {
     let profile: any = storageService.getStorage(StorageKeys.keys.USERDETAIL);
     profile = JSON.parse(profile)
     this.role = profile.role
