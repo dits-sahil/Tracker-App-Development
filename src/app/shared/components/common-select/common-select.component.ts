@@ -25,6 +25,6 @@ export class CommonSelectComponent {
     }else{
       this.selectedId.emit(id)
     }
-
+    
   }
 }
