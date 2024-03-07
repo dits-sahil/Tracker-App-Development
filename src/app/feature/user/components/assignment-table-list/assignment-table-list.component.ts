@@ -30,26 +30,15 @@ export class AssignmentTableListComponent {
     this.statusFilterForm = new FormGroup({
       statusfilter: new FormControl<string>(''),
     });
+
+    this.filteredDataSource = [...this.dataSource]
   }
 
   statusFilter(val: any) {
-  //   if (val === 'All') {
-  //     this.filteredDataSource = this.dataSource;
-  //     console.log('allData',this.filteredDataSource)
-  //   } else {
-  //     this.filteredDataSource = this.dataSource.filter((item: any) => item.status === val);
-  //     console.log('data',this.filteredDataSource)
-  //   }
-  // }
-  
-    this.filteredDataSource = [...this.dataSource]
-    console.log('filteredDataSource',this.filteredDataSource)
     if (val === 'All') {
       this.dataSource = this.filteredDataSource;
-      console.log('allData',this.dataSource)
     } else {
       this.dataSource = this.filteredDataSource.filter((item: any) => item.status === val);
-      console.log('data',this.dataSource)
     }
   }
   
