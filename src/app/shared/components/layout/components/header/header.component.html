@@ -4,8 +4,8 @@
       <div class="mainNavbar">
         <div class="flex align-center logoSearchBar gap-5">
           <a *ngIf="!dashboardHamburger"  [ngClass]="inputIsExpand ? 'showMain' : 'hideMain'" class="mainLogo" (click)="imageClick()"><img
-            src="./../../../../../../assets/img/main-logo.webp" alt="Image" /></a>
-          <a class="mobileLogo" (click)="imageClick()"><img src="./../../../../../../assets/img/main-logo.webp" /></a>
+            src="./../../../../../../assets/img/tab-logo.png" alt="Image" /></a>
+          <a class="mobileLogo" (click)="imageClick()"><img src="./../../../../../../assets/img/tab-logo.png" /></a>
           <div class="dashboardHamburger" *ngIf="dashboardHamburger">
             <mat-icon *ngIf="inputIsExpand" (click)="hideSideBar()"><i class="fas fa-bars"></i></mat-icon>
             <mat-icon *ngIf="!inputIsExpand" (click)="showSideBar()"><i class="fas fa-times"></i></mat-icon>

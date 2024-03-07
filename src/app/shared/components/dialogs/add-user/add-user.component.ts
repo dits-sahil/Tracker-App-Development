@@ -2,10 +2,12 @@ import { ChangeDetectorRef, Component, ElementRef, Inject, ViewChild } from '@an
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
+import { userRoleConfig } from 'src/app/core/constant/User.config';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { FirebaseService } from 'src/app/core/services/firebase.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
-
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { finalize } from 'rxjs/operators';
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-user.component.html',
@@ -14,27 +16,30 @@ import { ValidationService } from 'src/app/core/services/validation.service';
 export class AddUserComponent {
 
   addUserForm!: FormGroup;
-  gender:any[] = [
+  gender: any[] = [
     { id: 1, name: 'Male' },
     { id: 2, name: 'Female' },
     { id: 3, name: 'Other' }
   ];
+  rolesArray: any[] = [
+    { id: userRoleConfig.MANAGER, name: 'Manager' },
+    { id: userRoleConfig.REGULARUSER, name: 'Regular User' }
+  ];
   fileName: string = '';
   @ViewChild('fileInput') el!: ElementRef;
-  imageUrl: any ;
+  imageUrl: any;
   // imageUrl: any = './assets/icons/uploadIconAlarm.svg';
   editFile: boolean = true;
   removeUpload: boolean = false;
 
   constructor(
+    private storage: AngularFireStorage,
     private validationService: ValidationService,
     private readonly firebaseService: AuthService,
     private readonly dataService: FirebaseService,
     private readonly toastrService: ToastrService,
     public dialogRef: MatDialogRef<AddUserComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private cd: ChangeDetectorRef)
-    {}
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
     this.addUserForm = new FormGroup({
@@ -46,12 +51,10 @@ export class AddUserComponent {
         Validators.required,
         Validators.email,
       ]),
-      userId: new FormControl<string>('', [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(10),
-      ]),
       gender: new FormControl<string>('', [
+        Validators.required,
+      ]),
+      role: new FormControl<string>('', [
         Validators.required,
       ]),
       phoneNumber: new FormControl<string>('', [
@@ -59,6 +62,7 @@ export class AddUserComponent {
         Validators.minLength(10),
         Validators.maxLength(10),
       ]),
+      profileImage: new FormControl<any>('', [])
     });
   }
 
@@ -66,53 +70,79 @@ export class AddUserComponent {
     return this.validationService.getErrorValidationMessages(value, this.addUserForm, label);
   }
 
-  getGender(val:any){
-    console.log('gender',val)
+  getGender(val: any) {
     this.addUserForm.get('gender')?.setValue(val);
   }
+  getRole(val: any) {
+    this.addUserForm.get('role')?.setValue(val);
+  }
 
-  createUser() {
+  async createUser() {
     if (this.addUserForm.invalid) {
       return;
     }
-    let user:any = this.addUserForm.value;
-    this.dataService.create('users',user).then((res:any) => {
-      this.toastrService.success('User added successfuly');
-    })
-    .catch((error:any) => this.toastrService.error(error.message));
+
+    let formData: any = this.addUserForm.value;
+
+    try {
+      if (formData.profileImage != '') {
+        await this.uploadFileOnFirebase(formData.profileImage);
+      } else {
+        this.addUserOnF(formData)
+      }
+
+
+
+    } catch (error: any) {
+      this.toastrService.error(error.message);
+    }
   }
 
   closeDialog() {
     this.dialogRef.close();
   }
 
-  uploadFile(event:any) {
-    let reader = new FileReader(); 
-    let file = event.target.files[0];
-    this.fileName = file.name;
-    if (event.target.files && event.target.files[0]) {
-      reader.readAsDataURL(file);
+  uploadFile(event: any) {
 
-      // When file uploads set it to file formcontrol
-      reader.onload = () => {
-        // this.imageUrl = reader.result;
-        this.addUserForm.patchValue({
-          file: reader.result
-        });
-        this.editFile = false;
-        this.removeUpload = true;
-      }
-      this.cd.markForCheck();        
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0] as File;
+      this.addUserForm.get('profileImage')?.setValue(file);
     }
   }
 
-  removeUploadedFile() {
-    this.el.nativeElement.value = null;
-    this.imageUrl = 'https://i.pinimg.com/236x/d6/27/d9/d627d9cda385317de4812a4f7bd922e9--man--iron-man.jpg';
-    this.editFile = true;
-    this.removeUpload = false;
-    this.addUserForm.patchValue({
-      file: [null]
+  async uploadFileOnFirebase(image: any) {
+    let selectedFile = image
+    if (!selectedFile) {
+      console.error('No file selected.');
+      return;
+    }
+
+    const filePath = `images/${Date.now()}_${selectedFile.name}`;
+    const fileRef = this.storage.ref(filePath);
+    const uploadTask = this.storage.upload(filePath, selectedFile);
+
+    uploadTask.percentageChanges().subscribe((percentage: any) => {
+      console.log('uploading ', Math.round(percentage));
+    });
+
+    uploadTask.snapshotChanges().pipe(
+      finalize(() => {
+        fileRef.getDownloadURL().subscribe((url) => {
+          this.addUserForm.get('profileImage')?.setValue(url);
+          this.addUserOnF(this.addUserForm.value);
+        });
+      })
+    ).subscribe();
+  }
+
+  addUserOnF(user: any) {
+
+    this.firebaseService.createUser({ email: user.email, password: "abc123" }).then(async (e: any) => {
+      this.firebaseService.signInWithToken();
+      this.dataService.set('users', e.user.uid, user)
+      this.toastrService.success('User added successfully');
+    }).catch((err: any) => {
+      console.log('err:', err)
     });
   }
 

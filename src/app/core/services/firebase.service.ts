@@ -36,7 +36,7 @@ export class FirebaseService {
     return this.db.list(url).update(key, value);
   }
   set(url: string, key: string, value: any): Promise<void> {
-    return this.db.list(url).update(key, value)
+    return this.db.list(url).set(key, value)
   }
 
   delete(url: string, key: string): Promise<void> {

@@ -12,10 +12,8 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(private db:FirebaseService,
-    private readonly firebaseService: AuthService,
-    private readonly dataService: FirebaseService,
-    private readonly toastrService: ToastrService,
+  constructor(
+    private auth:FirebaseService,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
     private readonly router: Router){
@@ -52,11 +50,7 @@ export class AppComponent {
     }
     payload=''
   ngOnInit(){
-    // this.firebaseService.getMessage().subscribe(payload => {
-    //   this.payload = payload;
-    //   console.log('Payload received in component: ', this.payload);
-    //   // You can now use this.payload in your component
-    // });
+    this.auth.set('users','1213',{name:'sahil'})
   }
   title = 'tracker-app';
 }

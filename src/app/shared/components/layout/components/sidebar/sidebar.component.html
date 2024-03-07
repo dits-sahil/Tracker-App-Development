@@ -3,14 +3,14 @@
     <nav class="dashboardMenu" *ngIf="role == userRoleConfig.ADMIN">
       <div class="dashboardLogo">
         <a [ngClass]="inputIsExpand ? 'showMain' : 'hideMain'" class="mainLogo" (click)="imageClick()"><img
-            src="./assets/img/tab-logo.png" alt="Image" /></a>
+            src="./assets/img/main-logo.png" alt="Image" /></a>
         <a [ngClass]="inputIsExpand ? 'showLogo' : 'hideLogo'" class="mainLogo" (click)="imageClick()"><img
             src="./assets/img/tab-logo.png" alt="Image" /></a>
       </div>
 
       <!-- Admin Sidebar -->
       <ul [ngClass]="inputIsExpand ? 'show-expand' : 'hide-expand'">
-        <li routerLink="/" routerLinkActive="active">
+        <li routerLink="dashboard" routerLinkActive="active">
           <a><i class="fas fa-columns"></i><span *ngIf="inputIsExpand">Dashboard</span></a>
         </li>
         <li routerLink="users" routerLinkActive="active">
