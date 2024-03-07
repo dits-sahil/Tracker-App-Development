@@ -44,7 +44,7 @@
     padding:  8px 0px 8px 0px !important;
   }
   .navbar {
-    padding: 8px 0px 8px 210px;
+    padding: 8px 0px 8px 239px;
     background: var(--light-color);
     transition: all 0.5s;
     border-bottom: 1px solid var(--border-color);
@@ -351,17 +351,7 @@
 }
 
 .headerWrapperClass {
-  @include for-tablet-landscape {
-    .navbar {
-      .mainNavbar {
-        padding: 0;
-        .logoSearchBar{
-          max-width: 30%;
-          flex: 0 0 30%;
-        }
-      }
-    }
-  }
+
   .profileBar {
     @include for-tablet-landscape {
       max-width: 70%;

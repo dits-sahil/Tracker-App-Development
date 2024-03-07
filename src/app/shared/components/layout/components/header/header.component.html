@@ -1,4 +1,4 @@
-<header class="headerWrapper" [ngClass]="role != 'Admin' ? 'headerWrapperClass' : ''">
+<header class="headerWrapper" >
   <nav class="navbar" [ngClass]="!dashboardHamburger ? 'hideNav-logo' : ''">
     <div class="container-fluid">
       <div class="mainNavbar">
@@ -11,11 +11,11 @@
             <mat-icon *ngIf="!inputIsExpand" (click)="showSideBar()"><i class="fas fa-times"></i></mat-icon>
           </div>
         </div>
-
         <div class="profileBar">
-          <div class="topNavRight flex align-center">
+          <div class="topNavRight  align-center">
 
-            <app-account-components [UserDetails]="UserDetails"></app-account-components>
+            <app-account-components  [UserDetails]="UserDetails"></app-account-components>
+
           </div>
         </div>
       </div>

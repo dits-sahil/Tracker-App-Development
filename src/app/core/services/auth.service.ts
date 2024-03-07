@@ -16,6 +16,7 @@ import { getMessaging, getToken, onMessage } from 'firebase/messaging';
 import { FirebaseService } from './firebase.service';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 const firebaseConfig = environment.firebase;
 
@@ -30,7 +31,7 @@ export class AuthService {
   private messageSubject = new Subject<any>();
 
 
-  constructor(private readonly dbService: FirebaseService, private readonly toastrService: ToastrService) {
+  constructor(private readonly dbService: FirebaseService, private readonly toastrService: ToastrService, private router:Router) {
     onAuthStateChanged(this.auth, async (user: any) => {
       if (user) {
         let deviceToken: any;
@@ -65,6 +66,7 @@ export class AuthService {
   logout() {
     return signOut(this.auth).then(() => {
       localStorage.removeItem('user');
+      this.router.navigate(['/login'])
     });
   }
 

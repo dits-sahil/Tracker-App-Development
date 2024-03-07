@@ -15,12 +15,7 @@ export class AccountComponentsComponent {
 
   constructor(private router: Router, private loacalService: StorageService, private auth: AuthService) { }
 
-  ngOnChanges(changes: SimpleChanges) {
-    let getUserDetail: any = changes['UserDetails'].currentValue
-    this.currentUserId = getUserDetail.id
-  }
   logout() {
     this.auth.logout();
-    this.router.navigate(['/login'])
   }
 }
