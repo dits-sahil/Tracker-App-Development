@@ -21,7 +21,7 @@ export class ManageAssignmentComponent {
   loading = false;
   EdituserData: any;
   responseData: any;
-
+  date = new Date();
   constructor(private validationService: ValidationService, private readonly firebaseService: AuthService,
     private readonly dataService: FirebaseService,){}
   ngOnInit() {

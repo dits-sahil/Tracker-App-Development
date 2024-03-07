@@ -8,12 +8,14 @@ import { Router } from '@angular/router';
 })
 export class SidebarComponent {
   role: any;
+  user: any;
   constructor(private readonly router: Router,) { }
   @Input() inputIsExpand: boolean = true
   @Output() getExpandSidebar = new EventEmitter<boolean>();
   @Output() closeSideNav = new EventEmitter();
 
-  ngOninit(){
+  ngOnInit(){
+    this.user = JSON.parse(localStorage.getItem('user')!);
     this.role = localStorage.getItem('role');
   }
 

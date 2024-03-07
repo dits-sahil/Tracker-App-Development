@@ -19,11 +19,10 @@
           <a><i class="fas fa-lock"></i> Change Password</a>
         </li>
         <li
-
           routerLinkActive="active"
           (click)="logout()"
         >
-          <a><i class="fas fa-sign-out-alt"></i> Logout</a>
+          <a><i class="fas fa-sign-out-alt" (click)="logout()"></i> Logout</a>
         </li>
       </ul>
     </mat-menu>
