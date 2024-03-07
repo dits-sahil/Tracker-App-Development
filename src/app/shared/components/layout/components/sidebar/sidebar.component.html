@@ -2,34 +2,44 @@
   <div class="dashboardWidget">
     <nav class="dashboardMenu">
       <div class="dashboardLogo">
-        <a [ngClass]="inputIsExpand ? 'showMain' : 'hideMain'" class="mainLogo" (click)="imageClick()"><img
-            src="assets/img/main-logo.png" alt="Image" /></a>
-        <a [ngClass]="inputIsExpand ? 'showLogo' : 'hideLogo'" class="mainLogo" (click)="imageClick()"><img
+        <a  class="mainLogo" (click)="imageClick()"><img
             src="../../../../../../assets/img/main-logo.webp" alt="Image" /></a>
       </div>
 
-      <!-- Patient Sidebar -->
-      <ul [ngClass]="inputIsExpand ? 'show-expand' : 'hide-expand'">
-        <li routerLink="dashboard" routerLinkActive="active">
-          <a><i class="fas fa-columns"></i><span>Dashboard</span></a>
-        </li>
-        <li routerLink="consultation" routerLinkActive="active">
-          <a><i class="fas fa-calendar-check"></i><span>Admin</span></a>
-        </li>
+      <div *ngIf="user.role == 1">
+        <ul [ngClass]="inputIsExpand ? 'show-expand' : 'hide-expand'">
+          <li routerLink="dashboard" routerLinkActive="active">
+            <a><i class="fas fa-columns"></i><span>Dashboard</span></a>
+          </li>
+          <li routerLink="consultation" routerLinkActive="active">
+            <a><i class="fas fa-calendar-check"></i><span>Admin</span></a>
+          </li>
 
-        <li routerLink="assignments" routerLinkActive="active">
-          <a><i class="fas fa-users"></i><span >Assignments</span></a>
-        </li>
-        <li routerLink="book-appointment" routerLinkActive="active">
-          <a><i class="fas fa-calendar-check"></i><span >User</span></a>
-        </li>
-        <li routerLink="invoices" routerLinkActive="active">
-          <a><i class="fas fa-file-invoice"></i><span>Menu</span></a>
-        </li>
-      </ul>
+          <li routerLink="assignments" routerLinkActive="active">
+            <a><i class="fas fa-users"></i><span>Assignments</span></a>
+          </li>
+          <li routerLink="admin/users" routerLinkActive="active">
+            <a><i class="fas fa-calendar-check"></i><span>User</span></a>
+          </li>
+          <li routerLink="invoices" routerLinkActive="active">
+            <a><i class="fas fa-file-invoice"></i><span>Menu</span></a>
+          </li>
+        </ul>
+      </div>
+      <div *ngIf="user.role == 2">
+        <ul [ngClass]="inputIsExpand ? 'show-expand' : 'hide-expand'">
+          <li routerLink="dashboard" routerLinkActive="active">
+            <a><i class="fas fa-columns"></i><span>Dashboard</span></a>
+          </li>
+          <li routerLink="assignments" routerLinkActive="active">
+            <a><i class="fas fa-users"></i><span>Assignments</span></a>
+          </li>
+          <li routerLink="invoices" routerLinkActive="active">
+            <a><i class="fas fa-file-invoice"></i><span>Menu</span></a>
+          </li>
+        </ul>
+      </div>
     </nav>
-
-
 
 
   </div>

@@ -1,2 +1,15 @@
 
-<app-layout></app-layout>
+<section
+  class="mainDashboard"
+>
+  <div class="dashboardFlex flex">
+    <div class="menusSidebar">
+      <app-layout
+        (getExpandSidebar)="expandOffItem($event)"
+      ></app-layout>
+    </div>
+    <div class="dashboardSider">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</section>

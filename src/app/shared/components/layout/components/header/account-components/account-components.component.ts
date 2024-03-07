@@ -19,12 +19,8 @@ export class AccountComponentsComponent {
     let getUserDetail: any = changes['UserDetails'].currentValue
     this.currentUserId = getUserDetail.id
   }
-
-
-
-
-
   logout() {
     this.auth.logout();
+    this.router.navigate(['/login'])
   }
 }
