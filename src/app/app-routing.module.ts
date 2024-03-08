@@ -8,6 +8,7 @@ import { AuthGuard } from './core/guards/auth.guard';
 import { roleGuard } from './core/guards/role.guard';
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 import { unauthGuard } from './core/guards/unauth.guard';
+import { userRoleConfig } from './core/constant/User.config';
 
 
 const routes: Routes = [
@@ -20,21 +21,21 @@ const routes: Routes = [
     loadChildren: () =>
       import('./feature/admin/admin.module').then((m) => m.AdminModule),
       canActivate:[AuthGuard],
-      data:{role:1}
+      data:{role:userRoleConfig.ADMIN}
   },
   {
     path: 'manager',
     loadChildren: () =>
       import('./feature/manager/manager.module').then((m) => m.ManagerModule),
       canActivate:[AuthGuard],
-      data:{role:2}
+      data:{role:userRoleConfig.MANAGER}
   },
   {
     path: 'user',
     loadChildren: () =>
       import('./feature/user/user.module').then((m) => m.UserModule),
       canActivate:[AuthGuard],
-      data:{role:3}
+      data:{role:userRoleConfig.REGULARUSER}
   },
   { path: '404', component: PageNotFoundComponent },
   { path: '**', redirectTo: '404' },

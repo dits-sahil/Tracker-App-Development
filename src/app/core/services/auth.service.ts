@@ -5,18 +5,20 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
+  signInWithCustomToken,
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
-import { doc, getFirestore, setDoc } from 'firebase/firestore';
-import { getFunctions, httpsCallable } from 'firebase/functions';
-import { Database } from '@firebase/database';
+import {  getFirestore } from 'firebase/firestore';
+import { getFunctions } from 'firebase/functions';
 import { environment } from 'src/environments/environment';
 import { getMessaging, getToken, onMessage } from 'firebase/messaging';
 import { FirebaseService } from './firebase.service';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { StorageKeys } from '../constant/storageKeys';
+import { HttpClient } from '@angular/common/http';
 
 const firebaseConfig = environment.firebase;
 
@@ -31,7 +33,7 @@ export class AuthService {
   private messageSubject = new Subject<any>();
 
 
-  constructor(private readonly dbService: FirebaseService, private readonly toastrService: ToastrService, private router:Router) {
+  constructor(private readonly dbService: FirebaseService, private readonly toastrService: ToastrService, private router:Router,private http: HttpClient) {
     onAuthStateChanged(this.auth, async (user: any) => {
       if (user) {
         let deviceToken: any;
@@ -102,4 +104,18 @@ export class AuthService {
   getMessage(): Observable<any> {
     return this.messageSubject.asObservable();
   }
+
+ async signInWithToken(){
+    let user:any = JSON.parse(localStorage.getItem(StorageKeys.keys.USERDETAIL) || '')
+
+      try {
+        const token:any  = await this.http.post('http://localhost:3000/getCustomToken', { uid:user.uid }).toPromise();
+        await signInWithCustomToken(this.auth,token.customToken);
+        // User signed in successfully
+      } catch (error) {
+        console.error('Error signing in with custom token:', error);
+        throw error;
+      }
+
+}
 }

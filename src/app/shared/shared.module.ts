@@ -11,7 +11,8 @@ import { CommonButtonComponent } from './components/common-button/common-button.
 import { BaseLayoutComponent } from './components/base-layout/base-layout.component';
 import { LayoutRoutingModule } from './components/layout/layout-routing.module';
 import { LayoutModule } from './components/layout/layout.module';
-
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 
 @NgModule({
   declarations: [
@@ -22,13 +23,15 @@ import { LayoutModule } from './components/layout/layout.module';
     AddUserComponent,
     CommonButtonComponent,
     CommonCheckboxComponent,
-    BaseLayoutComponent
+    BaseLayoutComponent,
+    DashboardComponent
   ],
   imports: [
     CommonModule,
     UiModule,
     LayoutRoutingModule,
-    LayoutModule
+    LayoutModule,
+    AngularFireStorageModule
 
   ],
   exports:[
@@ -36,7 +39,9 @@ import { LayoutModule } from './components/layout/layout.module';
     CommonSelectComponent,
     CommonTableComponent,
     CommonButtonComponent,
-    BaseLayoutComponent
+    BaseLayoutComponent,
+    DashboardComponent,
+    AddUserComponent
 
   ],
 })
