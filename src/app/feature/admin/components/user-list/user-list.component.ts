@@ -13,12 +13,12 @@ export class UserListComponent {
 
   constructor(public dialog: MatDialog) {}
 
-  openDialog() {
+  openUserModal() {
     const dialogRef = this.dialog.open(AddUserComponent, {
         width: '40%',
         disableClose: true,
         data: {}
-    }); 
+    });
   }
 
 }

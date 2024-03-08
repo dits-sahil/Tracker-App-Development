@@ -3,7 +3,7 @@
     <h1>Add User</h1>
     <mat-icon (click)="closeDialog()">cancel</mat-icon>
 </div>
-  
+
   <form [formGroup]="addUserForm">
 
     <app-common-input
@@ -22,14 +22,7 @@
       [error]="getErrorValidator('email', 'Email')"
       [form]="addUserForm"
     ></app-common-input>
-    <app-common-input
-      [control]="'userId'"
-      [type]="'text'"
-      [label]="'User Id'"
-      [class]="'formControl'"
-      [error]="getErrorValidator('userId', 'User Id')"
-      [form]="addUserForm"
-    ></app-common-input>
+
     <app-common-input
       [control]="'phoneNumber'"
       [type]="'number'"
@@ -46,20 +39,25 @@
       [error]="getErrorValidator('gender', 'Gender')"
       (selectedId)="getGender($event)"
     ></app-common-select>
+    <app-common-select
+      [label]="'Select role'"
+      [control]="'role'"
+      [form]="addUserForm"
+      [List]="rolesArray"
+      [error]="getErrorValidator('roles', 'Role')"
+      (selectedId)="getRole($event)"
+    ></app-common-select>
 
     <div class="group-gap">
       <div class="avatar-upload">
           <div class="avatar-edit">
               <input type='file' id="imageUpload" max-size="2000" #fileInput (change)="uploadFile($event)" accept=".jpg, .jpeg, .png" />
           </div>
-          <!-- <div (click)="removeUploadedFile()" class="deleteImage userDeleteImage">
-          </div> -->
           <button type="submit" mat-flat-button color="primary" (click)="fileInput.click()">Upload Image</button>
           <div class="imagePath">
               <h3 class="m-0"></h3>{{fileName}}
           </div>
       </div>
-      <!-- <div class="error">{{getImageError(errorMsg)}}</div> -->
   </div>
 
     <button mat-flat-button color="primary" (click)="createUser()">Save</button>

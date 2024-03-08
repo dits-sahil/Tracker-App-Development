@@ -3,12 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 import { ManagerComponent } from './manager.component';
 import { MUserListComponent } from './components/m-user-list/m-user-list.component';
 import { MAssignmentListComponent } from './components/m-assignment-list/m-assignment-list.component';
+import { DashboardComponent } from 'src/app/shared/components/dashboard/dashboard.component';
 
 const routes: Routes = [
 
-  { path: '', 
+  { path: '',
   component: ManagerComponent,
   children: [
+    {
+      path:'dashboard',
+      component:DashboardComponent
+    },
     {
       path: 'users',
       component:MUserListComponent
