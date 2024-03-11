@@ -13,6 +13,7 @@ import { LayoutRoutingModule } from './components/layout/layout-routing.module';
 import { LayoutModule } from './components/layout/layout.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AssignmentStatusComponent } from './components/assignment-status/assignment-status.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     CommonButtonComponent,
     CommonCheckboxComponent,
     BaseLayoutComponent,
-    DashboardComponent
+    DashboardComponent,
+    AssignmentStatusComponent
   ],
   imports: [
     CommonModule,
@@ -41,7 +43,8 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     CommonButtonComponent,
     BaseLayoutComponent,
     DashboardComponent,
-    AddUserComponent
+    AddUserComponent,
+    AssignmentStatusComponent
 
   ],
 })

@@ -6,12 +6,14 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { LayoutModule } from 'src/app/shared/components/layout/layout.module';
 import { AssignmentTableListComponent } from './components/assignment-table-list/assignment-table-list.component';
 import { UiModule } from 'src/app/ui/ui.module';
+import { ViewAssignmentComponent } from './components/view-assignment/view-assignment.component';
 
 
 @NgModule({
   declarations: [
     UserComponent,
-    AssignmentTableListComponent
+    AssignmentTableListComponent,
+    ViewAssignmentComponent
   ],
   imports: [
     CommonModule,

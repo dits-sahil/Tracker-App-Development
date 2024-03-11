@@ -1,3 +1,7 @@
 .filter {
-    max-width: 20%;
+    display: flex;
+    justify-content: end;
+}
+app-common-select {
+padding: 10px;
 }

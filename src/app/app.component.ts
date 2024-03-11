@@ -50,7 +50,6 @@ export class AppComponent {
     }
     payload=''
   ngOnInit(){
-    this.auth.set('users','1213',{name:'sahil'})
   }
   title = 'tracker-app';
 }

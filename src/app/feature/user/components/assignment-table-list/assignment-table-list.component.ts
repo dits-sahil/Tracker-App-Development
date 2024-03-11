@@ -9,26 +9,34 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class AssignmentTableListComponent {
 
   dataSource: any[] = [
-    {index: 1, title: 'Hydrogen', description: 'Hydrogen listing', dueDate: '07/03/2024', priority: 1.0079, status: 'Pending'},
-    {index: 2, title: 'Helium', description: 'Helium listing', dueDate: '09/03/2024', priority: 4.0026, status: 'Pending'},
-    {index: 3, title: 'Lithium', description: 'Lithium listing', dueDate: '10/03/2024', priority: 6.941, status: 'Completed'},
-    {index: 4, title: 'Beryllium', description: 'Beryllium listing', dueDate: '15/03/2024', priority: 9.0122, status: 'InProgress'}
+    {Index: 1, Title: 'Hydrogen', Description: 'Hydrogen listing', DueDate: '07/03/2024', Priority: 'High', Status: 'Pending'},
+    {Index: 2, Title: 'Helium', Description: 'Helium listing', DueDate: '09/03/2024', Priority: 'Medium', Status: 'Pending'},
+    {Index: 3, Title: 'Lithium', Description: 'Lithium listing', DueDate: '10/03/2024', Priority: 'Medium', Status: 'Completed'},
+    {Index: 4, Title: 'Beryllium', Description: 'Beryllium listing', DueDate: '15/03/2024', Priority: 'Low', Status: 'InProgress'}
   ];
 
-  statusFilterForm!: FormGroup; 
-  filter:any[] = [
+  filterForm!: FormGroup; 
+  statusFilterList:any[] = [
     { id: 'All', name: 'All' },
     { id: 'InProgress', name: 'In Progress' },
     { id: 'Pending', name: 'Pending' },
     { id: 'Completed', name: 'Completed' }
   ];
+  priorityFilterList:any[] = [
+    { id: 'All', name: 'All' },
+    { id: 'High', name: 'High' },
+    { id: 'Medium', name: 'Medium' },
+    { id: 'Low', name: 'Low' }
+  ];
 
-  columnHeadings = ['index', 'title', 'description', 'dueDate', 'priority', 'status', 'actions'];
+  columnHeadings = ['Index', 'Title', 'Description', 'DueDate', 'Priority', 'Status', 'Actions'];
   filteredDataSource: any[] =[];
 
   ngOnInit() {
-    this.statusFilterForm = new FormGroup({
-      statusfilter: new FormControl<string>(''),
+    this.filterForm = new FormGroup({
+      statusFilter: new FormControl<string>(''),
+      priorityFilter: new FormControl<string>(''),
+
     });
 
     this.filteredDataSource = [...this.dataSource]
@@ -38,7 +46,15 @@ export class AssignmentTableListComponent {
     if (val === 'All') {
       this.dataSource = this.filteredDataSource;
     } else {
-      this.dataSource = this.filteredDataSource.filter((item: any) => item.status === val);
+      this.dataSource = this.filteredDataSource.filter((item: any) => item.Status === val);
+    }
+  }
+
+  priorityFilter(val: any) {
+    if (val === 'All') {
+      this.dataSource = this.filteredDataSource;
+    } else {
+      this.dataSource = this.filteredDataSource.filter((item: any) => item.Priority === val);
     }
   }
   
