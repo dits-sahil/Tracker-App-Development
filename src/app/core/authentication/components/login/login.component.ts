@@ -59,10 +59,9 @@ export class LoginComponent implements OnInit {
 
  async getUserData(user:any){
     let userId = user.user.uid
-    // await this.updateDeviceToken(userId)
-    this.dbService.getAll(`users/${userId}`).subscribe((data: any) => {
-      let finalData = this.dbService.convertToObject(data)
-      let accessToken = user.user.accessToken
+    let accessToken:any = user.user.accessToken
+    this.dbService.getDataById('users',userId).subscribe((res:any)=>{
+      let finalData = res
       finalData = { ...finalData, accessToken }
       this.storageService.setStorage('user', finalData)
       this.router.navigate(['/', 'home']);
