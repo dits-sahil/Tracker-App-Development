@@ -1,0 +1,17 @@
+<div class="filter">
+  <app-common-select
+    [label]="firstLabel"
+    [control]="firstControl"
+    [form]="form"
+    [List]="firstFilterList"
+    (selectedId)="firstFilterChange($event)"
+  ></app-common-select>
+  <app-common-select
+    [label]="secondLabel"
+    [control]="secondControl"
+    [form]="form"
+    [List]="secondFilterList"
+    (selectedId)="secondFilterChange($event)"
+  ></app-common-select>
+</div>
+

@@ -1,17 +1,13 @@
-<div class="filter">
-    <app-common-select
-      [label]="'Status Filter'"
-      [control]="'statusFilter'"
-      [form]="filterForm"
-      [List]="statusFilterList"
-      (selectedId)="statusFilter($event)"
-    ></app-common-select>
-  <app-common-select
-    [label]="'Priority Filter'"
-    [control]="'priorityFilter'"
-    [form]="filterForm"
-    [List]="priorityFilterList"
-    (selectedId)="priorityFilter($event)"
-  ></app-common-select>
-</div>
+<app-filter 
+  [firstLabel]="'Status Filter'" 
+  [secondLabel]="'Priority Filter'"
+  [firstControl]="'statusFilter'" 
+  [secondControl]="'priorityFilter'"
+  [form]="filterForm"
+  [firstFilterList]="statusFilterList" 
+  [secondFilterList]="priorityFilterList"
+  (firstFilter)="statusFilter($event)" 
+  (secondFilter)="priorityFilter($event)">
+</app-filter>
+
 <app-common-table [columnHeadings]="columnHeadings" [dataSource]="dataSource"></app-common-table>

@@ -16,6 +16,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AssignmentStatusComponent } from './components/assignment-status/assignment-status.component';
 import { CommonUsersTableComponent } from './components/common-users-table/common-users-table.component';
 import { CommonIconComponent } from './components/common-icon/common-icon.component';
+import { FilterComponent } from './components/filter/filter.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { CommonIconComponent } from './components/common-icon/common-icon.compon
     DashboardComponent,
     AssignmentStatusComponent,
     CommonUsersTableComponent,
-    CommonIconComponent
+    CommonIconComponent,
+    FilterComponent
   ],
   imports: [
     CommonModule,
@@ -49,8 +51,8 @@ import { CommonIconComponent } from './components/common-icon/common-icon.compon
     DashboardComponent,
     AddUserComponent,
     AssignmentStatusComponent,
-    CommonUsersTableComponent
-
+    CommonUsersTableComponent,
+    FilterComponent
   ],
 })
 export class SharedModule { }
