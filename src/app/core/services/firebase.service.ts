@@ -39,7 +39,22 @@ export class FirebaseService {
       }),
     );
   }
-
+  getDataById(url: string, id: string) {
+    return this.db.list(`${url}/${id}`).snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c => {
+          let data = {
+            key: c.payload.key,
+            value: c.payload.val()
+          }
+          return data
+        }
+        ),
+      ),
+      map(data => {
+        return this.convertToObject(data);
+      }))
+  }
   create(url: string, data: any): any {
     return this.db.list(url).push(data);
   }
@@ -70,7 +85,7 @@ export class FirebaseService {
   convertObjectIntoArry(dbData: any) {
     let array: any = []
     for (const item in dbData) {
-      dbData[item].uid = item
+      dbData[item].id = item
       array = [...array, dbData[item]]
     }
     return array
