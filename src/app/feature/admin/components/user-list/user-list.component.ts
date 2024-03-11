@@ -1,24 +1,78 @@
 import { Component } from '@angular/core';
+import { FirebaseApp } from '@angular/fire/app';
 import { MatDialog } from '@angular/material/dialog';
+import { userRoleConfig } from 'src/app/core/constant/User.config';
+import { ActionType } from 'src/app/core/constant/actionKeys';
+import { FirebaseService } from 'src/app/core/services/firebase.service';
 import { AddUserComponent } from 'src/app/shared/components/dialogs/add-user/add-user.component';
 
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.scss']
+  styleUrls: ['./user-list.component.scss'],
 })
 export class UserListComponent {
+  columnHeader = { 'name': 'Name', 'email': 'Email', 'phoneNumber': 'Phone Number', 'noOfAssignments': 'No. of Assignments', 'actions': 'Action', 'role': 'User Type' };
 
-  columnHeadings = ['name', 'email', 'phoneNo', 'noOfAssignments', 'actions'];
-
-  constructor(public dialog: MatDialog) {}
-
+  users: any = []
+  constructor(public dialog: MatDialog, private dbService: FirebaseService) { }
+  ngOnInit() {
+    this.getUsersList();
+  }
+  get actionType() {
+    return ActionType.key
+  }
+  get userRole() {
+    return userRoleConfig
+  }
   openUserModal() {
     const dialogRef = this.dialog.open(AddUserComponent, {
-        width: '40%',
-        disableClose: true,
-        data: {}
+      width: '40%',
+      disableClose: true,
+      data: {}
+    });
+  }
+  getUsersList() {
+    this.dbService.getAll('users', 'role', 1, 'notEqualTo').subscribe((data: any) => {
+      let dbData = data.map((items: any, index: any) => {
+        delete items.deviceToken
+        delete items.accessToken
+        let actionData = {
+          uid: items.uid
+        }
+        let actions = this.prepareActionType(actionData)
+        items.actions = actions
+        let userType = items.role
+        userType = userType == this.userRole.MANAGER ? 'Manager' : userType == this.userRole.REGULARUSER ? 'Regular User' : userType == this.userRole.ADMIN ? '' : 'N/A'
+        items.role = userType
+        return items
+      })
+      this.users = dbData
     });
   }
 
+  private prepareActionType(actionData: { uid: any; }) {
+    return [
+      {
+        ...actionData, actionType: this.actionType.DELETE
+      },
+      {
+        ...actionData, actionType: this.actionType.UPDATE
+      },
+      {
+        ...actionData, actionType: this.actionType.DETAIL
+      }
+    ];
+  }
+
+  getUserDetail(id: any) {
+    console.log('id:', id)
+
+  }
+  updateUserDetail(id: any) {
+    console.log('id:', id)
+  }
+  deleteUser(id: any) {
+    console.log('id:', id)
+  }
 }
