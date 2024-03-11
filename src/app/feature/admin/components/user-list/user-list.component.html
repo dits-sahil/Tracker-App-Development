@@ -7,4 +7,4 @@
   </div>
 </div>
 
-<app-common-table [columnHeadings]="columnHeadings"></app-common-table>
+<app-common-users-table (viewDetail)="getUserDetail($event)" (updateDetail)="updateUserDetail($event)" [label]="'No data availble.'" (deleteUser)="deleteUser($event)" [tableData]="users" [columnHeader]="columnHeader"></app-common-users-table>

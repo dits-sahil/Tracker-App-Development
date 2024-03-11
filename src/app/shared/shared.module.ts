@@ -14,6 +14,8 @@ import { LayoutModule } from './components/layout/layout.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AssignmentStatusComponent } from './components/assignment-status/assignment-status.component';
+import { CommonUsersTableComponent } from './components/common-users-table/common-users-table.component';
+import { CommonIconComponent } from './components/common-icon/common-icon.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { AssignmentStatusComponent } from './components/assignment-status/assign
     CommonCheckboxComponent,
     BaseLayoutComponent,
     DashboardComponent,
-    AssignmentStatusComponent
+    AssignmentStatusComponent,
+    CommonUsersTableComponent,
+    CommonIconComponent
   ],
   imports: [
     CommonModule,
@@ -44,7 +48,8 @@ import { AssignmentStatusComponent } from './components/assignment-status/assign
     BaseLayoutComponent,
     DashboardComponent,
     AddUserComponent,
-    AssignmentStatusComponent
+    AssignmentStatusComponent,
+    CommonUsersTableComponent
 
   ],
 })
