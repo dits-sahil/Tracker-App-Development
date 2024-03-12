@@ -23,7 +23,7 @@ export class AssignmentTableListComponent {
   filterForm!: FormGroup;
   statusFilterList: any[] = [
     { id: 'All', name: 'All' },
-    { id: 'InProgress', name: 'In Progress' },
+    { id: 'In Progress', name: 'In Progress' },
     { id: 'Pending', name: 'Pending' },
     { id: 'Completed', name: 'Completed' }
   ];
@@ -76,7 +76,7 @@ export class AssignmentTableListComponent {
     if (val === 'All') {
       this.dataSource = this.filteredDataSource;
     } else {
-      this.dataSource = this.filteredDataSource.filter((item: any) => item.Status === val);
+      this.dataSource = this.filteredDataSource.filter((item: any) => item.status === val);
     }
   }
 
@@ -84,7 +84,7 @@ export class AssignmentTableListComponent {
     if (val === 'All') {
       this.dataSource = this.filteredDataSource;
     } else {
-      this.dataSource = this.filteredDataSource.filter((item: any) => item.Priority === val);
+      this.dataSource = this.filteredDataSource.filter((item: any) => item.priority === val);
     }
   }
 
