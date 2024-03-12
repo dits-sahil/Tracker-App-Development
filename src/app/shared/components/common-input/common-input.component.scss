@@ -1,0 +1,19 @@
+@import "../../../../assets/scss/variable";
+.mat-mdc-form-field{
+  &.mat-focused{
+    .mat-mdc-text-field-wrapper{
+      .mat-mdc-form-field-flex{
+        .mdc-notched-outline{
+          // border: 1px solid #0f0 !important;
+          // outline: 1px solid  #0f0 !important;
+          .mdc-floating-label{
+            color: var(--primary-color) !important;
+            mat-label{
+              color: var(--primary-color) !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}

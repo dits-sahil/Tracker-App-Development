@@ -38,3 +38,28 @@
   }
 
 }
+.noData{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: calc(100vh - 300px) !important;
+  .noUserfound{
+    background-color: #fff;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    padding: 20px;
+    min-height: 100px;
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    P{
+      font-size: 22px;
+      line-height: 24px;
+      letter-spacing: 1px;
+      font-weight: 600;
+      margin-bottom: 0 !important;
+    }
+  }
+}

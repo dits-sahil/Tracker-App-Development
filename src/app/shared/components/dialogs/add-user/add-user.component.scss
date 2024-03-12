@@ -1,3 +1,4 @@
+@import "../../../../../assets/scss/variable";
 .container {
   padding: 20px;
   .headerUserlist {
@@ -12,6 +13,7 @@
 
     mat-icon {
       cursor: pointer;
+      color: var(--primary-color);
     }
   }
 
@@ -23,15 +25,12 @@
     .avatar-upload {
       position: relative;
       overflow: hidden;
-      display: inline-block;
+      display: flex;
+      align-items: center;
+      gap: 10px;
       margin-right: 10px;
 
       .avatar-edit {
-        position: absolute;
-        top: 0;
-        right: 0;
-        left: 0;
-        bottom: 0;
         z-index: 1;
         opacity: 0;
         cursor: pointer;
@@ -41,15 +40,27 @@
         }
       }
 
-      .imagePath {
-        margin-top: 5px;
-        font-size: 14px;
-        color: #666;
-      }
+    }
+    .sumbitData{
+      display: flex;
+      justify-content: flex-end;
     }
   }
 
   button {
     margin-right: 10px;
+  }
+
+  .imagePath {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #666;
+    background-color: #fff;
+    padding: 30px;
+    img{
+      min-width: 90px;
+      max-width: 120px;
+    }
+
   }
 }

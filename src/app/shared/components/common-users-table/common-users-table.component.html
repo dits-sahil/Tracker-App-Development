@@ -29,10 +29,9 @@
     </table>
   </div>
 
-
 </ng-template>
-<div class="card" *ngIf="tableData.length == 0;  else dataexist">
-  <div class="noData">
+<div class="noData" *ngIf="tableData.length == 0;  else dataexist">
+  <div class="noUserfound">
     <p class="mb-0">{{ label }}</p>
   </div>
 </div>

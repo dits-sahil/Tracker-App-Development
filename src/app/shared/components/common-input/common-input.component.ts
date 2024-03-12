@@ -17,12 +17,9 @@ export class CommonInputComponent {
   @Input() form!: FormGroup;
   @Input() error:any;
   @Input() submitted:any;
-  @Input() fValue:any;
   @Input() errorClass:any;
-  @Input () class:any ;
-  @Input () maxlength:any;
-  @Input () readonly:any
-  @Input () isbeforeicon:any
-  @Input () beforeIcon!:String
+  @Input() class:any ;
+  @Input() maxlength:any;
+  @Input() readonly:any
 
 }
