@@ -32,10 +32,9 @@ export class AddUserComponent {
   fileName: string = '';
   @ViewChild('fileInput') el!: ElementRef;
   imageUrl: any;
-  // imageUrl: any = './assets/icons/uploadIconAlarm.svg';
   editFile: boolean = true;
   removeUpload: boolean = false;
-
+  isReadOnly:boolean=true
   constructor(
     private storage: AngularFireStorage,
     private validationService: ValidationService,
@@ -43,7 +42,7 @@ export class AddUserComponent {
     private dbService: FirebaseService,
     private toastrService: ToastrService,
     private storageService: StorageService,
-    public dialogRef: MatDialogRef<AddUserComponent>,
+    public dialogRef: MatDialogRef<any>,
     private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
@@ -56,8 +55,8 @@ export class AddUserComponent {
   }
   getFormType() {
     if (this.data.evetType == 'update') {
+      this.isReadOnly=true
       this.initializeForm();
-      this.addUserForm.controls['email'].disable();
       this.getUserData()
     } else {
       this.initializeForm();
@@ -181,6 +180,7 @@ export class AddUserComponent {
       user = { ...user, uid, createdOn: timeStamp, createdBy: loggedInUser.uid }
       this.dbService.set('users', uid, user)
       this.dbService.set(dataNode, uid, user)
+      this.closeDialog();
       this.toastrService.success('User added successfully');
     }).catch((err: any) => {
       console.log('err:', err)
@@ -192,6 +192,7 @@ export class AddUserComponent {
     let uid = this.data.id
     this.dbService.update('users', uid, user)
     this.dbService.update(dataNode, uid, user)
+    this.closeDialog();
     this.toastrService.success('User updated successfully');
   }
 

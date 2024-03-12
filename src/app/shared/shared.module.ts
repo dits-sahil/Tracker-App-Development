@@ -18,6 +18,7 @@ import { CommonUsersTableComponent } from './components/common-users-table/commo
 import { CommonIconComponent } from './components/common-icon/common-icon.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { ConfirmBoxComponent } from './components/dialogs/confirm-box/confirm-box.component';
+import { DetailComponent } from './components/detail/detail.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ConfirmBoxComponent } from './components/dialogs/confirm-box/confirm-bo
     CommonUsersTableComponent,
     CommonIconComponent,
     FilterComponent,
-    ConfirmBoxComponent
+    ConfirmBoxComponent,
+    DetailComponent
   ],
   imports: [
     CommonModule,
@@ -55,7 +57,8 @@ import { ConfirmBoxComponent } from './components/dialogs/confirm-box/confirm-bo
     AssignmentStatusComponent,
     CommonUsersTableComponent,
     FilterComponent,
-    ConfirmBoxComponent
+    ConfirmBoxComponent,
+    DetailComponent
 
   ],
 })
