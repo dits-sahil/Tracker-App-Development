@@ -20,6 +20,7 @@ export class CommonInputComponent {
   @Input() errorClass:any;
   @Input() class:any ;
   @Input() maxlength:any;
-  @Input() readonly:any
+  @Input() readonly:any;
+  @Input() appearance:any;
 
 }

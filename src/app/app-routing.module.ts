@@ -9,6 +9,7 @@ import { roleGuard } from './core/guards/role.guard';
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 import { unauthGuard } from './core/guards/unauth.guard';
 import { userRoleConfig } from './core/constant/User.config';
+import { ForgotPasswordComponent } from './core/authentication/components/forgot-password/forgot-password.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent,canActivate:[unauthGuard] },
   { path: 'register', component: RegistrationComponent,canActivate:[unauthGuard] },
   { path: 'home',component:HomeComponent,canActivate:[roleGuard]},
+  { path: 'forgotPassword', component: ForgotPasswordComponent },
   {
     path: 'admin',
     loadChildren: () =>

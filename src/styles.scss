@@ -18,3 +18,6 @@ body {
 .formControl{
   width:100%
 }
+::ng-deep .mat-app-background {
+  background-color: #fff !important;
+}

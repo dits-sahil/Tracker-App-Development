@@ -5,6 +5,7 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithCustomToken,
   signInWithEmailAndPassword,
   signOut,
@@ -117,6 +118,17 @@ export class AuthService {
       const token: any = await this.http.post('http://localhost:3000/getCustomToken', { uid: user.uid }).toPromise();
       await signInWithCustomToken(this.auth, token.customToken);
       // User signed in successfully
+    } catch (error) {
+      console.error('Error signing in with custom token:', error);
+      throw error;
+    }
+
+  }
+  async sendForgotPasswordEmail(email:string) {
+    try {
+      sendPasswordResetEmail(this.auth,email).then((item:any)=>{
+        console.log('item:', item)
+      })
     } catch (error) {
       console.error('Error signing in with custom token:', error);
       throw error;

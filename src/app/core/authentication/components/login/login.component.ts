@@ -6,6 +6,8 @@ import { FirebaseService } from '../../../../core/services/firebase.service';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { map } from 'rxjs';
 import { StorageService } from 'src/app/core/services/storage.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
 // import { AngularFireDatabase} from '@angular/fire/compat/database';
 @Component({
   selector: 'app-login',
@@ -22,7 +24,8 @@ export class LoginComponent implements OnInit {
     private readonly dbService: FirebaseService,
     private readonly toastrService: ToastrService,
     private storageService: StorageService,
-    private readonly router: Router
+    private readonly router: Router,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -66,6 +69,15 @@ export class LoginComponent implements OnInit {
       this.storageService.setStorage('user', finalData)
       this.router.navigate(['/', 'home']);
       this.toastrService.success('User logged in successfuly');
+    });
+  }
+
+  forgotPassword() {
+    const dialogRef = this.dialog.open(ForgotPasswordComponent, {
+      width: '40%',
+      disableClose: true,
+      data: {
+      }
     });
   }
 
