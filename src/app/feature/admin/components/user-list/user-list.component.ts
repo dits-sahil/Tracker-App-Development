@@ -6,19 +6,20 @@ import { userRoleConfig } from 'src/app/core/constant/User.config';
 import { ActionType } from 'src/app/core/constant/actionKeys';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { FirebaseService } from 'src/app/core/services/firebase.service';
+import { DetailComponent } from 'src/app/shared/components/detail/detail.component';
 import { AddUserComponent } from 'src/app/shared/components/dialogs/add-user/add-user.component';
 import { ConfirmBoxComponent } from 'src/app/shared/components/dialogs/confirm-box/confirm-box.component';
-
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss'],
 })
 export class UserListComponent {
-  columnHeader = { 'name': 'Name', 'email': 'Email', 'phoneNumber': 'Phone Number', 'noOfAssignments': 'No. of Assignments', 'role': 'User Type' , 'actions': 'Action' };
-  loggedInUserRole!:any
+  columnHeader = { 'name': 'Name', 'email': 'Email', 'phoneNumber': 'Phone Number', 'noOfAssignments': 'No. of Assignments', 'role': 'User Type', 'actions': 'Action' };
+  loggedInUserRole!: any
   users: any = []
-  constructor(public dialog: MatDialog, private dbService: FirebaseService, private authService:AuthService,private toastrService:ToastrService) { }
+  constructor(public dialog: MatDialog, private dbService: FirebaseService, private authService: AuthService, private toastrService: ToastrService) { }
   ngOnInit() {
     this.getUsersList();
     this.getLoggedInUserRole();
@@ -31,15 +32,15 @@ export class UserListComponent {
     return userRoleConfig
   }
 
-  getLoggedInUserRole(){
+  getLoggedInUserRole() {
     this.loggedInUserRole = this.authService.loggedInUserRole();
   }
-  createUser(evetType:string) {
+  createUser(evetType: string) {
     const dialogRef = this.dialog.open(AddUserComponent, {
       width: '40%',
       data: {
         evetType,
-        userRole:this.loggedInUserRole
+        userRole: this.loggedInUserRole
       }
     });
   }
@@ -48,8 +49,8 @@ export class UserListComponent {
       width: '40%',
       data: {
         id,
-        evetType:'update',
-        userRole:this.loggedInUserRole,
+        evetType: 'update',
+        userRole: this.loggedInUserRole,
       }
     })
   }
@@ -68,7 +69,7 @@ export class UserListComponent {
         items.role = userType
         return items
       })
-      this.users =dbData
+      this.users = dbData
     });
   }
   prepareActionType(actionData: { uid: any; }) {
@@ -85,8 +86,18 @@ export class UserListComponent {
     ];
   }
   getUserDetail(id: any) {
-    console.log('id:', id)
+    this.getUserData(id).subscribe(userData => {
+      const dialogRef = this.dialog.open(DetailComponent, {
+        width: '25%',
+        data: {
+          userData
+        }
+      });
+    });
 
+  }
+  getUserData(id: any): Observable<any> {
+    return this.dbService.getDataById('users', id);
   }
   openDeleteUserModal(id: any) {
     const dialogRef = this.dialog.open(ConfirmBoxComponent, {
@@ -97,10 +108,10 @@ export class UserListComponent {
       }
     });
   }
-  deleteUser(id:any){
-    this.dbService.delete('users',id)
-    this.dbService.delete('manager',id)
-    this.dbService.delete('regularUsers',id)
+  deleteUser(id: any) {
+    this.dbService.delete('users', id)
+    this.dbService.delete('manager', id)
+    this.dbService.delete('regularUsers', id)
     this.toastrService.success('User deleted successfully')
   }
 

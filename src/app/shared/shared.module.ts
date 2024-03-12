@@ -16,6 +16,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { CommonUsersTableComponent } from './components/common-users-table/common-users-table.component';
 import { CommonIconComponent } from './components/common-icon/common-icon.component';
 import { ConfirmBoxComponent } from './components/dialogs/confirm-box/confirm-box.component';
+import { DetailComponent } from './components/detail/detail.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ConfirmBoxComponent } from './components/dialogs/confirm-box/confirm-bo
     DashboardComponent,
     CommonUsersTableComponent,
     CommonIconComponent,
-    ConfirmBoxComponent
+    ConfirmBoxComponent,
+    DetailComponent
   ],
   imports: [
     CommonModule,
@@ -49,7 +51,8 @@ import { ConfirmBoxComponent } from './components/dialogs/confirm-box/confirm-bo
     DashboardComponent,
     AddUserComponent,
     CommonUsersTableComponent,
-    ConfirmBoxComponent
+    ConfirmBoxComponent,
+    DetailComponent
 
   ],
 })
