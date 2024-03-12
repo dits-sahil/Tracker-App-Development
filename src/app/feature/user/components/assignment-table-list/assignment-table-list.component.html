@@ -1,2 +1,10 @@
-<app-common-table [columnHeadings]="columnHeadings"></app-common-table>
-
+<div class="filter">
+    <app-common-select
+      [label]="'Status Filter'"
+      [control]="'statusfilter'"
+      [form]="statusFilterForm"
+      [List]="filter"
+      (selectedId)="statusFilter($event)"
+    ></app-common-select>
+</div>
+<app-common-table [columnHeadings]="columnHeadings" [dataSource]="dataSource"></app-common-table>

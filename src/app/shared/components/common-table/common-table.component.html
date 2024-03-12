@@ -8,10 +8,10 @@
         <div>
           <mat-icon>visibility</mat-icon>
         </div>
-        <div (click)="editRow()">
+        <div *ngIf="user.role !== 3">
           <mat-icon>edit</mat-icon>
         </div>
-        <div (click)="deleteRow(i)">
+        <div *ngIf="user.role !== 3">
           <mat-icon>delete_outline</mat-icon>
         </div>
       </div>
