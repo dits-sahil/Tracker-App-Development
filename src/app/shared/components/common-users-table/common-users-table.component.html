@@ -1,33 +1,34 @@
 <ng-template #dataexist>
-  <table  mat-table [dataSource]="tableData" class="mat-elevation-z8 mainTableLayout mb-0" >
-    <ng-container [matColumnDef]="columnName" *ngFor="let columnName of objectKeys(columnHeader)">
-      <th mat-header-cell *matHeaderCellDef>{{ columnHeader[columnName] }}</th>
-      <td mat-cell *matCellDef="let element; index as i">
+  <div class="userContent">
+    <table  mat-table [dataSource]="tableData" class="mat-elevation-z8 mainTableLayout mb-0" >
+      <ng-container [matColumnDef]="columnName" *ngFor="let columnName of objectKeys(columnHeader)">
+        <th mat-header-cell *matHeaderCellDef>{{ columnHeader[columnName] }}</th>
+        <td mat-cell *matCellDef="let element; index as i">
 
-        <div *ngIf="columnName == 'actions'; else loopData" >
-          <ng-container *ngFor="let items of element[columnName]">
-            <div *ngIf="items.actionType == actionType.key.DELETE">
-              <app-common-icon [name]="'delete'" [color]="'warn'" [matTooltip]="actionType.key.DELETE" class="dangerBtn" (action)="userDelete(items.uid)"></app-common-icon>
-            </div>
-            <div *ngIf="items.actionType == actionType.key.DETAIL">
-              <app-common-icon [color]="'primary'"  [name]="'info'" [matTooltip]="actionType.key.DETAIL" class="actionButton" (action)="showDetails(items.uid)" ></app-common-icon>
-            </div>
+          <div *ngIf="columnName == 'actions'; else loopData" class="actionModule">
+            <ng-container *ngFor="let items of element[columnName]">
+              <div *ngIf="items.actionType == actionType.key.DELETE">
+                <app-common-icon [name]="'delete'" [color]="'warn'" [matTooltip]="actionType.key.DELETE" class="dangerBtn" (action)="userDelete(items.uid)"></app-common-icon>
+              </div>
+              <div *ngIf="items.actionType == actionType.key.DETAIL">
+                <app-common-icon [color]="'primary'"  [name]="'info'" [matTooltip]="actionType.key.DETAIL" class="actionButton" (action)="showDetails(items.uid)" ></app-common-icon>
+              </div>
+              <div *ngIf="items.actionType == actionType.key.UPDATE">
+                <app-common-icon  [matTooltip]="actionType.key.UPDATE" class="actionButton" [name]="'edit'" [color]="'success'" (action)="updateUserDetail(items.uid)" ></app-common-icon>
+              </div>
+            </ng-container>
+          </div>
 
-            <div *ngIf="items.actionType == actionType.key.UPDATE">
-              <app-common-icon  [matTooltip]="actionType.key.UPDATE" class="actionButton" [name]="'update'" [color]="'accent'" (action)="updateUserDetail(items.uid)" ></app-common-icon>
-            </div>
+          <ng-template #loopData>
+            {{element[columnName] || 'N/A'}}
+          </ng-template>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="objectKeys(columnHeader)"></tr>
+      <tr mat-row *matRowDef="let row; columns: objectKeys(columnHeader); let i=index"></tr>
+    </table>
+  </div>
 
-          </ng-container>
-        </div>
-
-        <ng-template #loopData>
-          {{element[columnName] || 'N/A'}}
-        </ng-template>
-      </td>
-    </ng-container>
-    <tr mat-header-row *matHeaderRowDef="objectKeys(columnHeader)"></tr>
-    <tr mat-row *matRowDef="let row; columns: objectKeys(columnHeader); let i=index"></tr>
-  </table>
 
 </ng-template>
 <div class="card" *ngIf="tableData.length == 0;  else dataexist">

@@ -15,6 +15,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { CommonUsersTableComponent } from './components/common-users-table/common-users-table.component';
 import { CommonIconComponent } from './components/common-icon/common-icon.component';
+import { ConfirmBoxComponent } from './components/dialogs/confirm-box/confirm-box.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { CommonIconComponent } from './components/common-icon/common-icon.compon
     BaseLayoutComponent,
     DashboardComponent,
     CommonUsersTableComponent,
-    CommonIconComponent
+    CommonIconComponent,
+    ConfirmBoxComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +48,8 @@ import { CommonIconComponent } from './components/common-icon/common-icon.compon
     BaseLayoutComponent,
     DashboardComponent,
     AddUserComponent,
-    CommonUsersTableComponent
+    CommonUsersTableComponent,
+    ConfirmBoxComponent
 
   ],
 })
