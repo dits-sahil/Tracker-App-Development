@@ -5,6 +5,8 @@ import { ToastrService } from 'ngx-toastr';
 import { FirebaseService } from '../../../../core/services/firebase.service';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
+import { StorageService } from 'src/app/core/services/storage.service';
+import { userRoleConfig } from 'src/app/core/constant/User.config';
 
 @Component({
   selector: 'app-registration',
@@ -25,6 +27,7 @@ export class RegistrationComponent implements OnInit {
     private readonly dataService: FirebaseService,
     private readonly toastrService: ToastrService,
     private readonly router: Router,
+    private storageService:StorageService,
     private validationService: ValidationService,
   ) {}
 
@@ -64,11 +67,15 @@ export class RegistrationComponent implements OnInit {
     this.firebaseService
       .createUser(user)
       .then((res:any) => {
-        let uid = res.user.uid
+        let registerUser:any = res.user;
+        let uid:any = registerUser.uid;
         delete user.password
-        user = {...user,uid}
-        this.dataService.set('users',res.user.uid,user)
-        localStorage.setItem('user',JSON.stringify(user))
+        let timeStamp = Date.now()
+        let dataNode = user.role == userRoleConfig.MANAGER ? 'manager' : 'regularUsers'
+        user = {...user,uid,createdOn:timeStamp,createdBy:uid}
+        this.dataService.set('users',uid,user)
+        this.dataService.set(dataNode,uid,user)
+        this.storageService.setStorage('user',JSON.stringify(user))
         this.toastrService.success('User registred successfuly');
         this.router.navigateByUrl('home');
       })

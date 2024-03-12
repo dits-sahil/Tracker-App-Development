@@ -25,7 +25,7 @@ export class SidebarComponent {
 
   constructor(private eventService: SharedService, private router: Router, private storageService: StorageService, private route: ActivatedRoute) {
     let profile: any = storageService.getStorage(StorageKeys.keys.USERDETAIL);
-    profile = JSON.parse(profile)
+profile = JSON.parse(profile)
     this.role = profile.role
   }
 

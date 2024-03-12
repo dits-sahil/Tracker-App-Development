@@ -17,6 +17,7 @@ import { AssignmentStatusComponent } from './components/assignment-status/assign
 import { CommonUsersTableComponent } from './components/common-users-table/common-users-table.component';
 import { CommonIconComponent } from './components/common-icon/common-icon.component';
 import { FilterComponent } from './components/filter/filter.component';
+import { ConfirmBoxComponent } from './components/dialogs/confirm-box/confirm-box.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { FilterComponent } from './components/filter/filter.component';
     AssignmentStatusComponent,
     CommonUsersTableComponent,
     CommonIconComponent,
-    FilterComponent
+    FilterComponent,
+    ConfirmBoxComponent
   ],
   imports: [
     CommonModule,
@@ -52,7 +54,9 @@ import { FilterComponent } from './components/filter/filter.component';
     AddUserComponent,
     AssignmentStatusComponent,
     CommonUsersTableComponent,
-    FilterComponent
+    FilterComponent,
+    ConfirmBoxComponent
+
   ],
 })
 export class SharedModule { }

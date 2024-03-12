@@ -1,10 +1,9 @@
-<div class="row">
-  <div class="col-md-12 text-end pb-2">
-    <div class="">
-
-      <app-common-button (click)="openUserModal()">Add user</app-common-button>
-    </div>
-  </div>
+<div class="userListWrapper">
+        <div class="userDetails">
+          <h3>User List</h3>
+          <app-common-button (click)="openUserModal('create')"> + Add User</app-common-button>
+        </div>
+        <div class="userEvent">
+          <app-common-users-table (viewDetail)="getUserDetail($event)" (updateDetail)="updateUserDetail($event)" [label]="'No data availble.'" (deleteUser)="deleteUser($event)" [tableData]="users" [columnHeader]="columnHeader"></app-common-users-table>
+        </div>
 </div>
-
-<app-common-users-table (viewDetail)="getUserDetail($event)" (updateDetail)="updateUserDetail($event)" [label]="'No data availble.'" (deleteUser)="deleteUser($event)" [tableData]="users" [columnHeader]="columnHeader"></app-common-users-table>

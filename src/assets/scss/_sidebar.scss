@@ -177,11 +177,12 @@
         li {
           border-bottom: 1px solid var(--border-color);
           position: relative;
+          cursor: pointer;
           &:hover,
           &:active {
             a {
-              color: var(--primary-color);
-              background: var(--light-hover-color);
+              color: #fff;
+              background: var(--primary-color);
             }
           }
           &:last-child {
@@ -189,7 +190,7 @@
           }
           &.active {
             a {
-              color: var(--light-color);
+              color: #fff;
               background: var(--primary-color);
             }
           }

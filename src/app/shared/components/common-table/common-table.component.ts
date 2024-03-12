@@ -25,7 +25,7 @@ export class CommonTableComponent {
 
   constructor(private router: Router, private storageService: StorageService,public dialog: MatDialog) {
     let profile: any = storageService.getStorage(StorageKeys.keys.USERDETAIL);
-    profile = JSON.parse(profile)
+profile = JSON.parse(profile)
     this.role = profile.role
   }
 
@@ -35,6 +35,7 @@ export class CommonTableComponent {
   @ViewChild(MatSort) sort!: MatSort;
   @Input() columnHeadings: any;
   @Input() dataSource: any;
+  @Input() label: any;
   // dataSource= data;
   role: any;
   user: any;

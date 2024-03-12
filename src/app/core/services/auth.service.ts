@@ -9,7 +9,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
-import {  getFirestore } from 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore';
 import { getFunctions } from 'firebase/functions';
 import { environment } from 'src/environments/environment';
 import { getMessaging, getToken, onMessage } from 'firebase/messaging';
@@ -19,6 +19,7 @@ import { Observable, Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { StorageKeys } from '../constant/storageKeys';
 import { HttpClient } from '@angular/common/http';
+import { StorageService } from './storage.service';
 
 const firebaseConfig = environment.firebase;
 
@@ -32,10 +33,10 @@ export class AuthService {
   functions = getFunctions(this.app, 'europe-west1');
   private messageSubject = new Subject<any>();
 
-
-  constructor(private readonly dbService: FirebaseService, private readonly toastrService: ToastrService, private router:Router,private http: HttpClient) {
+  constructor(private readonly dbService: FirebaseService, private readonly toastrService: ToastrService, private router: Router, private http: HttpClient) {
     onAuthStateChanged(this.auth, async (user: any) => {
       if (user) {
+
         let deviceToken: any;
         try {
           const token = await this.requestPermission();
@@ -86,6 +87,11 @@ export class AuthService {
     }
   }
 
+  loggedInUserRole(){
+    let user: any = JSON.parse(localStorage.getItem(StorageKeys.keys.USERDETAIL) || '')
+    return user.role
+
+  }
   async updateDeviceToken(userId: string, deviceToken: string) {
     this.dbService.update(`users`, userId, { deviceToken }).then((res: any) => {
     })
@@ -105,17 +111,16 @@ export class AuthService {
     return this.messageSubject.asObservable();
   }
 
- async signInWithToken(){
-    let user:any = JSON.parse(localStorage.getItem(StorageKeys.keys.USERDETAIL) || '')
+  async signInWithToken() {
+    let user: any = JSON.parse(localStorage.getItem(StorageKeys.keys.USERDETAIL) || '')
+    try {
+      const token: any = await this.http.post('http://localhost:3000/getCustomToken', { uid: user.uid }).toPromise();
+      await signInWithCustomToken(this.auth, token.customToken);
+      // User signed in successfully
+    } catch (error) {
+      console.error('Error signing in with custom token:', error);
+      throw error;
+    }
 
-      try {
-        const token:any  = await this.http.post('http://localhost:3000/getCustomToken', { uid:user.uid }).toPromise();
-        await signInWithCustomToken(this.auth,token.customToken);
-        // User signed in successfully
-      } catch (error) {
-        console.error('Error signing in with custom token:', error);
-        throw error;
-      }
-
-}
+  }
 }

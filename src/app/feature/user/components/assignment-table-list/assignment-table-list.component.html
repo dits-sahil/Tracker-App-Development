@@ -10,4 +10,7 @@
   (secondFilter)="priorityFilter($event)">
 </app-filter>
 
-<app-common-table [columnHeadings]="columnHeadings" [dataSource]="dataSource"></app-common-table>
+  <div class="userEvent">
+    <app-common-users-table (viewDetail)="getAssignmentDetail($event)" [label]="'No data availble.'" [tableData]="dataSource" [columnHeader]="columnHeadings"></app-common-users-table>
+  </div>
+

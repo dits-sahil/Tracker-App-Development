@@ -8,7 +8,6 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./view-assignment.component.scss']
 })
 export class ViewAssignmentComponent {
-// data: any;
 
 constructor(private route: ActivatedRoute,public dialogRef: MatDialogRef<ViewAssignmentComponent>,
   @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -16,9 +15,6 @@ constructor(private route: ActivatedRoute,public dialogRef: MatDialogRef<ViewAss
   }
 
 ngOnInit() {
-    // this.data = history.state.data;
-    // const data = this.route.snapshot.params['index']
-    // console.log('data',this.data)
 
 }
 

@@ -20,7 +20,9 @@ export class CommonUsersTableComponent {
   public get actionType(): any {
     return Actions
   }
-  ngOnInIt(){}
+  ngOnInIt(){
+
+  }
 
   cancelApp(item: any) {
 
