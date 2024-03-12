@@ -18,7 +18,7 @@ export class CommonSelectComponent {
   constructor() { }
 
   getDropDownValue(id: string) {
-
+    debugger
     if (this.payload) {
       this.payload.id = id;
       this.selectedId.emit(this.payload)

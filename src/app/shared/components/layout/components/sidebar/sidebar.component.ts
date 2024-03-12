@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { SharedService } from 'src/app/core/services/shared.service';
 import { StorageService } from 'src/app/core/services/storage.service';
 
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -25,6 +26,7 @@ export class SidebarComponent {
 
   constructor(private eventService: SharedService, private router: Router, private storageService: StorageService, private route: ActivatedRoute) {
     let profile: any = storageService.getStorage(StorageKeys.keys.USERDETAIL);
+    debugger
     profile = JSON.parse(profile)
     this.role = profile.role
   }

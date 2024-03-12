@@ -13,9 +13,10 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class AppComponent {
   constructor(
-    private auth:FirebaseService,
+    private auth: FirebaseService,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
+<<<<<<< Updated upstream
     private readonly router: Router){
       this.matIconRegistry.addSvgIcon(
         `bank-name-icon`,
@@ -51,6 +52,42 @@ export class AppComponent {
     payload=''
   ngOnInit(){
 
+=======
+    private readonly router: Router) {
+    this.matIconRegistry.addSvgIcon(
+      `bank-name-icon`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        './assets/icons/bank.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      `bank-branch-icon`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        './assets/icons/bank-branch.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      `account-holder-icon`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        './assets/icons/account-holder.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      `account-holder-icon`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        './assets/icons/account-holder.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      `account-number-icon`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        './assets/icons/account-number.svg'
+      )
+    );
+  }
+  payload = ''
+  ngOnInit() {
+>>>>>>> Stashed changes
   }
   title = 'tracker-app';
 }

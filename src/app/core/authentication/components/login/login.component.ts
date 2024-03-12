@@ -59,15 +59,34 @@ export class LoginComponent implements OnInit {
 
  async getUserData(user:any){
     let userId = user.user.uid
-    let accessToken:any = user.user.accessToken
-    this.dbService.getDataById('users',userId).subscribe((res:any)=>{
-      let finalData = res
+    this.dbService.getAll(`users/${userId}`).subscribe((data: any) => {
+      let finalData = this.dbService.convertToObject(data)
+      let accessToken = user.user.accessToken
       finalData = { ...finalData, accessToken }
       this.storageService.setStorage('user', finalData)
       this.router.navigate(['/', 'home']);
       this.toastrService.success('User logged in successfuly');
     });
   }
+  // listAllUsers(nextPageToken?: string): void {
+  //   this.afAuth.auth
+  //     .listUsers(1000, nextPageToken)
+  //     .subscribe(
+  //       (listUsersResult: any) => {
+  //         listUsersResult.forEach((userRecord: any) => {
+  //           console.log('user', userRecord.toJSON());
+  //         });
+  //         if (listUsersResult.pageToken) {
+  //           // List next batch of users.
+  //           this.listAllUsers(listUsersResult.pageToken);
+  //         }
+  //       },
+  //       (error: any) => {
+  //         console.error('Error listing users:', error);
+  //       }
+  //     );
+  // }
+// }
 
 
 }

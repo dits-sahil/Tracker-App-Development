@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 import { map, tap } from 'rxjs';
-import { getMessaging, getToken } from "firebase/messaging";
-import { environment } from 'src/environments/environment';
-
 
 @Injectable({
   providedIn: 'root'
@@ -75,6 +72,7 @@ export class FirebaseService {
   }
 
   convertToObject(data: any) {
+    this.delete
     const result: any = {};
     data.forEach((item: any) => {
       result[item.key] = item.value;

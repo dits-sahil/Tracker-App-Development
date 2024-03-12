@@ -2,4 +2,16 @@
 <div *ngIf="showPopupBox" class="popupWrapper">
     <m-manage-assignment (closeDialog)="closeDialog($event)"></m-manage-assignment>
 </div>
-<app-common-table [columnHeadings]="columnHeadings"></app-common-table>
+<app-common-table [columnHeadings]="columnHeadings" [dataSource]="users"></app-common-table>
+<table id="customers">
+    <tr>
+        <th>Company</th>
+        <th>Company</th>
+
+    </tr>
+    <tr  *ngFor="let user of users">
+        <td>{{user}}</td>
+        {{user.value.name}} {{user | json}}
+    </tr>
+
+</table>

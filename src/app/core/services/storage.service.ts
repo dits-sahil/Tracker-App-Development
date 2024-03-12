@@ -13,7 +13,7 @@ export class StorageService {
 
   }
 
-  getStorage(key: string) {
+    getStorage(key: string) {
     let data = localStorage.getItem(key) || '';
     return data
   }

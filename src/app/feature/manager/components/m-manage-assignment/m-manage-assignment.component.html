@@ -25,11 +25,11 @@
                     </div>
                 </div>
             </div>
- 
+
             <div class="formGroup">
                 <div class="formControl">
-                    <app-common-select [label]="'Status'" [control]="'status'" [form]="assginmentForm"
-                        [List]="StatusList" [error]="getErrorValidator('status', 'status')"
+                    <app-common-select [label]="'Status'" [control]="'status'" value='status.name'
+                        [form]="assginmentForm" [List]="StatusList" [error]="getErrorValidator('status', 'status')"
                         (selectedId)="getPriority($event)"></app-common-select>
                 </div>
             </div>
@@ -42,15 +42,17 @@
             </div>
             <div class="formGroup">
                 <div class="formControl">
-                    <app-common-select [label]="'Assigned To'" [control]="'assignedTo'" [form]="assginmentForm"
-                        [List]="prioritiesList" [error]="getErrorValidator('assignedTo', 'assignedTo')"
-                        (selectedId)="getPriority($event)"></app-common-select>
+                    <app-common-select *ngFor="let user of users" [label]="'Assigned To'" [control]="'assignedTo'"
+                        [form]="assginmentForm" [List]="users" [error]="getErrorValidator('assignedTo', 'assignedTo')"
+                        (selectedId)="getPriority($event)"> {{user.value.name | json}}>> {{user |
+                        json}}</app-common-select>
                 </div>
+
             </div>
             <div class="formGroup">
                 <mat-form-field class="new-form-field">
                     <mat-label>End By</mat-label>
-                    <input lass="new-form-field" matInput name="endBy" [matDatepicker]="endBy">
+                    <input class="new-form-field" matInput name="endBy" [matDatepicker]="endBy" formControlName="endBy">
                     <mat-datepicker-toggle matIconSuffix [for]="endBy"></mat-datepicker-toggle>
                     <mat-datepicker #endBy></mat-datepicker>
                 </mat-form-field>
@@ -60,24 +62,23 @@
                 <mat-error *ngIf="assginmentForm.controls['endBy']?.errors?.['required']">endBy On is
                     required</mat-error>
             </div>
-            <div class="formGroup">
+            <!-- <div class="formGroup">
                 <mat-form-field class="new-form-field">
                     <mat-label>Created On</mat-label>
-                    <input lass="new-form-field" matInput name="createdOn" [matDatepicker]="createdOn">
+                    <input lass="new-form-field" matInput name="createdOn" formControlName="createdOn"  [matDatepicker]="createdOn">
                     <mat-datepicker-toggle matIconSuffix [for]="createdOn"></mat-datepicker-toggle>
                     <mat-datepicker #createdOn></mat-datepicker>
                 </mat-form-field>
-            </div>
-            <div class="formControl"
+            </div> -->
+            <!-- <div class="formControl"
                 *ngIf="assginmentForm.controls['createdOn']?.invalid && assginmentForm.get('createdOn')?.touched">
                 <mat-error *ngIf="assginmentForm.controls['createdOn']?.errors?.['required']">created On is
                     required</mat-error>
-            </div>
+            </div> -->
 
             <div class="formGroup fulWidth">
                 <div class="dFlex gap-1 justify-content">
-                    <app-common-button [width]="'180px'" (click)="addAssignment(EdituserData)"
-                        [disabled]="showTimer">Create
+                    <app-common-button [width]="'180px'" (click)="addAssignment()" [disabled]="showTimer">Create
                         Assignment</app-common-button>
                     <!-- <r-button [width]="'180px'" (onClick)=" AddUser(EdituserData)" [disabled]="showTimer"> -->
                     <!-- {{EdituserData ? 'Update User' : 'Add User'}} -->
@@ -89,4 +90,7 @@
             </div>
         </form>
     </mat-card>
+
+    <!-- <div *ngFor="let users of users">>>>>>> {{users | json}}</div> -->
 </div>
+

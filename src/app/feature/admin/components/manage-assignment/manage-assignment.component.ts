@@ -6,6 +6,7 @@ import { FirebaseService } from 'src/app/core/services/firebase.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { getYear } from 'date-fns';
 import locale from 'date-fns/locale/en-US';
+import { CONSTANTS } from 'src/app/core/utils/app.-constants';
 
 @Component({
   selector: 'popup-manage-assignment',
@@ -61,21 +62,6 @@ export class ManageAssignmentComponent {
   getErrorValidator(value: any, label: string) {
     return this.validationService.getErrorValidationMessages(value, this.assginmentForm, label);
   }
-  
-  options: DatepickerOptions = {
-    minYear: getYear(new Date()) - 80, // minimum available and selectable year
-    maxYear: getYear(new Date()) + 30, // maximum available and selectable year
-    maxDate: new Date(),
-    placeholder: 'Date of birth', // placeholder in case date model is null | undefined, example: 'Please pick a date'
-    format: 'LLLL do yyyy', // date format to display in input
-    formatTitle: 'LLLL yyyy',
-    formatDays: 'EEEEE',
-    firstCalendarDay: 0, // 0 - Sunday, 1 - Monday
-    locale: locale, // date-fns locale
-    position: 'bottom',
-    inputClass: '', // custom input CSS class to be applied
-    calendarClass: 'datepicker-default', // custom datepicker calendar CSS class to be applied
-    scrollBarColor: '#dfe3e9', // in case you customize you theme, here you define scroll bar color,
-  };
+
 
 }

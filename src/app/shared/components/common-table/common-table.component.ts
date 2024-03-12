@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChange } from '@angular/core';
 
 const data: any[] = [
   {index: 1, title: 'Hydrogen', description: 'Hydrogen listing', dueDate: '07/03/2024', priority: 1.0079, status: 'Pending', name: 'Hydrogen', email: 'hydrogen@gmail.com', phoneNo: 56453425223, noOfAssignments: 4},
@@ -21,8 +21,12 @@ export class CommonTableComponent {
   role: any;
   user: any;
 
-
+  ngOnChanges(simple: SimpleChange) {
+    debugger
+  }
   ngOnInit(){
+    debugger
+    this.dataSource    
     this.user = JSON.parse(localStorage.getItem('user')!);
     this.role = localStorage.getItem('role');
   }
