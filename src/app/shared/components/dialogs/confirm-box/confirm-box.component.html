@@ -1,1 +1,11 @@
-<p>confirm-box works!</p>
+<div class="confirmWrapper">
+  <div class="headerUserlist">
+    <h1>Confirm</h1>
+    <mat-icon (click)="closeDialog()">cancel</mat-icon>
+  </div>
+  <p>Are you sure you want to perform this action?</p>
+  <div class="d-flex sumbitElement">
+    <button class="primaryButton" (click)="closeDialog(true)">Yes</button>
+    <button class="primaryButton" (click)="closeDialog(false)">No</button>
+  </div>
+</div>

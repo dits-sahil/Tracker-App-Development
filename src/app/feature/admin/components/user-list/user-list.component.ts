@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { FirebaseApp } from '@angular/fire/app';
 import { MatDialog } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 import { userRoleConfig } from 'src/app/core/constant/User.config';
 import { ActionType } from 'src/app/core/constant/actionKeys';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { FirebaseService } from 'src/app/core/services/firebase.service';
 import { AddUserComponent } from 'src/app/shared/components/dialogs/add-user/add-user.component';
+import { ConfirmBoxComponent } from 'src/app/shared/components/dialogs/confirm-box/confirm-box.component';
 
 @Component({
   selector: 'app-user-list',
@@ -16,7 +18,7 @@ export class UserListComponent {
   columnHeader = { 'name': 'Name', 'email': 'Email', 'phoneNumber': 'Phone Number', 'noOfAssignments': 'No. of Assignments', 'role': 'User Type' , 'actions': 'Action' };
   loggedInUserRole!:any
   users: any = []
-  constructor(public dialog: MatDialog, private dbService: FirebaseService, private authService:AuthService) { }
+  constructor(public dialog: MatDialog, private dbService: FirebaseService, private authService:AuthService,private toastrService:ToastrService) { }
   ngOnInit() {
     this.getUsersList();
     this.getLoggedInUserRole();
@@ -28,6 +30,7 @@ export class UserListComponent {
   get userRole() {
     return userRoleConfig
   }
+
   getLoggedInUserRole(){
     this.loggedInUserRole = this.authService.loggedInUserRole();
   }
@@ -68,7 +71,7 @@ export class UserListComponent {
       this.users =dbData
     });
   }
-  private prepareActionType(actionData: { uid: any; }) {
+  prepareActionType(actionData: { uid: any; }) {
     return [
       {
         ...actionData, actionType: this.actionType.DELETE
@@ -85,7 +88,20 @@ export class UserListComponent {
     console.log('id:', id)
 
   }
-  deleteUser(id: any) {
-    console.log('id:', id)
+  openDeleteUserModal(id: any) {
+    const dialogRef = this.dialog.open(ConfirmBoxComponent, {
+      width: '25%',
+    }).afterClosed().subscribe(data => {
+      if (data == true) {
+        this.deleteUser(id)
+      }
+    });
   }
+  deleteUser(id:any){
+    this.dbService.delete('users',id)
+    this.dbService.delete('manager',id)
+    this.dbService.delete('regularUsers',id)
+    this.toastrService.success('User deleted successfully')
+  }
+
 }
