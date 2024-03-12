@@ -31,7 +31,7 @@ export class UserListComponent {
   getLoggedInUserRole(){
     this.loggedInUserRole = this.authService.loggedInUserRole();
   }
-  openUserModal(evetType:string) {
+  createUser(evetType:string) {
     const dialogRef = this.dialog.open(AddUserComponent, {
       width: '40%',
       data: {
@@ -40,8 +40,18 @@ export class UserListComponent {
       }
     });
   }
+  updateUserDetail(id: any) {
+    const dialogRef = this.dialog.open(AddUserComponent, {
+      width: '40%',
+      data: {
+        id,
+        evetType:'update',
+        userRole:this.loggedInUserRole,
+      }
+    })
+  }
   getUsersList() {
-    this.dbService.getAll('users', 'role', 1, 'notEqualTo').subscribe((data: any) => {
+    this.dbService.getAll('users', 'role', userRoleConfig.ADMIN, 'notEqualTo').subscribe((data: any) => {
       let dbData = data.map((items: any, index: any) => {
         delete items.deviceToken
         delete items.accessToken
@@ -55,11 +65,9 @@ export class UserListComponent {
         items.role = userType
         return items
       })
-      this.users = dbData
-      console.log(' this.users:',  this.users)
+      this.users =dbData
     });
   }
-
   private prepareActionType(actionData: { uid: any; }) {
     return [
       {
@@ -73,26 +81,9 @@ export class UserListComponent {
       }
     ];
   }
-
   getUserDetail(id: any) {
     console.log('id:', id)
 
-  }
-  updateUserDetail(id: any) {
-    const dialogRef = this.dialog.open(AddUserComponent, {
-      width: '40%',
-      data: {
-        evetType:'update',
-        userRole:this.loggedInUserRole,
-        updateAction: this.submitUpdatedDetails.bind(this)
-      }
-    })
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
-  submitUpdatedDetails(){
-    console.log('sds');
   }
   deleteUser(id: any) {
     console.log('id:', id)

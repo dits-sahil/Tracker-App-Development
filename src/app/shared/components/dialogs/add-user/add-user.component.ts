@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, ElementRef, Inject, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { userRoleConfig } from 'src/app/core/constant/User.config';
@@ -9,6 +9,8 @@ import { ValidationService } from 'src/app/core/services/validation.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { finalize } from 'rxjs/operators';
 import { StorageKeys } from 'src/app/core/constant/storageKeys';
+import { initializeApp } from 'firebase-admin';
+import { StorageService } from 'src/app/core/services/storage.service';
 
 
 @Component({
@@ -38,14 +40,47 @@ export class AddUserComponent {
   constructor(
     private storage: AngularFireStorage,
     private validationService: ValidationService,
-    private readonly firebaseService: AuthService,
-    private readonly dataService: FirebaseService,
-    private readonly toastrService: ToastrService,
+    private firebaseService: AuthService,
+    private dbService: FirebaseService,
+    private toastrService: ToastrService,
+    private storageService: StorageService,
     public dialogRef: MatDialogRef<AddUserComponent>,
+    private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
-    this.addUserForm = new FormGroup({
+    this.getFormType()
+  }
+
+  get userRoleConfig() {
+    return userRoleConfig
+  }
+  getFormType() {
+    if (this.data.evetType == 'update') {
+      this.initializeForm();
+      this.addUserForm.controls['email'].disable();
+      this.getUserData()
+    } else {
+      this.initializeForm();
+    }
+  }
+
+  getUserData() {
+    this.dbService.getDataById('users', this.data.id).subscribe((res: any) => {
+      let user = res
+      this.addUserForm.patchValue({
+        name: user.name,
+        email: user.email,
+        gender: user.gender,
+        role: user.role,
+        phoneNumber: user.phoneNumber,
+        profileImage: user.profileImage,
+      })
+      this.imageUrl = user.profileImage
+    });
+  }
+  initializeForm() {
+    this.addUserForm = this.formBuilder.group({
       name: new FormControl<string>('', [
         Validators.required,
         Validators.maxLength(100),
@@ -69,9 +104,7 @@ export class AddUserComponent {
     });
   }
 
-  get userRoleConfig() {
-    return userRoleConfig
-  }
+
   getErrorValidator(value: any, label: string) {
     return this.validationService.getErrorValidationMessages(value, this.addUserForm, label);
   }
@@ -83,8 +116,9 @@ export class AddUserComponent {
     this.addUserForm.get('role')?.setValue(val);
   }
 
-  async createUser() {
+  async userAction() {
     if (this.addUserForm.invalid) {
+      this.addUserForm.markAllAsTouched();
       return;
     }
     let formData: any = this.addUserForm.value;
@@ -99,15 +133,17 @@ export class AddUserComponent {
     }
   }
 
-  closeDialog(data?:any) {
+  closeDialog(data?: any) {
     this.dialogRef.close(data);
   }
 
   uploadFile(event: any) {
-
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0] as File;
       this.fileName = file.name
+      const reader = new FileReader();
+      reader.onload = (e) => (this.imageUrl = reader.result);
+      reader.readAsDataURL(file);
       this.addUserForm.get('profileImage')?.setValue(file);
     }
   }
@@ -130,7 +166,7 @@ export class AddUserComponent {
       finalize(() => {
         fileRef.getDownloadURL().subscribe((url) => {
           this.addUserForm.get('profileImage')?.setValue(url);
-          this.addUserOnF(this.addUserForm.value);
+          this.saveOrUpdateFn(this.addUserForm.value);
         });
       })
     ).subscribe();
@@ -139,18 +175,34 @@ export class AddUserComponent {
   addUserOnF(user: any) {
     this.firebaseService.createUser({ email: user.email, password: "abc123" }).then(async (res: any) => {
       this.firebaseService.signInWithToken();
-      let loggedInUser: any = JSON.parse(localStorage.getItem(StorageKeys.keys.USERDETAIL) || '')
+      let loggedInUser: any = JSON.parse(this.storageService.getStorage(StorageKeys.keys.USERDETAIL) || '')
       let registerUser: any = res.user;
       let uid: any = registerUser.uid;
       let timeStamp = Date.now()
       let dataNode = user.role == userRoleConfig.MANAGER ? 'manager' : 'regularUsers'
       user = { ...user, uid, createdOn: timeStamp, createdBy: loggedInUser.uid }
-      this.dataService.set('users', uid, user)
-      this.dataService.set(dataNode, uid, user)
+      this.dbService.set('users', uid, user)
+      this.dbService.set(dataNode, uid, user)
       this.toastrService.success('User added successfully');
     }).catch((err: any) => {
       console.log('err:', err)
     });
+  }
+
+  updateUserFn(user:any) {
+    let dataNode = user.role == userRoleConfig.MANAGER ? 'manager' : 'regularUsers'
+    let uid = this.data.id
+    this.dbService.update('users', uid, user)
+    this.dbService.update(dataNode, uid, user)
+    this.toastrService.success('User updated successfully');
+  }
+
+  saveOrUpdateFn(user: any) {
+    if (this.data.evetType != 'update') {
+      this.addUserOnF(user)
+    } else {
+      this.updateUserFn(user)
+    }
   }
 
 

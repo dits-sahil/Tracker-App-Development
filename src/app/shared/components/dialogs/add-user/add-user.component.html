@@ -1,7 +1,7 @@
 <div class="container">
   <div class="headerUserlist">
     <h1>{{data.evetType == 'create' ? 'Add User' : 'Update user'}}</h1>
-    <mat-icon (click)="closeDialog('i am in')">cancel</mat-icon>
+    <mat-icon (click)="closeDialog()">cancel</mat-icon>
 </div>
 
   <form [formGroup]="addUserForm">
@@ -53,13 +53,15 @@
           <div class="avatar-edit">
               <input type='file' id="imageUpload" max-size="2000" #fileInput (change)="uploadFile($event)" accept=".jpg, .jpeg, .png" />
           </div>
-          <button type="submit" mat-flat-button color="primary" (click)="fileInput.click()">Upload Image</button>
-          <div class="imagePath">
-              <h3 class="m-0"></h3>{{fileName}}
-          </div>
+          <button type="submit" class="primaryButton" (click)="fileInput.click()">Upload Image</button>
+          <h3 class="m-0"></h3>{{fileName}}
       </div>
+      <div class="imagePath" [ngClass]="imageUrl" v-if="imageUrl != undefined">
+        <img [src]="imageUrl" alt="" >
+    </div>
   </div>
-  {{data | json}}
-    <button mat-flat-button color="primary" (click)="data.updateAction()">{{data.evetType}}</button>
+  <div class="sumbitData">
+    <button type="submit"  class="primaryButton" (click)="userAction()">Save</button>
+  </div>
   </form>
 </div>

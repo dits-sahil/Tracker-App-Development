@@ -4,6 +4,8 @@
 @import "../src/assets/scss/header";
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "../src/app/shared/components/common-users-table/common-users-table.component.scss";
+@import "../src/app/shared/components/common-input/common-input.component.scss";
+@import "../src/app/shared/components/common-button/common-button.component.scss";
 html, body { height: 100%; }
 body {
   margin: 0;
