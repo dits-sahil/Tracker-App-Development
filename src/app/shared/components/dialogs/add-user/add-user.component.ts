@@ -153,8 +153,5 @@ export class AddUserComponent {
     });
   }
 
-  clickedfn() {
-    this.data.updateAction();
-  }
 
 }
