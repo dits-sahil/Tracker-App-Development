@@ -16,18 +16,45 @@ export class FirebaseService {
     // this.dataRef = db.list(this.dbPath);
   }
 
-  getAll(url: any): any {
+  getAll(url: any, filterKey?: any, filterValue?: any, type?: any): any {
     return this.db.list(url).snapshotChanges().pipe(
-      map((changes: any) =>
-        changes.map((c: any) => ({
+      map(changes =>
+        changes.map(c => ({
           key: c.payload.key,
           value: c.payload.val()
         }))
-      )
-
+      ),
+      map(items => {
+        let data;
+        if (filterKey && filterValue && type == 'notEqualTo') {
+          data = items.filter((item: any) => item.value[filterKey] !== filterValue);
+        } else if (filterKey && filterValue && type == 'equalTo') {
+          data = items.filter((item: any) => item.value[filterKey] == filterValue);
+        } else {
+          data = items;
+        }
+        data = this.convertToObject(data)
+        data = this.convertObjectIntoArry(data)
+        return data
+      }),
     );
   }
-
+  getDataById(url: string, id: string) {
+    return this.db.list(`${url}/${id}`).snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c => {
+          let data = {
+            key: c.payload.key,
+            value: c.payload.val()
+          }
+          return data
+        }
+        ),
+      ),
+      map(data => {
+        return this.convertToObject(data);
+      }))
+  }
   create(url: string, data: any): any {
     return this.db.list(url).push(data);
   }
@@ -55,5 +82,13 @@ export class FirebaseService {
     return result;
   }
 
+  convertObjectIntoArry(dbData: any) {
+    let array: any = []
+    for (const item in dbData) {
+      dbData[item].id = item
+      array = [...array, dbData[item]]
+    }
+    return array
+  }
 
 }
