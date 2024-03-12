@@ -1,0 +1,23 @@
+.userListWrapper{
+  background-color: #f7f7f7f7;
+  // box-shadow: 2px 2px 10px rgba(0 0 0 / 30%);
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 5px;
+  height: 100%;
+  min-height: calc(100vh - 120px) !important;
+  .userDetails{
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0 30px;
+    align-items: center;
+    width: 100%;
+    h3{
+      margin-bottom:  0 !important;
+      font-weight: 700;
+      letter-spacing: 1px;
+      font-size: 28px;
+      line-height: 32px;
+    }
+  }
+}

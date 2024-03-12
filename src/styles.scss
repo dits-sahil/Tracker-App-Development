@@ -3,8 +3,14 @@
 @import "../src/assets/scss/variable";
 @import "../src/assets/scss/header";
 @import "~bootstrap/dist/css/bootstrap.css";
+@import "../src/app/shared/components/common-users-table/common-users-table.component.scss";
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  box-sizing: border-box;
+  overflow-x: hidden;
+ }
 // regular style toast
 @import 'ngx-toastr/toastr';
 .formControl{
