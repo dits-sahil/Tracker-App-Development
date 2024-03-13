@@ -88,7 +88,7 @@ export class AuthService {
 
   loggedInUserRole(){
     let user: any = JSON.parse(localStorage.getItem(StorageKeys.keys.USERDETAIL) || '')
-    return user.role
+    return user
 
   }
   async updateDeviceToken(userId: string, deviceToken: string) {

@@ -6,10 +6,22 @@ import { Component } from '@angular/core';
   styleUrls: ['./assignment.component.scss']
 })
 export class AssignmentComponent {
-  assignmentList:any
-  columnHeader:any
+  assignmentList: any = [
 
-getAssignmentDetail(id:any){
+  ]
+  columnHeader: any =
+    {
+      'title': 'Title',
+      'dueDate': 'Due Date',
+      'priority': 'Priority',
+      'createdBy': 'Created By',
+      'assignedTo': 'Assigned To',
+      'status': 'Status',
+      'createdOn': 'Created On'
+    };
 
-}
+
+  getAssignmentDetail(id: any) {
+
+  }
 }

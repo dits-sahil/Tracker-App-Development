@@ -50,6 +50,7 @@ export class AddUserComponent {
 
   ngOnInit() {
     this.getFormType()
+
   }
 
   get userRoleConfig() {
@@ -63,6 +64,7 @@ export class AddUserComponent {
     } else {
       this.initializeForm();
     }
+    this.getLoggedInUserRole()
   }
 
   getUserData() {
@@ -93,7 +95,6 @@ export class AddUserComponent {
         Validators.required,
       ]),
       role: new FormControl<string>('', [
-        Validators.required,
       ]),
       phoneNumber: new FormControl<string>('', [
         Validators.required,
@@ -103,14 +104,15 @@ export class AddUserComponent {
       profileImage: new FormControl<any>('', [])
     });
 
-    this.addUserForm.get('profileImage')?.setValue(this.userType);
 
   }
 
   getLoggedInUserRole(){
-    let userRole = this.authService.loggedInUserRole();
-    this.userType = userRole == userRoleConfig.ADMIN ? 'manager' : 'regularUsers'
-
+    let currentUserRole = this.authService.loggedInUserRole().role;
+    let userRole = this.authService.loggedInUserRole().role;
+    userRole = currentUserRole == userRoleConfig.ADMIN ? userRoleConfig.MANAGER : userRoleConfig.REGULARUSER
+    this.userType = currentUserRole == userRoleConfig.ADMIN ? 'manager' : 'regularUsers'
+    this.addUserForm.get('role')?.setValue(userRole);
   }
 
   getErrorValidator(value: any, label: string) {
@@ -141,8 +143,8 @@ export class AddUserComponent {
     }
   }
 
-  closeDialog(data?: any) {
-    this.dialogRef.close(data);
+  closeDialog() {
+    this.dialogRef.close();
   }
 
   uploadFile(event: any) {
@@ -157,6 +159,7 @@ export class AddUserComponent {
   }
 
   async uploadFileOnFirebase(image: any) {
+
     let selectedFile = image
     if (!selectedFile) {
       console.error('No file selected.');
@@ -181,6 +184,8 @@ export class AddUserComponent {
   }
 
   addUserOnF(user: any) {
+
+
     this.authService.createUser({ email: user.email, password: "abc123" }).then(async (res: any) => {
       this.authService.signInWithToken();
       let loggedInUser: any = JSON.parse(this.storageService.getStorage(StorageKeys.keys.USERDETAIL) || '')
