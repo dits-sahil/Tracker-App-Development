@@ -39,7 +39,8 @@
       [error]="getErrorValidator('gender', 'Gender')"
       (selectedId)="getGender($event)"
     ></app-common-select>
-    <app-common-select *ngIf="data.userRole == userRoleConfig.ADMIN"
+    <app-common-select
+    [class]="'d-none'"
       [label]="'Select role'"
       [control]="'role'"
       [form]="addUserForm"

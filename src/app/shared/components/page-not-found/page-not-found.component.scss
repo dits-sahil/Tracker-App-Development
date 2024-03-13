@@ -1,7 +1,12 @@
 .errorPage{
-  height: 100vh;
-
+position: relative;
+height: 100%;
+width: 100%;
   .errorContent{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
       h1{
           font-size: var(--font-size-140);
           line-height: normal;

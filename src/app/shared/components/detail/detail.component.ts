@@ -10,8 +10,6 @@ export class DetailComponent {
   constructor(public dialogRef: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) public data: any){}
 
   ngOnInit(){
-
-    console.log('data:', this.data.userData)
   }
   closeDialog(data?: any) {
     this.dialogRef.close(data);
