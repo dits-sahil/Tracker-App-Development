@@ -125,14 +125,6 @@ export class AuthService {
 
   }
   async sendForgotPasswordEmail(email:string) {
-    try {
-      sendPasswordResetEmail(this.auth,email).then((item:any)=>{
-        console.log('item:', item)
-      })
-    } catch (error) {
-      console.error('Error signing in with custom token:', error);
-      throw error;
-    }
-
+    return sendPasswordResetEmail(this.auth,email)
   }
 }

@@ -15,27 +15,35 @@ export class ForgotPasswordComponent {
   constructor(public dialogRef: MatDialogRef<ForgotPasswordComponent>,private validationService: ValidationService,private authService:AuthService,
     private readonly toastrService: ToastrService){}
   
-  registrationForm!: FormGroup;
+    forgotPasswordForm!: FormGroup;
 
   ngOnInit() {
-    this.registrationForm = new FormGroup({
+    this.forgotPasswordForm = new FormGroup({
       email: new FormControl<string>('', [
-        Validators.email,
+        Validators.required,
+        Validators.email
       ]),
     });
   }
 
   getErrorValidator(value: any, label: string) {
-    return this.validationService.getErrorValidationMessages(value, this.registrationForm, label);
+    return this.validationService.getErrorValidationMessages(value, this.forgotPasswordForm, label);
   }
 
   forgot(){
-    this.authService.sendForgotPasswordEmail('vitun@yopmail.com')
+    if (this.forgotPasswordForm.invalid) {
+      return;
+    }
+
+    this.authService.sendForgotPasswordEmail(this.forgotPasswordForm.value.email).then((item:any)=>{
+      console.log('item:', item)
+    }).catch((error:any) => this.toastrService.error(error.message))
+      .finally(() => (console.log));
+    
     // this.toastrService.success('User registred successfuly');
     //     this.router.navigateByUrl('home');
       
-    //   .catch((error:any) => this.toastrService.error(error.message))
-    //   .finally(() => (this.loading = false));
+   
     
   }
 
