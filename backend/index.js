@@ -27,6 +27,22 @@ app.post('/getCustomToken', (req, res) => {
       res.status(500).send('Internal server error');
     });
 });
+app.post('/sendPasswordResetEmail', (req, res) => {
+  const uid = req.body.email; // Get UID from request
+  if (!uid) {
+    res.status(400).send('email is required');
+    return;
+  }
+
+  admin.auth().generatePasswordResetLink(uid)
+    .then((customToken) => {
+      res.json({ customToken });
+    })
+    .catch((error) => {
+      console.error('error', error);
+      res.status(500).send('Internal server error',error);
+    });
+});
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
