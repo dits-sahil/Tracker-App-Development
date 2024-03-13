@@ -36,10 +36,11 @@ export class AddUserComponent {
   editFile: boolean = true;
   removeUpload: boolean = false;
   isReadOnly:boolean=true
+  userType:any=''
   constructor(
     private storage: AngularFireStorage,
     private validationService: ValidationService,
-    private firebaseService: AuthService,
+    private authService: AuthService,
     private dbService: FirebaseService,
     private toastrService: ToastrService,
     private storageService: StorageService,
@@ -101,8 +102,16 @@ export class AddUserComponent {
       ]),
       profileImage: new FormControl<any>('', [])
     });
+
+    this.addUserForm.get('profileImage')?.setValue(this.userType);
+
   }
 
+  getLoggedInUserRole(){
+    let userRole = this.authService.loggedInUserRole();
+    this.userType = userRole == userRoleConfig.ADMIN ? 'manager' : 'regularUsers'
+
+  }
 
   getErrorValidator(value: any, label: string) {
     return this.validationService.getErrorValidationMessages(value, this.addUserForm, label);
@@ -172,16 +181,15 @@ export class AddUserComponent {
   }
 
   addUserOnF(user: any) {
-    this.firebaseService.createUser({ email: user.email, password: "abc123" }).then(async (res: any) => {
-      this.firebaseService.signInWithToken();
+    this.authService.createUser({ email: user.email, password: "abc123" }).then(async (res: any) => {
+      this.authService.signInWithToken();
       let loggedInUser: any = JSON.parse(this.storageService.getStorage(StorageKeys.keys.USERDETAIL) || '')
       let registerUser: any = res.user;
       let uid: any = registerUser.uid;
       let timeStamp = Date.now()
-      let dataNode = user.role == userRoleConfig.MANAGER ? 'manager' : 'regularUsers'
       user = { ...user, uid, createdOn: timeStamp, createdBy: loggedInUser.uid }
       this.dbService.set('users', uid, user)
-      this.dbService.set(dataNode, uid, user)
+      this.dbService.set(this.userType, uid, user)
       this.closeDialog();
       this.toastrService.success('User added successfully');
     }).catch((err: any) => {
@@ -190,10 +198,9 @@ export class AddUserComponent {
   }
 
   updateUserFn(user:any) {
-    let dataNode = user.role == userRoleConfig.MANAGER ? 'manager' : 'regularUsers'
     let uid = this.data.id
     this.dbService.update('users', uid, user)
-    this.dbService.update(dataNode, uid, user)
+    this.dbService.update(this.userType, uid, user)
     this.closeDialog();
     this.toastrService.success('User updated successfully');
   }
