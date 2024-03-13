@@ -50,7 +50,6 @@ export class AppComponent {
     }
     payload=''
   ngOnInit(){
-
   }
   title = 'tracker-app';
 }

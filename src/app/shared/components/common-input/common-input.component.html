@@ -1,5 +1,6 @@
+
 <ng-container [formGroup]="form">
-    <mat-form-field class="d-block" appearance="outline">
+    <mat-form-field [ngClass]="class" class="d-block" [appearance]="appearance || 'outline'" >
         <mat-label>{{label}}</mat-label>
         <input matInput  [readonly]="readonly"  [type]="type"  [formControlName]="control" [placeholder]="placeholder">
         <mat-error *ngIf="error">{{error}}</mat-error>

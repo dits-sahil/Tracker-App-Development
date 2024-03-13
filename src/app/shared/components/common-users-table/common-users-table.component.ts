@@ -22,7 +22,6 @@ export class CommonUsersTableComponent {
   }
   ngOnInIt(){
 
-
   }
 
   cancelApp(item: any) {

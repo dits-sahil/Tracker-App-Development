@@ -1,10 +1,16 @@
-<div class="filter">
-    <app-common-select
-      [label]="'Status Filter'"
-      [control]="'statusfilter'"
-      [form]="statusFilterForm"
-      [List]="filter"
-      (selectedId)="statusFilter($event)"
-    ></app-common-select>
-</div>
-<app-common-table [columnHeadings]="columnHeadings" [dataSource]="dataSource"></app-common-table>
+<app-filter 
+  [firstLabel]="'Status Filter'" 
+  [secondLabel]="'Priority Filter'"
+  [firstControl]="'statusFilter'" 
+  [secondControl]="'priorityFilter'"
+  [form]="filterForm"
+  [firstFilterList]="statusFilterList" 
+  [secondFilterList]="priorityFilterList"
+  (firstFilter)="statusFilter($event)" 
+  (secondFilter)="priorityFilter($event)">
+</app-filter>
+
+  <div class="userEvent">
+    <app-common-users-table (viewDetail)="getAssignmentDetail($event)" [label]="'No data availble.'" [tableData]="dataSource" [columnHeader]="columnHeadings"></app-common-users-table>
+  </div>
+

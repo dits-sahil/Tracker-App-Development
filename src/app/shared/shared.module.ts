@@ -13,10 +13,13 @@ import { LayoutRoutingModule } from './components/layout/layout-routing.module';
 import { LayoutModule } from './components/layout/layout.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AssignmentStatusComponent } from './components/assignment-status/assignment-status.component';
 import { CommonUsersTableComponent } from './components/common-users-table/common-users-table.component';
 import { CommonIconComponent } from './components/common-icon/common-icon.component';
+import { FilterComponent } from './components/filter/filter.component';
 import { ConfirmBoxComponent } from './components/dialogs/confirm-box/confirm-box.component';
 import { DetailComponent } from './components/detail/detail.component';
+import { AssignmentListComponent } from './components/dialogs/assignment-list/assignment-list.component';
 
 @NgModule({
   declarations: [
@@ -29,10 +32,13 @@ import { DetailComponent } from './components/detail/detail.component';
     CommonCheckboxComponent,
     BaseLayoutComponent,
     DashboardComponent,
+    AssignmentStatusComponent,
     CommonUsersTableComponent,
     CommonIconComponent,
+    FilterComponent,
     ConfirmBoxComponent,
-    DetailComponent
+    DetailComponent,
+    AssignmentListComponent
   ],
   imports: [
     CommonModule,
@@ -50,7 +56,9 @@ import { DetailComponent } from './components/detail/detail.component';
     BaseLayoutComponent,
     DashboardComponent,
     AddUserComponent,
+    AssignmentStatusComponent,
     CommonUsersTableComponent,
+    FilterComponent,
     ConfirmBoxComponent,
     DetailComponent
 

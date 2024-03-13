@@ -5,6 +5,7 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithCustomToken,
   signInWithEmailAndPassword,
   signOut,
@@ -19,6 +20,7 @@ import { Observable, Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { StorageKeys } from '../constant/storageKeys';
 import { HttpClient } from '@angular/common/http';
+import { StorageService } from './storage.service';
 
 const firebaseConfig = environment.firebase;
 
@@ -121,5 +123,8 @@ export class AuthService {
       throw error;
     }
 
+  }
+   sendForgotPasswordEmail(email:string): Observable<any> { 
+      return this.http.post('http://localhost:3000/sendPasswordResetEmail', { email });
   }
 }

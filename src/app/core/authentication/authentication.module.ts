@@ -11,12 +11,14 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { HomeComponent } from './components/home/home.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { UiModule } from 'src/app/ui/ui.module';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegistrationComponent,
-    HomeComponent
+    HomeComponent,
+    ForgotPasswordComponent
 
   ],
   imports: [

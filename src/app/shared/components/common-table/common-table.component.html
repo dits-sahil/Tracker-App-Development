@@ -1,23 +1,43 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<ng-template #dataexist>
+  <div class="userContent">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 mainTableLayout mb-0">
 
   <ng-container [matColumnDef]="column" *ngFor="let column of columnHeadings; let i = index">
     <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
     <td mat-cell *matCellDef="let element">
       {{ element[column] }}
-      <div *ngIf="column == 'actions'" class="action">
-        <div>
+
+      <div *ngIf="column == 'Actions'"  class="actionModule" class="actionButton" >
+        <div (click)="onViewClick(element)">
           <mat-icon>visibility</mat-icon>
         </div>
-        <div *ngIf="user.role !== 3">
+        <div *ngIf="role !== userRoleConfig.REGULARUSER" class="actionButton" >
           <mat-icon>edit</mat-icon>
         </div>
-        <div *ngIf="user.role !== 3">
+        <div *ngIf="role !== userRoleConfig.REGULARUSER" class="dangerBtn">
           <mat-icon>delete_outline</mat-icon>
         </div>
       </div>
     </td>
+    <ng-container *ngIf="column == 'Status'" >
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let element">
+        <app-assignment-status [element]="element"></app-assignment-status>
+      </td>
+    </ng-container>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="columnHeadings"></tr>
   <tr mat-row *matRowDef="let row; columns: columnHeadings"></tr>
 </table>
+</div>
+
+
+</ng-template>
+<div class="card" *ngIf="dataSource.length == 0;  else dataexist">
+  <div class="noData">
+    <p class="mb-0">{{ label }}</p>
+  </div>
+</div>
+
+

@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ActionType } from 'src/app/core/constant/actionKeys';
+import { AssignmentListComponent } from 'src/app/shared/components/dialogs/assignment-list/assignment-list.component';
 
 @Component({
   selector: 'app-assignment',

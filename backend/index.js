@@ -35,12 +35,11 @@ app.post('/sendPasswordResetEmail', (req, res) => {
   }
 
   admin.auth().generatePasswordResetLink(uid)
-    .then((customToken) => {
-      res.json({ customToken });
+    .then((link) => {
+      res.json({ link });
     })
     .catch((error) => {
-      console.error('error', error);
-      res.status(500).send('Internal server error',error);
+      res.status(400).send(error);
     });
 });
 

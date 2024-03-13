@@ -1,0 +1,8 @@
+<!-- <div class="status" *ngIf="type='pending'">Pending</div>
+<div class="status" *ngIf="type='inProgress'">In Progress</div>
+<div class="status" *ngIf="type='completed'">Completed</div> -->
+
+<div class="status" [ngClass]="getStatusClass(element.status)">
+    {{ element.status }}
+  </div>
+  

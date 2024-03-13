@@ -9,7 +9,6 @@ import { ValidationService } from 'src/app/core/services/validation.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { finalize } from 'rxjs/operators';
 import { StorageKeys } from 'src/app/core/constant/storageKeys';
-import { initializeApp } from 'firebase-admin';
 import { StorageService } from 'src/app/core/services/storage.service';
 
 

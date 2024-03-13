@@ -10,6 +10,7 @@ import { DetailComponent } from 'src/app/shared/components/detail/detail.compone
 import { AddUserComponent } from 'src/app/shared/components/dialogs/add-user/add-user.component';
 import { ConfirmBoxComponent } from 'src/app/shared/components/dialogs/confirm-box/confirm-box.component';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
@@ -19,7 +20,8 @@ export class UserListComponent {
   columnHeader = { 'name': 'Name', 'email': 'Email', 'phoneNumber': 'Phone Number', 'noOfAssignments': 'No. of Assignments', 'role': 'User Type', 'actions': 'Action' };
   loggedInUserRole!: any
   users: any = []
-  constructor(public dialog: MatDialog, private dbService: FirebaseService, private authService: AuthService, private toastrService: ToastrService) { }
+  constructor(public dialog: MatDialog, private dbService: FirebaseService, private authService: AuthService, 
+    private toastrService: ToastrService,private router: Router) { }
   ngOnInit() {
     this.getUsersList();
     this.getLoggedInUserRole();
@@ -63,6 +65,7 @@ export class UserListComponent {
           uid: items.uid
         }
         let actions = this.prepareActionType(actionData)
+        console.log('actions:', actions)
         items.actions = actions
         let userType = items.role
         userType = userType == this.userRole.MANAGER ? 'Manager' : userType == this.userRole.REGULARUSER ? 'Regular User' : userType == this.userRole.ADMIN ? '' : 'N/A'
@@ -86,16 +89,17 @@ export class UserListComponent {
     ];
   }
   getUserDetail(id: any) {
-    this.getUserData(id).subscribe(userData => {
-      const dialogRef = this.dialog.open(DetailComponent, {
-        width: '25%',
-        data: {
-          userData
-        }
-      });
-    });
-
+    this.router.navigate(['admin','userDetails',id]);
+    // this.getUserData(id).subscribe(userData => {
+    //   // const dialogRef = this.dialog.open(DetailComponent, {
+    //   //   width: '25%',
+    //   //   data: {
+    //   //     userData
+    //   //   }
+    //   // });
+    // });
   }
+
   getUserData(id: any): Observable<any> {
     return this.dbService.getDataById('users', id);
   }

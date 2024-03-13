@@ -1,0 +1,20 @@
+
+<div class="detailsWrapper">
+    <div class="headerUserlist">
+      <h1>User Details</h1>
+    </div>
+    <div class="detailsBody">
+        <img src="assets/img/doc-1.png" alt="" srcset="">
+        <div class="detailsFileds">
+          <p> <span>Name:</span>{{userData?.name}}</p>
+          <p> <span>Gender:</span> {{userData?.gender || 'Male'}}</p>
+          <p> <span>Email:</span> {{userData?.email}}</p>
+          <p> <span>Phone:</span> {{userData?.phoneNumber}}</p>
+          <p> <span>Number of assignment:</span> 5</p>
+        </div>
+    </div>
+    <div class="d-flex sumbitElement">
+        <a class="primaryButton" (click)="userList()">User List</a>
+      </div>
+  </div>
+  

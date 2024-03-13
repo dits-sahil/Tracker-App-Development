@@ -24,7 +24,7 @@ export class HeaderComponent {
   dashboardHamburger: boolean = true;
   constructor(private loacalService: StorageService, private auth: AuthService, private shared: SharedService, private router: Router, private route: ActivatedRoute) {
     let profile: any = loacalService.getStorage(StorageKeys.keys.USERDETAIL);
-    profile = JSON.parse(profile)
+profile = JSON.parse(profile)
     this.UserDetails = profile;
     this.userName = this.UserDetails?.name;
     this.role = profile.role;
