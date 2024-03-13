@@ -124,7 +124,7 @@ export class AuthService {
     }
 
   }
-  async sendForgotPasswordEmail(email:string) {
-    return sendPasswordResetEmail(this.auth,email)
+   sendForgotPasswordEmail(email:string): Observable<any> { 
+      return this.http.post('http://localhost:3000/sendPasswordResetEmail', { email });
   }
 }

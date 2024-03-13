@@ -12,9 +12,9 @@ import { ValidationService } from 'src/app/core/services/validation.service';
 })
 export class ForgotPasswordComponent {
 
-  constructor(public dialogRef: MatDialogRef<ForgotPasswordComponent>,private validationService: ValidationService,private authService:AuthService,
-    private readonly toastrService: ToastrService){}
-  
+  constructor(public dialogRef: MatDialogRef<ForgotPasswordComponent>,private validationService: ValidationService,
+    private authService:AuthService,private readonly toastrService: ToastrService){}
+
     forgotPasswordForm!: FormGroup;
 
   ngOnInit() {
@@ -34,17 +34,16 @@ export class ForgotPasswordComponent {
     if (this.forgotPasswordForm.invalid) {
       return;
     }
-
-    this.authService.sendForgotPasswordEmail(this.forgotPasswordForm.value.email).then((item:any)=>{
-      console.log('item:', item)
-    }).catch((error:any) => this.toastrService.error(error.message))
-      .finally(() => (console.log));
-    
-    // this.toastrService.success('User registred successfuly');
-    //     this.router.navigateByUrl('home');
-      
-   
-    
+    this.authService.sendForgotPasswordEmail(this.forgotPasswordForm.value.email).subscribe((res:any)=>{
+      if(res){
+      window.location = res.link;
+      this.toastrService.success('Email address is correct');
+      }
+    },(error)=>{
+      this.dialogRef.close();
+      this.toastrService.error('Please enter a valid email address or try again after some time');
+    }
+    );
   }
 
   closeDialog() {
