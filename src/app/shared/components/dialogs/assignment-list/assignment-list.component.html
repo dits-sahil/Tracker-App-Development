@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="headerUserlist">
+      <h1>Add Assignment</h1>
+      <mat-icon (click)="closeDialog()">cancel</mat-icon>
+  </div>
+  
+    <form [formGroup]="addAssignmentForm">
+        <app-common-input></app-common-input>
+        <app-common-input></app-common-input>
+        <app-common-input></app-common-input>
+        <app-common-input></app-common-input>
+        <app-common-input></app-common-input>
+    <div class="sumbitData">
+      <button type="submit"  class="primaryButton" (click)="assignmentAction()">Save</button>
+    </div>
+    </form>
+  </div>
+  

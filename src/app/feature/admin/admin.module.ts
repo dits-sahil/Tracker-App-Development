@@ -7,6 +7,7 @@ import { LayoutModule } from 'src/app/shared/components/layout/layout.module';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { UiModule } from 'src/app/ui/ui.module';
 import { AssignmentComponent } from './components/assignment/assignment.component';
+import { UserDetailsComponent } from './components/user-details/user-details.component';
 
 
 
@@ -15,7 +16,7 @@ import { AssignmentComponent } from './components/assignment/assignment.componen
     AdminComponent,
     UserListComponent,
     AssignmentComponent,
-
+    UserDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -26,7 +27,7 @@ import { AssignmentComponent } from './components/assignment/assignment.componen
 
   ],
   exports:[
-
+    UserDetailsComponent
   ]
 })
 export class AdminModule { }
