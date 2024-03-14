@@ -1,8 +1,8 @@
 <div class="userListWrapper">
-        <div class="userDetails">
-          <h3>User List</h3>
-          <app-common-button (click)="createUser('create')"> + Add User</app-common-button>
-        </div>
+<div class="userDetails">
+  <h3>User List</h3>
+  <app-common-button (click)="createUser('create')"> + Add User</app-common-button>
+</div>
         <div class="userEvent">
           <app-common-users-table (viewDetail)="getUserDetail($event)" (updateDetail)="updateUserDetail($event)" [label]="'No data availble.'" (deleteUser)="openDeleteUserModal($event)" [tableData]="users" [columnHeader]="columnHeader"></app-common-users-table>
         </div>

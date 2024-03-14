@@ -39,7 +39,7 @@ app.post('/sendPasswordResetEmail', (req, res) => {
       res.json({ link });
     })
     .catch((error) => {
-      res.status(400).send(error);
+      res.status(400).send(error.message);
     });
 });
 

@@ -22,6 +22,7 @@ export class ValidationService {
       case 'password':
       case 'role':
       case 'name':
+      case 'parent':
         if (control.hasError('minlength')) {
           return 'Not a valid min length';
         }
@@ -67,36 +68,6 @@ export class ValidationService {
         }
         if (control.hasError('pattern')) {
           return 'Password must have at least 8 characters along with one upper case, one lower case, one digit, and one special character.';
-        }
-        break;
-
-      case 'password_confirmation':
-        const confirmPassword = control.value;
-        const password = form.controls['password'].value;
-        if (control.hasError('minlength')) {
-          return 'Not a valid min length';
-        }
-        if (confirmPassword !== password) {
-          return 'Passwords do not match';
-        }
-        break;
-
-        case 'oldPassword':
-          if (control.hasError('required')) {
-            return 'This Field is required';
-          }
-          break;
-
-      case 'streetNumber':
-      case 'streetName':
-      case 'suburb':
-        if (control.hasError('minlength')) {
-          return 'Not a valid min length';
-        }
-        break;
-      case 'postcode':
-        if (control.hasError('pattern')) {
-          return 'Please enter a correct zip code';
         }
         break;
 

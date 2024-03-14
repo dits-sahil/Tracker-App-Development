@@ -40,13 +40,22 @@
       (selectedId)="getGender($event)"
     ></app-common-select>
     <app-common-select
-    [class]="'d-none'"
+    [placeholder]="'Select role'"
       [label]="'Select role'"
       [control]="'role'"
       [form]="addUserForm"
       [List]="rolesArray"
       [error]="getErrorValidator('roles', 'Role')"
       (selectedId)="getRole($event)"
+    ></app-common-select>
+    <app-common-select
+      [label]="'Select parent'"
+      [control]="'parent'"
+      [form]="addUserForm"
+      [List]="managersArray"
+      [error]="getErrorValidator('parent', 'parent')"
+      (selectedId)="getParent($event)"
+      [placeholder]="'Select Parent'"
     ></app-common-select>
 
     <div class="group-gap">

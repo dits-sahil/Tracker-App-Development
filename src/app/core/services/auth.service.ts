@@ -93,6 +93,11 @@ export class AuthService {
     return user.role
 
   }
+  loggedInUserId(){
+    let user: any = JSON.parse(localStorage.getItem(StorageKeys.keys.USERDETAIL) || '')
+    return user.uid
+
+  }
   async updateDeviceToken(userId: string, deviceToken: string) {
     this.dbService.update(`users`, userId, { deviceToken }).then((res: any) => {
     })
@@ -124,7 +129,7 @@ export class AuthService {
     }
 
   }
-   sendForgotPasswordEmail(email:string): Observable<any> { 
+   sendForgotPasswordEmail(email:string): Observable<any> {
       return this.http.post('http://localhost:3000/sendPasswordResetEmail', { email });
   }
 }

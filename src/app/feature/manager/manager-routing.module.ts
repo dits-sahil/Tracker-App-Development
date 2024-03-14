@@ -4,6 +4,7 @@ import { ManagerComponent } from './manager.component';
 import { MUserListComponent } from './components/m-user-list/m-user-list.component';
 import { MAssignmentListComponent } from './components/m-assignment-list/m-assignment-list.component';
 import { DashboardComponent } from 'src/app/shared/components/dashboard/dashboard.component';
+import { UserListComponent } from '../admin/components/user-list/user-list.component';
 
 const routes: Routes = [
 
@@ -16,7 +17,7 @@ const routes: Routes = [
     },
     {
       path: 'users',
-      component:MUserListComponent
+      component:UserListComponent
     },
     {
       path: 'assignments',
