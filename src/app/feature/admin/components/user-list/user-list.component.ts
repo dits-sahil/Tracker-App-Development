@@ -85,7 +85,7 @@ export class UserListComponent extends SpinnerComponent {
         delete items.deviceToken
         delete items.accessToken
         let actionData = {
-          uid: items.uid
+          id: items.uid
         }
         let actions = this.prepareActionType(actionData)
         items.actions = actions
@@ -98,7 +98,7 @@ export class UserListComponent extends SpinnerComponent {
       this.hideLoader();
     });
   }
-  prepareActionType(actionData: { uid: any; }) {
+  prepareActionType(actionData: { id: any; }) {
     return [
       {
         ...actionData, actionType: this.actionType.DELETE
