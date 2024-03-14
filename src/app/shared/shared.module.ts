@@ -20,6 +20,8 @@ import { FilterComponent } from './components/filter/filter.component';
 import { ConfirmBoxComponent } from './components/dialogs/confirm-box/confirm-box.component';
 import { DetailComponent } from './components/detail/detail.component';
 import { AssignmentListComponent } from './components/dialogs/assignment-list/assignment-list.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -38,17 +40,17 @@ import { AssignmentListComponent } from './components/dialogs/assignment-list/as
     FilterComponent,
     ConfirmBoxComponent,
     DetailComponent,
-    AssignmentListComponent
+    AssignmentListComponent,
   ],
   imports: [
     CommonModule,
     UiModule,
     LayoutRoutingModule,
     LayoutModule,
-    AngularFireStorageModule
-
+    AngularFireStorageModule,
+    NgxSpinnerModule
   ],
-  exports:[
+  exports: [
     CommonInputComponent,
     CommonSelectComponent,
     CommonTableComponent,
@@ -60,8 +62,8 @@ import { AssignmentListComponent } from './components/dialogs/assignment-list/as
     CommonUsersTableComponent,
     FilterComponent,
     ConfirmBoxComponent,
-    DetailComponent
-
+    DetailComponent,
+    NgxSpinnerModule
   ],
 })
 export class SharedModule { }
