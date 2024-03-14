@@ -29,6 +29,7 @@ export class AddUserComponent {
     { id: userRoleConfig.MANAGER, name: 'Manager' },
     { id: userRoleConfig.REGULARUSER, name: 'Regular User' }
   ];
+  managersArray:any[]=[]
   fileName: string = '';
   @ViewChild('fileInput') el!: ElementRef;
   imageUrl: any;
@@ -36,6 +37,8 @@ export class AddUserComponent {
   removeUpload: boolean = false;
   isReadOnly:boolean=true
   userType:any=''
+  selectedRole:any
+  parent:any=''
   constructor(
     private storage: AngularFireStorage,
     private validationService: ValidationService,
@@ -49,6 +52,7 @@ export class AddUserComponent {
 
   ngOnInit() {
     this.getFormType()
+    this.getManagersList()
 
   }
 
@@ -60,10 +64,11 @@ export class AddUserComponent {
       this.isReadOnly=true
       this.initializeForm();
       this.getUserData()
+
     } else {
       this.initializeForm();
     }
-    this.getLoggedInUserRole()
+
   }
 
   getUserData() {
@@ -93,6 +98,9 @@ export class AddUserComponent {
       gender: new FormControl<string>('', [
         Validators.required,
       ]),
+      parent: new FormControl<string>('', [
+
+      ]),
       role: new FormControl<string>('', [
       ]),
       phoneNumber: new FormControl<string>('', [
@@ -106,14 +114,6 @@ export class AddUserComponent {
 
   }
 
-  getLoggedInUserRole(){
-    let currentUserRole = this.authService.loggedInUserRole().role;
-    let userRole = this.authService.loggedInUserRole().role;
-    userRole = currentUserRole == userRoleConfig.ADMIN ? userRoleConfig.MANAGER : userRoleConfig.REGULARUSER
-    this.userType = currentUserRole == userRoleConfig.ADMIN ? 'manager' : 'regularUsers'
-    this.addUserForm.get('role')?.setValue(userRole);
-  }
-
   getErrorValidator(value: any, label: string) {
     return this.validationService.getErrorValidationMessages(value, this.addUserForm, label);
   }
@@ -123,6 +123,16 @@ export class AddUserComponent {
   }
   getRole(val: any) {
     this.addUserForm.get('role')?.setValue(val);
+    const formFeild:any= this.addUserForm.get('parent');
+    if (val == userRoleConfig.REGULARUSER) {
+      formFeild.setValidators([Validators.required]);
+    }
+    this.selectedRole= val
+  }
+  getParent(val: any) {
+    console.log('val:', val)
+    this.addUserForm.get('parent')?.setValue(val);
+    this.parent= val
   }
 
   async userAction() {
@@ -183,8 +193,6 @@ export class AddUserComponent {
   }
 
   addUserOnF(user: any) {
-
-
     this.authService.createUser({ email: user.email, password: "abc123" }).then(async (res: any) => {
       this.authService.signInWithToken();
       let loggedInUser: any = JSON.parse(this.storageService.getStorage(StorageKeys.keys.USERDETAIL) || '')
@@ -193,7 +201,6 @@ export class AddUserComponent {
       let timeStamp = Date.now()
       user = { ...user, uid, createdOn: timeStamp, createdBy: loggedInUser.uid }
       this.dbService.set('users', uid, user)
-      this.dbService.set(this.userType, uid, user)
       this.closeDialog();
       this.toastrService.success('User added successfully');
     }).catch((err: any) => {
@@ -204,7 +211,6 @@ export class AddUserComponent {
   updateUserFn(user:any) {
     let uid = this.data.id
     this.dbService.update('users', uid, user)
-    this.dbService.update(this.userType, uid, user)
     this.closeDialog();
     this.toastrService.success('User updated successfully');
   }
@@ -215,6 +221,22 @@ export class AddUserComponent {
     } else {
       this.updateUserFn(user)
     }
+  }
+
+  getManagersList(){
+    this.dbService.getAll('users','role',this.userRoleConfig.MANAGER,'equalTo').subscribe(
+      {
+        next:(res:any)=>{
+            if (res) {
+                let mangersArr:any = []
+                res.map((items:any)=> mangersArr = [...mangersArr,{id:items.uid,name:items.name}])
+                this.managersArray= mangersArr
+            }
+        },
+        error:(err:any)=>console.log(err),
+        complete:()=>console.log('complete'),
+      }
+    )
   }
 
 

@@ -24,11 +24,15 @@ const routes: Routes = [
         component:AssignmentComponent,
       },
       {
-        path:'userDetails/:id',
-        component:UserDetailsComponent, 
+        path:'assignments/:id',
+        component:AssignmentComponent,
       },
       {
-        path:'userList',
+        path:'userDetails/:id',
+        component:UserDetailsComponent,
+      },
+      {
+        path:'userList/:id',
         component:UserListComponent
       }
     ]

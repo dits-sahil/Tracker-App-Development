@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="d-flex sumbitElement">
-        <a class="primaryButton" (click)="userList()">User List</a>
+        <a class="text-primary cursor-pointer" *ngIf="userData.role == userRole.MANAGER" (click)="userList()">User List</a>
+        <a class="text-primary cursor-pointer" *ngIf="userData.role == userRole.REGULARUSER" (click)="assignmentList()">Assignment List</a>
       </div>
   </div>
-  

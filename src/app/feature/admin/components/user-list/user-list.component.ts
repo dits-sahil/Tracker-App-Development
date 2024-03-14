@@ -9,8 +9,8 @@ import { FirebaseService } from 'src/app/core/services/firebase.service';
 import { DetailComponent } from 'src/app/shared/components/detail/detail.component';
 import { AddUserComponent } from 'src/app/shared/components/dialogs/add-user/add-user.component';
 import { ConfirmBoxComponent } from 'src/app/shared/components/dialogs/confirm-box/confirm-box.component';
-import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
@@ -19,13 +19,14 @@ import { Router } from '@angular/router';
 export class UserListComponent {
   columnHeader = { 'name': 'Name', 'email': 'Email', 'phoneNumber': 'Phone Number', 'noOfAssignments': 'No. of Assignments', 'role': 'User Type', 'actions': 'Action' };
   loggedInUserRole!: any
+  loggedInUserId!: any
   users: any = []
-  constructor(public dialog: MatDialog, private dbService: FirebaseService, private authService: AuthService, 
-    private toastrService: ToastrService,private router: Router) { }
+  constructor(public dialog: MatDialog, private dbService: FirebaseService, private authService: AuthService, private route: ActivatedRoute,
+    private toastrService: ToastrService, private router: Router) { }
   ngOnInit() {
-    this.getUsersList();
     this.getLoggedInUserRole();
-
+    this.getLoggedInUserId();
+    this.getUsersList();
   }
   get actionType() {
     return ActionType.key
@@ -36,6 +37,9 @@ export class UserListComponent {
 
   getLoggedInUserRole() {
     this.loggedInUserRole = this.authService.loggedInUserRole();
+  }
+  getLoggedInUserId() {
+    this.loggedInUserId = this.authService.loggedInUserId();
   }
   createUser(evetType: string) {
     const dialogRef = this.dialog.open(AddUserComponent, {
@@ -56,8 +60,23 @@ export class UserListComponent {
       }
     })
   }
+
+  getAllUsers(): Observable<any> {
+
+    console.log('this.router.url:', this.router.url)
+    if (this.router.url == '/admin/users') {
+      return this.dbService.getAll('users', 'role', userRoleConfig.ADMIN, 'notEqualTo');
+    } else if (this.router.url == '/manager/users') {
+      return this.dbService.getAll('users', 'createdBy', this.loggedInUserId, 'equalTo');
+    } else if (this.router.url.includes('userList')) {
+      let userId = this.route.snapshot.params['id']
+      return this.dbService.getAll('users', 'createdBy', userId, 'equalTo');
+    } else {
+      return of(null);
+    }
+  }
   getUsersList() {
-    this.dbService.getAll('users', 'role', userRoleConfig.ADMIN, 'notEqualTo').subscribe((data: any) => {
+    this.getAllUsers().subscribe((data: any) => {
       let dbData = data.map((items: any, index: any) => {
         delete items.deviceToken
         delete items.accessToken
@@ -65,7 +84,6 @@ export class UserListComponent {
           uid: items.uid
         }
         let actions = this.prepareActionType(actionData)
-        console.log('actions:', actions)
         items.actions = actions
         let userType = items.role
         userType = userType == this.userRole.MANAGER ? 'Manager' : userType == this.userRole.REGULARUSER ? 'Regular User' : userType == this.userRole.ADMIN ? '' : 'N/A'
@@ -89,7 +107,7 @@ export class UserListComponent {
     ];
   }
   getUserDetail(id: any) {
-    this.router.navigate(['admin','userDetails',id]);
+    this.router.navigate(['admin', 'userDetails', id]);
     // this.getUserData(id).subscribe(userData => {
     //   // const dialogRef = this.dialog.open(DetailComponent, {
     //   //   width: '25%',
