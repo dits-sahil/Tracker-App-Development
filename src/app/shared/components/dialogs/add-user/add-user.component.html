@@ -39,16 +39,16 @@
       [error]="getErrorValidator('gender', 'Gender')"
       (selectedId)="getGender($event)"
     ></app-common-select>
-    <app-common-select
+    <app-common-select *ngIf="getLoggedInUserRole != userRoleConfig.MANAGER"
     [placeholder]="'Select role'"
       [label]="'Select role'"
       [control]="'role'"
       [form]="addUserForm"
       [List]="rolesArray"
-      [error]="getErrorValidator('roles', 'Role')"
+      [error]="getErrorValidator('role', 'Role')"
       (selectedId)="getRole($event)"
     ></app-common-select>
-    <app-common-select
+    <app-common-select *ngIf="selectedRole == userRoleConfig.REGULARUSER && getLoggedInUserRole != userRoleConfig.MANAGER"
       [label]="'Select parent'"
       [control]="'parent'"
       [form]="addUserForm"
