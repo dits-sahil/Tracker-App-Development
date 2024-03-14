@@ -132,4 +132,7 @@ export class AuthService {
    sendForgotPasswordEmail(email:string): Observable<any> {
       return this.http.post('http://localhost:3000/sendPasswordResetEmail', { email });
   }
+  deleteUser(uid:any): Observable<any>{
+    return this.http.post('http://localhost:3000/deleteUser', { uid });
+  }
 }

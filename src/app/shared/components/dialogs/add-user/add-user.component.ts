@@ -29,16 +29,16 @@ export class AddUserComponent {
     { id: userRoleConfig.MANAGER, name: 'Manager' },
     { id: userRoleConfig.REGULARUSER, name: 'Regular User' }
   ];
-  managersArray:any[]=[]
+  managersArray: any[] = []
   fileName: string = '';
   @ViewChild('fileInput') el!: ElementRef;
   imageUrl: any;
   editFile: boolean = true;
   removeUpload: boolean = false;
-  isReadOnly:boolean=true
-  userType:any=''
-  selectedRole:any
-  parent:any=''
+  isReadOnly: boolean = true
+  userType: any = ''
+  selectedRole: any
+  parent: any = ''
   constructor(
     private storage: AngularFireStorage,
     private validationService: ValidationService,
@@ -53,15 +53,23 @@ export class AddUserComponent {
   ngOnInit() {
     this.getFormType()
     this.getManagersList()
-
   }
 
   get userRoleConfig() {
     return userRoleConfig
   }
+
+  get getLoggedInUserId() {
+    return this.authService.loggedInUserId()
+  }
+
+  get getLoggedInUserRole() {
+    return this.authService.loggedInUserRole()
+  }
+
   getFormType() {
     if (this.data.evetType == 'update') {
-      this.isReadOnly=true
+      this.isReadOnly = true
       this.initializeForm();
       this.getUserData()
 
@@ -74,6 +82,7 @@ export class AddUserComponent {
   getUserData() {
     this.dbService.getDataById('users', this.data.id).subscribe((res: any) => {
       let user = res
+      this.selectedRole = user.role
       this.addUserForm.patchValue({
         name: user.name,
         email: user.email,
@@ -81,10 +90,12 @@ export class AddUserComponent {
         role: user.role,
         phoneNumber: user.phoneNumber,
         profileImage: user.profileImage,
+        parent: user.parent,
       })
       this.imageUrl = user.profileImage
     });
   }
+
   initializeForm() {
     this.addUserForm = this.formBuilder.group({
       name: new FormControl<string>('', [
@@ -111,7 +122,9 @@ export class AddUserComponent {
       profileImage: new FormControl<any>('', [])
     });
 
-
+    if (this.getLoggedInUserRole == this.userRoleConfig.MANAGER) {
+      this.setManagerData();
+    }
   }
 
   getErrorValidator(value: any, label: string) {
@@ -121,18 +134,25 @@ export class AddUserComponent {
   getGender(val: any) {
     this.addUserForm.get('gender')?.setValue(val);
   }
+
   getRole(val: any) {
     this.addUserForm.get('role')?.setValue(val);
-    const formFeild:any= this.addUserForm.get('parent');
     if (val == userRoleConfig.REGULARUSER) {
-      formFeild.setValidators([Validators.required]);
+      let parentControl: any = this.addUserForm.controls['parent'];
+      parentControl.setValue('');
+      parentControl.setValidators([Validators.required]);
+      parentControl.updateValueAndValidity();
     }
-    this.selectedRole= val
+    if (val == userRoleConfig.MANAGER) {
+      let id = this.getLoggedInUserId;
+      this.addUserForm.get('parent')?.setValue(id);
+    }
+    this.selectedRole = val
   }
+
   getParent(val: any) {
-    console.log('val:', val)
     this.addUserForm.get('parent')?.setValue(val);
-    this.parent= val
+    this.parent = val
   }
 
   async userAction() {
@@ -142,10 +162,10 @@ export class AddUserComponent {
     }
     let formData: any = this.addUserForm.value;
     try {
-      if (formData.profileImage != '') {
+      if (formData.profileImage != '' && typeof formData.profileImage == 'object') {
         await this.uploadFileOnFirebase(formData.profileImage);
       } else {
-        this.addUserOnF(formData)
+        this.saveOrUpdateFn(formData)
       }
     } catch (error: any) {
       this.toastrService.error(error.message);
@@ -168,7 +188,6 @@ export class AddUserComponent {
   }
 
   async uploadFileOnFirebase(image: any) {
-
     let selectedFile = image
     if (!selectedFile) {
       console.error('No file selected.');
@@ -177,11 +196,9 @@ export class AddUserComponent {
     const filePath = `images/${Date.now()}_${selectedFile.name}`;
     const fileRef = this.storage.ref(filePath);
     const uploadTask = this.storage.upload(filePath, selectedFile);
-
     uploadTask.percentageChanges().subscribe((percentage: any) => {
       console.log('uploading ', Math.round(percentage));
     });
-
     uploadTask.snapshotChanges().pipe(
       finalize(() => {
         fileRef.getDownloadURL().subscribe((url) => {
@@ -208,7 +225,12 @@ export class AddUserComponent {
     });
   }
 
-  updateUserFn(user:any) {
+  setManagerData() {
+    this.addUserForm.get('role')?.setValue(this.userRoleConfig.REGULARUSER);
+    this.addUserForm.get('parent')?.setValue(this.getLoggedInUserId);
+  }
+
+  updateUserFn(user: any) {
     let uid = this.data.id
     this.dbService.update('users', uid, user)
     this.closeDialog();
@@ -223,18 +245,18 @@ export class AddUserComponent {
     }
   }
 
-  getManagersList(){
-    this.dbService.getAll('users','role',this.userRoleConfig.MANAGER,'equalTo').subscribe(
+  getManagersList() {
+    this.dbService.getAll('users', 'role', this.userRoleConfig.MANAGER, 'equalTo').subscribe(
       {
-        next:(res:any)=>{
-            if (res) {
-                let mangersArr:any = []
-                res.map((items:any)=> mangersArr = [...mangersArr,{id:items.uid,name:items.name}])
-                this.managersArray= mangersArr
-            }
+        next: (res: any) => {
+          if (res) {
+            let mangersArr: any = []
+            res.map((items: any) => mangersArr = [...mangersArr, { id: items.uid, name: items.name }])
+            this.managersArray = mangersArr
+          }
         },
-        error:(err:any)=>console.log(err),
-        complete:()=>console.log('complete'),
+        error: (err: any) => console.log(err),
+        complete: () => console.log('complete'),
       }
     )
   }

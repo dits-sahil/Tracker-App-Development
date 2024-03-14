@@ -2,7 +2,7 @@ const admin = require('firebase-admin');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const serviceAccount  = require('./tracker-app-5a80b-firebase-adminsdk-c4g0m-1e229e5e22.json');
+const serviceAccount = require('./tracker-app-5a80b-firebase-adminsdk-c4g0m-1e229e5e22.json');
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
@@ -37,6 +37,21 @@ app.post('/sendPasswordResetEmail', (req, res) => {
   admin.auth().generatePasswordResetLink(uid)
     .then((link) => {
       res.json({ link });
+    })
+    .catch((error) => {
+      res.status(400).send(error.message);
+    });
+});
+app.post('/deleteUser', (req, res) => {
+  const uid = req.body.uid; // Get UID from request
+  if (!uid) {
+    res.status(400).send('uid is required');
+    return;
+  }
+  admin.auth()
+    .deleteUser(uid)
+    .then(() => {
+      res.json({ message: 'Successfully deleted user' });
     })
     .catch((error) => {
       res.status(400).send(error.message);

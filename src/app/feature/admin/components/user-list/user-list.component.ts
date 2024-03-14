@@ -67,10 +67,10 @@ export class UserListComponent {
     if (this.router.url == '/admin/users') {
       return this.dbService.getAll('users', 'role', userRoleConfig.ADMIN, 'notEqualTo');
     } else if (this.router.url == '/manager/users') {
-      return this.dbService.getAll('users', 'createdBy', this.loggedInUserId, 'equalTo');
+      return this.dbService.getAll('users', 'parent', this.loggedInUserId, 'equalTo');
     } else if (this.router.url.includes('userList')) {
       let userId = this.route.snapshot.params['id']
-      return this.dbService.getAll('users', 'createdBy', userId, 'equalTo');
+      return this.dbService.getAll('users', 'parent', userId, 'equalTo');
     } else {
       return of(null);
     }
@@ -108,14 +108,6 @@ export class UserListComponent {
   }
   getUserDetail(id: any) {
     this.router.navigate(['admin', 'userDetails', id]);
-    // this.getUserData(id).subscribe(userData => {
-    //   // const dialogRef = this.dialog.open(DetailComponent, {
-    //   //   width: '25%',
-    //   //   data: {
-    //   //     userData
-    //   //   }
-    //   // });
-    // });
   }
 
   getUserData(id: any): Observable<any> {
@@ -132,9 +124,15 @@ export class UserListComponent {
   }
   deleteUser(id: any) {
     this.dbService.delete('users', id)
-    this.dbService.delete('manager', id)
-    this.dbService.delete('regularUsers', id)
-    this.toastrService.success('User deleted successfully')
+    this.authService.deleteUser(id).subscribe({
+      next: (res) => {
+        console.log('res:', res)
+        this.toastrService.success('User deleted successfully')
+      },
+      error:(err:any)=> {
+        this.toastrService.error(err.message)
+      }
+    })
   }
 
 }
