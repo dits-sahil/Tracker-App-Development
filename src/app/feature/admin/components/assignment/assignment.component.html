@@ -1,10 +1,11 @@
 <div class="userListWrapper">
   <div class="userDetails">
     <h3>Assignment List</h3>
+    <app-common-button (click)="createAssignment('create')" *ngIf="this.userRole.MANAGER ==this.getLoggedInUserRole"> + Add Assignment</app-common-button>
   </div>
   <div class="userEvent">
     <app-common-users-table (viewDetail)="getAssignmentDetail($event)"
-      [label]="'No data availble.'"  [tableData]="assignmentList"
+      [label]="'No data availble.'"  [tableData]="assignments"
       [columnHeader]="columnHeader"></app-common-users-table>
   </div>
 </div>

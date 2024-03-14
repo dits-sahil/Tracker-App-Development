@@ -8,6 +8,7 @@ import { UserListComponent } from './components/user-list/user-list.component';
 import { UiModule } from 'src/app/ui/ui.module';
 import { AssignmentComponent } from './components/assignment/assignment.component';
 import { UserDetailsComponent } from './components/user-details/user-details.component';
+import { AssignmnetDetailsComponent } from './components/assignmnet-details/assignmnet-details.component';
 
 
 
@@ -16,7 +17,8 @@ import { UserDetailsComponent } from './components/user-details/user-details.com
     AdminComponent,
     UserListComponent,
     AssignmentComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    AssignmnetDetailsComponent
   ],
   imports: [
     CommonModule,

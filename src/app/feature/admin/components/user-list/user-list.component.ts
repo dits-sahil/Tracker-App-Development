@@ -11,18 +11,22 @@ import { AddUserComponent } from 'src/app/shared/components/dialogs/add-user/add
 import { ConfirmBoxComponent } from 'src/app/shared/components/dialogs/confirm-box/confirm-box.component';
 import { Observable, of } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SpinnerComponent } from 'src/app/shared/components/spinner/spinner.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss'],
 })
-export class UserListComponent {
+export class UserListComponent extends SpinnerComponent {
   columnHeader = { 'name': 'Name', 'email': 'Email', 'phoneNumber': 'Phone Number', 'noOfAssignments': 'No. of Assignments', 'role': 'User Type', 'actions': 'Action' };
   loggedInUserRole!: any
   loggedInUserId!: any
   users: any = []
   constructor(public dialog: MatDialog, private dbService: FirebaseService, private authService: AuthService, private route: ActivatedRoute,
-    private toastrService: ToastrService, private router: Router) { }
+    private toastrService: ToastrService, private router: Router,public override spinner: NgxSpinnerService) {
+      super(spinner)
+     }
   ngOnInit() {
     this.getLoggedInUserRole();
     this.getLoggedInUserId();
@@ -63,7 +67,6 @@ export class UserListComponent {
 
   getAllUsers(): Observable<any> {
 
-    console.log('this.router.url:', this.router.url)
     if (this.router.url == '/admin/users') {
       return this.dbService.getAll('users', 'role', userRoleConfig.ADMIN, 'notEqualTo');
     } else if (this.router.url == '/manager/users') {
@@ -76,6 +79,7 @@ export class UserListComponent {
     }
   }
   getUsersList() {
+    this.showLoader();
     this.getAllUsers().subscribe((data: any) => {
       let dbData = data.map((items: any, index: any) => {
         delete items.deviceToken
@@ -91,6 +95,7 @@ export class UserListComponent {
         return items
       })
       this.users = dbData
+      this.hideLoader();
     });
   }
   prepareActionType(actionData: { uid: any; }) {
@@ -107,15 +112,11 @@ export class UserListComponent {
     ];
   }
   getUserDetail(id: any) {
+    if (this.router.url == '/admin/users') {
     this.router.navigate(['admin', 'userDetails', id]);
-    // this.getUserData(id).subscribe(userData => {
-    //   // const dialogRef = this.dialog.open(DetailComponent, {
-    //   //   width: '25%',
-    //   //   data: {
-    //   //     userData
-    //   //   }
-    //   // });
-    // });
+    } else if(this.router.url == '/manager/users'){
+      this.router.navigate(['manager', 'userDetails', id]);
+    }
   }
 
   getUserData(id: any): Observable<any> {

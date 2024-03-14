@@ -5,6 +5,7 @@ import { UserListComponent } from './components/user-list/user-list.component';
 import { DashboardComponent } from 'src/app/shared/components/dashboard/dashboard.component';
 import { AssignmentComponent } from './components/assignment/assignment.component';
 import { UserDetailsComponent } from './components/user-details/user-details.component';
+import { AssignmnetDetailsComponent } from './components/assignmnet-details/assignmnet-details.component';
 
 const routes: Routes = [
 
@@ -28,13 +29,21 @@ const routes: Routes = [
         component:AssignmentComponent,
       },
       {
+        path:'user-assignments/:id',
+        component:AssignmentComponent,
+      },
+      {
         path:'userDetails/:id',
         component:UserDetailsComponent,
       },
       {
         path:'userList/:id',
         component:UserListComponent
-      }
+      },
+      {
+        path:'assignmentDetails/:id',
+        component:AssignmnetDetailsComponent,
+      },
     ]
   }
 ];
