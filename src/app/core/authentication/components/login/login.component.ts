@@ -19,7 +19,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class LoginComponent extends SpinnerComponent  {
   loginForm!: FormGroup;
   showPassword = false;
-  loading = false;
 
   constructor(
     public override spinner: NgxSpinnerService,
@@ -52,7 +51,7 @@ export class LoginComponent extends SpinnerComponent  {
       return;
     }
 
-    this.loading = true;
+    this.showLoader()
     this.firebaseService
       .login(this.loginForm.value.email, this.loginForm.value.password)
       .then((user: any) => {
@@ -61,7 +60,7 @@ export class LoginComponent extends SpinnerComponent  {
       .catch((error) => {
         this.toastrService.error(error.message)
       })
-      .finally(() => (this.loading = false));
+      .finally(() => (this.hideLoader()));
   }
 
 

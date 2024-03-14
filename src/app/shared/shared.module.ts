@@ -20,7 +20,6 @@ import { FilterComponent } from './components/filter/filter.component';
 import { ConfirmBoxComponent } from './components/dialogs/confirm-box/confirm-box.component';
 import { DetailComponent } from './components/detail/detail.component';
 import { AssignmentListComponent } from './components/dialogs/assignment-list/assignment-list.component';
-import { SpinnerComponent } from './components/spinner/spinner.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({

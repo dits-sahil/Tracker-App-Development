@@ -11,7 +11,6 @@ import { SharedService } from 'src/app/core/services/shared.service';
 export class UserComponent {
   loginDetails:any;
   isExpand: boolean = true;
-  loading: boolean = false;
   constructor(private router:Router,private sharedService:SharedService){
     
   }

@@ -6,7 +6,6 @@ import * as $ from 'jquery'
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent {
-  loading: boolean = false;
   @Input() inputIsExpand: boolean = true
   @Output() getExpandSidebar = new EventEmitter<boolean>();
 

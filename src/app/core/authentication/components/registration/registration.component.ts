@@ -7,29 +7,33 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { ValidationService } from 'src/app/core/services/validation.service';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { userRoleConfig } from 'src/app/core/constant/User.config';
+import { SpinnerComponent } from 'src/app/shared/components/spinner/spinner.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss']
 })
-export class RegistrationComponent implements OnInit {
+export class RegistrationComponent extends SpinnerComponent {
   registrationForm!: FormGroup;
   showPassword = false;
-  loading = false;
   roles:any[] = [
     { id: 1, name: 'Admin' },
     { id: 2, name: 'Manager' },
     { id: 3, name: 'User' }
   ];
   constructor(
+    public override spinner: NgxSpinnerService,
     private readonly firebaseService: AuthService,
     private readonly dataService: FirebaseService,
     private readonly toastrService: ToastrService,
     private readonly router: Router,
     private storageService:StorageService,
     private validationService: ValidationService,
-  ) {}
+  ) {
+    super(spinner)
+  }
 
   ngOnInit() {
     this.registrationForm = new FormGroup({
@@ -62,7 +66,7 @@ export class RegistrationComponent implements OnInit {
     if (this.registrationForm.invalid) {
       return;
     }
-    this.loading = true;
+    this.showLoader()
     let user:any = this.registrationForm.value;
     this.firebaseService
       .createUser(user)
@@ -80,6 +84,6 @@ export class RegistrationComponent implements OnInit {
         this.router.navigateByUrl('home');
       })
       .catch((error:any) => this.toastrService.error(error.message))
-      .finally(() => (this.loading = false));
+      .finally(() => (this.hideLoader()));
   }
 }
