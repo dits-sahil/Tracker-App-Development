@@ -11,6 +11,9 @@
     </div>
     <div class="dashboardSider">
       <mat-spinner *ngIf="loading"></mat-spinner>
+      <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "large" color = "#fff" type = "square-jelly-box" [fullScreen] = "true">
+        <mat-spinner></mat-spinner>
+    </ngx-spinner>
       <router-outlet></router-outlet>
     </div>
   </div>
