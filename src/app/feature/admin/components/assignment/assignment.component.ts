@@ -8,7 +8,7 @@ import { userRoleConfig } from 'src/app/core/constant/User.config';
 import { ActionType } from 'src/app/core/constant/actionKeys';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { FirebaseService } from 'src/app/core/services/firebase.service';
-import { AssignmentListComponent } from 'src/app/shared/components/dialogs/assignment-list/assignment-list.component';
+import { AddAssignmentComponent } from 'src/app/shared/components/dialogs/add-assignment/add-assignment.component';
 import { ConfirmBoxComponent } from 'src/app/shared/components/dialogs/confirm-box/confirm-box.component';
 import { SpinnerComponent } from 'src/app/shared/components/spinner/spinner.component';
 
@@ -118,7 +118,7 @@ export class AssignmentComponent extends SpinnerComponent {
   }
 
   createAssignment(evetType: string) {
-    const dialogRef = this.dialog.open(AssignmentListComponent, {
+    const dialogRef = this.dialog.open(AddAssignmentComponent, {
       width: '40%',
       disableClose: true,
       data: {

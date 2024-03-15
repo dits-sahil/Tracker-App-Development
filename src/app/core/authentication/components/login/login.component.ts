@@ -28,7 +28,7 @@ export class LoginComponent extends SpinnerComponent  {
     private storageService: StorageService,
     private  router: Router,
     private dialog: MatDialog,
-  ) { 
+  ) {
     super(spinner)
   }
 
@@ -58,7 +58,7 @@ export class LoginComponent extends SpinnerComponent  {
         this.getUserData(user)
       })
       .catch((error) => {
-        this.toastrService.error(error.message)
+        this.toastrService.error(error)
       })
       .finally(() => (this.hideLoader()));
   }
