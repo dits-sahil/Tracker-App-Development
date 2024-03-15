@@ -32,9 +32,8 @@ export class UserDetailsComponent {
   get getLoggedInUserRole() {
     return this.authService.loggedInUserRole();
    }
-  
+
   userList(){
-   
     if(this.userRole.ADMIN ==this.getLoggedInUserRole){
     this.router.navigate(['admin','userList',this.userId]);
     } else if(this.userRole.MANAGER == this.getLoggedInUserRole){
@@ -47,7 +46,7 @@ export class UserDetailsComponent {
       } else if(this.userRole.MANAGER == this.getLoggedInUserRole){
         this.router.navigate(['manager','user-assignments',this.userId]);
       }
-    
+
   }
 
 }
