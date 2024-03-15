@@ -98,6 +98,11 @@ export class AuthService {
     return user.uid
 
   }
+  loggedInUser(){
+    let user: any = JSON.parse(localStorage.getItem(StorageKeys.keys.USERDETAIL) || '')
+    return user
+
+  }
   async updateDeviceToken(userId: string, deviceToken: string) {
     this.dbService.update(`users`, userId, { deviceToken }).then((res: any) => {
     })

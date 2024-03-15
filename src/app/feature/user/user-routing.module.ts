@@ -4,6 +4,7 @@ import { UserComponent } from './user.component';
 import { AssignmentTableListComponent } from './components/assignment-table-list/assignment-table-list.component';
 import { DashboardComponent } from 'src/app/shared/components/dashboard/dashboard.component';
 import { ViewAssignmentComponent } from './components/view-assignment/view-assignment.component';
+import { AssignmentComponent } from '../admin/components/assignment/assignment.component';
 
 const routes: Routes = [
 
@@ -15,10 +16,11 @@ const routes: Routes = [
         component: DashboardComponent
       },
       {
-        path: 'assignments', component: AssignmentTableListComponent,
+        path: 'assignments', component: AssignmentComponent,
       },
       {
-        path: 'viewAssignment/:index', component: ViewAssignmentComponent,
+        path:'assignments/:id',
+        component:AssignmentComponent,
       }
     ]
   },
