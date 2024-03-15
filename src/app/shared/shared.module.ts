@@ -22,6 +22,7 @@ import { DetailComponent } from './components/detail/detail.component';
 import { AssignmentListComponent } from './components/dialogs/assignment-list/assignment-list.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { CommonTextareaComponent } from './components/common-textarea/common-textarea.component';
+import { ChangeAssignmentStatusComponent } from './components/dialogs/change-assignment-status/change-assignment-status.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { CommonTextareaComponent } from './components/common-textarea/common-tex
     DetailComponent,
     AssignmentListComponent,
     CommonTextareaComponent,
+    ChangeAssignmentStatusComponent,
   ],
   imports: [
     CommonModule,
@@ -64,7 +66,8 @@ import { CommonTextareaComponent } from './components/common-textarea/common-tex
     FilterComponent,
     ConfirmBoxComponent,
     DetailComponent,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    ChangeAssignmentStatusComponent
   ],
 })
 export class SharedModule { }

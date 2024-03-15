@@ -1,0 +1,15 @@
+<div class="container">
+    <div class="headerUserlist">
+        <h1>Change Assignment Status</h1>
+        <mat-icon (click)="closeDialog()">cancel</mat-icon>
+    </div>
+
+    <form>
+        <app-common-select [label]="'Assignment Status'" [control]="'status'" [form]="assignmentStatusForm"
+            [List]="statusList" [error]="getErrorValidator('status', 'Assignment Status')"
+            (selectedId)="getstatus($event)"></app-common-select>
+        <div class="sumbitData">
+            <button type="submit" class="primaryButton" (click)="status()">Save</button>
+        </div>
+    </form>
+</div>

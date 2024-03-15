@@ -1,0 +1,30 @@
+<div class="userListWrapper">
+    <div class="userDetails">
+        <h3>{{assignmentData?.title}}</h3>
+        <app-common-button (click)="assignmentStatus()">Change Status</app-common-button>
+    </div>
+    <mat-card>
+        <mat-card-content><div class="userEvent">
+            <div class="row">
+                <div class="col-sm-4">
+                    <p> <span>Due Date:</span> {{assignmentData?.dueDate}}</p>
+                </div>
+                <div class="col-sm-4">
+                    <p> <span>Priority:</span> {{assignmentData?.priority}}</p>
+                </div>
+                <div class="col-sm-4">
+                    <p> <span>Created By:</span> {{userData?.name}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <p> <span>Created On:</span> {{assignmentData?.createdOn}}</p>
+                </div>
+                <div class="col-sm-4">
+                    <p> <span>Status:</span> {{assignmentData?.status}}</p>
+                </div>
+            </div>
+        </div></mat-card-content>
+      </mat-card>
+    
+</div>

@@ -17,14 +17,8 @@ export class AccountComponentsComponent {
 
   constructor(private router: Router, private loacalService: StorageService, private authService: AuthService) { }
 ngOnInit(){
-  this.loggedInUser();
-  this.userDetails = this.loggedInUser();
-}
-  get loggedInUser() {
-    debugger
-    return this.authService.loggedInUser();
 
-  }
+}
 
   logout() {
     this.authService.logout();

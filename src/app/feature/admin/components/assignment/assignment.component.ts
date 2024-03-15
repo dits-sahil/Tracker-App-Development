@@ -53,7 +53,9 @@ export class AssignmentComponent extends SpinnerComponent {
       this.router.navigate(['admin', 'assignmentDetails', id]);
     } else if (this.userRole.MANAGER == this.getLoggedInUserRole) {
       this.router.navigate(['manager', 'assignmentDetails', id]);
-    }
+    }  else if (this.userRole.REGULARUSER == this.getLoggedInUserRole) {
+      this.router.navigate(['user', 'assignmentDetails', id]);
+    } 
   }
 
   get getLoggedInUserRole() {
@@ -71,6 +73,9 @@ export class AssignmentComponent extends SpinnerComponent {
     } else if (this.router.url.includes('user-assignments')) {
       let userId = this.route.snapshot.params['id']
       return this.dbService.getAll('assignments', 'assignedTo', userId, 'equalTo');
+    } if (this.router.url == '/user/assignments') {
+      delete this.columnHeader.assignedTo
+      return this.dbService.getAll('assignments','assignedTo',this.getLoggedInUserId,'equalTo');
     } else {
       return of(null)
     }
@@ -90,6 +95,7 @@ export class AssignmentComponent extends SpinnerComponent {
         return items
       })
       this.assignments = dbData
+ 
       this.hideLoader();
     });
   }
@@ -114,6 +120,7 @@ export class AssignmentComponent extends SpinnerComponent {
   createAssignment(evetType: string) {
     const dialogRef = this.dialog.open(AssignmentListComponent, {
       width: '40%',
+      disableClose: true,
       data: {
         evetType
       }
@@ -126,6 +133,7 @@ export class AssignmentComponent extends SpinnerComponent {
   openDeleteAssignmentModal(id: any) {
     const dialogRef = this.dialog.open(ConfirmBoxComponent, {
       width: '25%',
+      disableClose: true,
     }).afterClosed().subscribe(data => {
       console.log('data:', data)
       if (data == true) {
