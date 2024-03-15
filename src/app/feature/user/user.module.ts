@@ -28,7 +28,8 @@ import { SubmitAssignmentComponent } from './components/submit-assignment/submit
   ],
   exports:[
     UserComponent,
-    AssignmentTableListComponent
+    AssignmentTableListComponent,
+    SubmitAssignmentComponent
   ]
   
 })

@@ -3,7 +3,7 @@
     <mat-form-field appearance="outline" [class]="class">
         <mat-label>{{label}}</mat-label>
         <textarea matInput [formControlName]="control" cdkAutosizeMinRows="1"
-        cdkAutosizeMaxRows="5" rows="7" [type]="type" [placeholder]="placeholder"></textarea>
+        cdkAutosizeMaxRows="5" rows="7" [type]="type"  [placeholder]="placeholder"></textarea>
         <mat-error *ngIf="error">{{error}}</mat-error>
     </mat-form-field>
 </ng-container>

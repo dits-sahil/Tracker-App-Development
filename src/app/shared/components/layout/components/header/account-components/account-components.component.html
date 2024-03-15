@@ -2,14 +2,14 @@
     <button mat-button [matMenuTriggerFor]="menu">
       <img
         class="roundedCircle profilePic"
-        src="../../../../../../../assets/img/doc-1.png"
+        src={{UserDetails.profileImage}}
       />
-      Admin
+   {{UserDetails.name}}
       <i class="fas fa-chevron-down"></i>
     </button>
     <mat-menu #menu="matMenu">
       <ul class="listingMenus">
-        <li  [routerLink]="'profile-setting/'+currentUserId" routerLinkActive="active">
+        <li  [routerLink]="'profile'" routerLinkActive="active">
           <a><i class="fas fa-user-cog"></i> My Profile</a>
         </li>
         <li

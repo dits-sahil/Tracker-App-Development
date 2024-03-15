@@ -6,6 +6,7 @@ import { UserListComponent } from '../admin/components/user-list/user-list.compo
 import { AssignmentComponent } from '../admin/components/assignment/assignment.component';
 import { UserDetailsComponent } from '../admin/components/user-details/user-details.component';
 import { AssignmnetDetailsComponent } from '../admin/components/assignmnet-details/assignmnet-details.component';
+import { ProfileComponent } from 'src/app/core/authentication/components/profile/profile.component';
 
 const routes: Routes = [
 
@@ -35,6 +36,10 @@ const routes: Routes = [
     {
       path:'assignmentDetails/:id',
       component:AssignmnetDetailsComponent,
+    },
+    {
+      path: 'profile', 
+      component: ProfileComponent,
     }
   ]
 },

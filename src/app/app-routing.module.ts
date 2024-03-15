@@ -10,6 +10,7 @@ import { PageNotFoundComponent } from './shared/components/page-not-found/page-n
 import { unauthGuard } from './core/guards/unauth.guard';
 import { userRoleConfig } from './core/constant/User.config';
 import { ForgotPasswordComponent } from './core/authentication/components/forgot-password/forgot-password.component';
+import { ProfileComponent } from './core/authentication/components/profile/profile.component';
 
 
 const routes: Routes = [

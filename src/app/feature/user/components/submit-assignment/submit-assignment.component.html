@@ -1,1 +1,22 @@
-<p>submit-assignment works!</p>
+<div class="userListWrapper">
+    <mat-card>
+        <mat-card-content>
+            <div class="row">
+                <div class="col-sm-6 px-5">
+                    <div class="userDetails">
+                        <h3>{{assignmentData?.title}}</h3>
+                    </div>
+                    <p> <span>Description:</span> {{assignmentData?.description}}</p>
+                </div>
+                <div class="col-sm-6">
+                    <app-common-textarea [class]="'w-100'" [control]="'assignment'" [type]="'text'"
+                        [label]="'Assignment'" [form]="submitAssignmentForm">
+                    </app-common-textarea>
+                </div>
+            </div>
+            <div class="sumbitData">
+                <button type="submit" class="primaryButton" (click)="submit()">Save</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

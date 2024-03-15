@@ -71,7 +71,8 @@ import { CommonDatePickerComponent } from './components/common-datepicker/common
     NgxSpinnerModule,
     ChangeAssignmentStatusComponent,
     AddAssignmentComponent,
-    CommonDatePickerComponent
+    CommonDatePickerComponent,
+    CommonTextareaComponent
   ],
 })
 export class SharedModule { }

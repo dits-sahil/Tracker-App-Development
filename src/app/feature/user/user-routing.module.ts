@@ -5,6 +5,7 @@ import { DashboardComponent } from 'src/app/shared/components/dashboard/dashboar
 import { AssignmentComponent } from '../admin/components/assignment/assignment.component';
 import { UserAssignmentDetailsComponent } from './components/user-assignment-details/user-assignment-details.component';
 import { SubmitAssignmentComponent } from './components/submit-assignment/submit-assignment.component';
+import { ProfileComponent } from 'src/app/core/authentication/components/profile/profile.component';
 
 const routes: Routes = [
 
@@ -31,6 +32,10 @@ const routes: Routes = [
         path: 'invites', 
         component: AssignmentComponent,
       },
+      {
+        path: 'profile', 
+        component: ProfileComponent,
+    }
     ]
   },
 ];

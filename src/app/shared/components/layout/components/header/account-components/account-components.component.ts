@@ -13,12 +13,15 @@ export class AccountComponentsComponent {
   role: any;
   currentUserId: any
   UserName: any;
-  userDetails:any
+  userDetails: any
 
   constructor(private router: Router, private loacalService: StorageService, private authService: AuthService) { }
-ngOnInit(){
+  ngOnInit() {
 
-}
+  }
+  loggedUser(){
+    this.UserDetails = this.authService.loggedInUser()
+  }
 
   logout() {
     this.authService.logout();

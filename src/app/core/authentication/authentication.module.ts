@@ -12,13 +12,15 @@ import { HomeComponent } from './components/home/home.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { UiModule } from 'src/app/ui/ui.module';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegistrationComponent,
     HomeComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    ProfileComponent
 
   ],
   imports: [
