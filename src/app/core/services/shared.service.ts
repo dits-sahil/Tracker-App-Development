@@ -11,4 +11,7 @@ export class SharedService {
   convertDateToTimeStamp(date:Date){
     return new Date(date).getTime()
   }
+  convertTimeStampToDate(date:Date){
+    return new Date(date).toISOString();
+  }
 }

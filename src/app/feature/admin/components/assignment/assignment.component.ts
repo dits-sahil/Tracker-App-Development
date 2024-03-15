@@ -118,10 +118,17 @@ export class AssignmentComponent extends SpinnerComponent {
         evetType
       }
     });
-
   }
 
-  updateAssignmentDetail(id: any) {}
+  updateAssignment(id: any) {
+    const dialogRef = this.dialog.open(AddAssignmentComponent, {
+      width: '40%',
+      data: {
+        evetType:'update',
+        id,
+      }
+    });
+  }
 
   openDeleteAssignmentModal(id: any) {
     const dialogRef = this.dialog.open(ConfirmBoxComponent, {
