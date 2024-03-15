@@ -34,17 +34,42 @@ export class AddAssignmentComponent {
   minDate: Date = new Date();
 
   ngOnInit() {
-    this.initializeForm();
+    this.getFormType();
     this.getUserList();
   }
-  get priority(){
+  get priority() {
     return Common.priority;
   }
-  get inviteStatus(){
+  get inviteStatus() {
     return Common.inviteStatus;
   }
-  get assignmentStatus(){
+  get assignmentStatus() {
     return Common.assignmentStatus;
+  }
+  convertTimeStampToDate(date: any) {
+    return this.sharedService.convertTimeStampToDate(date)
+  }
+
+  getFormType() {
+    if (this.data.eventType == 'update') {
+      this.initializeForm();
+      this.getAssignmentDetail()
+    } else {
+      this.initializeForm();
+    }
+  }
+  getAssignmentDetail() {
+    this.dbService.getDataById('assignments', this.data.id).subscribe((res: any) => {
+      let asssignment = res
+      asssignment.dueDate = this.convertTimeStampToDate(asssignment.dueDate)
+      this.addAssignmentForm.patchValue({
+        title: asssignment.title,
+        dueDate: asssignment.dueDate,
+        priority: asssignment.priority,
+        assignedTo: asssignment.assignedTo,
+        description: asssignment.description,
+      })
+    })
   }
 
 
@@ -106,25 +131,41 @@ export class AddAssignmentComponent {
       return;
     }
     let formData: any = this.addAssignmentForm.value;
-
-    if(this.data.evetType != 'update') {
+    if (this.data.eventType != 'update') {
       this.createAssignment(formData);
+    }else{
+      this.updateAsssignment(formData);
     }
 
   }
 
-
-
-  createAssignment(formData:any){
+  createAssignment(formData: any) {
     let data = formData
     data.dueDate = this.sharedService.convertDateToTimeStamp(data.dueDate)
-    data = {...data, createdBy:this.loggedInUserId,inviteStatus:this.inviteStatus.PENDING,assignmentStatus:this.assignmentStatus.PENDING,startedOn:'',endedOn:''}
-    this.dbService.create('assignments',data).then((res:any)=>{
-      if (res) {
-        this.toastrService.success('Asssignment created succcessfully')
-      }
-      }).catch((error:any) => this.toastrService.error(error))
+    data = { ...data, createdBy: this.loggedInUserId, inviteStatus: this.inviteStatus.PENDING, assignmentStatus: this.assignmentStatus.PENDING, startedOn: '', endedOn: '' }
+    this.dbService.create('assignments', data).then(() => {
+
+        this.toastrService.success('Assignment created succcessfully')
+        this.closeDialog()
+
+    }).catch((error: any) => {
+      this.toastrService.error(error);
+      this.closeDialog()
+    })
   }
+  updateAsssignment(formData:any){
+    let data = formData
+    data.dueDate = this.sharedService.convertDateToTimeStamp(data.dueDate)
+    this.dbService.update('assignments',this.data.id, data).then((res: any) => {
+        this.toastrService.success('Assignment updated succcessfully')
+        this.closeDialog()
+    }).catch((error: any) => {
+      this.toastrService.error(error);
+      this.closeDialog()
+    })
+  }
+
+
   closeDialog() {
     this.dialogRef.close();
   }

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { UiModule } from '../ui/ui.module';
 import { CommonInputComponent } from './components/common-input/common-input.component';
 import { CommonSelectComponent } from './components/common-select/common-select.component';
-import { CommonTableComponent } from './components/common-table/common-table.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { AddUserComponent } from './components/dialogs/add-user/add-user.component';
 import { CommonCheckboxComponent } from './components/common-checkbox/common-checkbox.component';
@@ -24,12 +23,12 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { CommonTextareaComponent } from './components/common-textarea/common-textarea.component';
 import { ChangeAssignmentStatusComponent } from './components/dialogs/change-assignment-status/change-assignment-status.component';
 import { CommonDatePickerComponent } from './components/common-datepicker/common-date-picker.component';
+import { ConfirmInviteComponent } from './components/dialogs/confirm-invite/confirm-invite.component';
 
 @NgModule({
   declarations: [
     CommonInputComponent,
     CommonSelectComponent,
-    CommonTableComponent,
     PageNotFoundComponent,
     AddUserComponent,
     CommonButtonComponent,
@@ -46,6 +45,7 @@ import { CommonDatePickerComponent } from './components/common-datepicker/common
     CommonTextareaComponent,
     ChangeAssignmentStatusComponent,
     CommonDatePickerComponent,
+    ConfirmInviteComponent,
   ],
   imports: [
     CommonModule,
@@ -58,7 +58,6 @@ import { CommonDatePickerComponent } from './components/common-datepicker/common
   exports: [
     CommonInputComponent,
     CommonSelectComponent,
-    CommonTableComponent,
     CommonButtonComponent,
     BaseLayoutComponent,
     DashboardComponent,

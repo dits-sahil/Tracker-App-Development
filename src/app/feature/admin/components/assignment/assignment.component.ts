@@ -9,8 +9,10 @@ import { ActionType } from 'src/app/core/constant/actionKeys';
 import { Common } from 'src/app/core/constant/commonKeys';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { FirebaseService } from 'src/app/core/services/firebase.service';
+import { SharedService } from 'src/app/core/services/shared.service';
 import { AddAssignmentComponent } from 'src/app/shared/components/dialogs/add-assignment/add-assignment.component';
 import { ConfirmBoxComponent } from 'src/app/shared/components/dialogs/confirm-box/confirm-box.component';
+import { ConfirmInviteComponent } from 'src/app/shared/components/dialogs/confirm-invite/confirm-invite.component';
 import { SpinnerComponent } from 'src/app/shared/components/spinner/spinner.component';
 
 @Component({
@@ -32,20 +34,20 @@ export class AssignmentComponent extends SpinnerComponent {
       'createdOn': 'Created On',
       'actions': 'Action'
     };
-    inviteColumns: any = {
+  inviteColumns: any = {
     'title': 'Title',
     'priority': 'Priority',
     'dueDate': 'Due Date',
     'actions': 'Action'
   }
-priority:any={
-  0:'Pending',
-  1:'In progress',
-  2:'Complete'
-}
+  priority: any = {
+    0: 'Low',
+    1: 'Medium',
+    2: 'Hign'
+  }
 
   constructor(public override spinner: NgxSpinnerService, private route: ActivatedRoute, private router: Router,
-    private dbService: FirebaseService, private authService: AuthService, public dialog: MatDialog, private toastrService: ToastrService) {
+    private dbService: FirebaseService, private authService: AuthService, public dialog: MatDialog, private toastrService: ToastrService, private sharedService:SharedService) {
     super(spinner)
   }
 
@@ -81,32 +83,31 @@ priority:any={
   }
 
   getAllAssignments(): Observable<any> {
-    if (this.router.url == '/manager/assignments') {
+    if (this.router.url === '/manager/assignments') {
       return this.dbService.getAll('assignments', 'createdBy', this.getLoggedInUserId, 'equalTo');
-    } else if (this.router.url == '/admin/assignments') {
+    } else if (this.router.url === '/admin/assignments') {
       return this.dbService.getAll('assignments');
     } else if (this.router.url.includes('user-assignments')) {
-      let userId = this.route.snapshot.params['id']
+      const userId = this.route.snapshot.params['id'];
       return this.dbService.getAll('assignments', 'assignedTo', userId, 'equalTo');
-    } if (this.router.url == '/user/assignments') {
-      delete this.columnHeader.assignedTo
+    } else if (this.router.url === '/user/assignments') {
+      delete this.columnHeader.assignedTo;
       return this.dbService.getAll('assignments', 'assignedTo', this.getLoggedInUserId, 'equalTo');
-    } if (this.router.url == '/user/invites') {
+    } else if (this.router.url === '/user/invites') {
       this.columnHeader = this.inviteColumns;
       return this.dbService.getAll('assignments', 'inviteStatus', this.inviteStatus.PENDING, 'equalTo');
+    } else {
+      return of(null);
     }
-    else {
-      return of(null)
-    }
-
-
   }
 
   getAssignmentList() {
     this.showLoader();
     this.getAllAssignments().subscribe((data: any) => {
       let dbData = data.map((items: any) => {
-        items.priority=this.priority[items.priority]
+        items.priority = this.priority[items.priority]
+        items.dueDate = this.sharedService.convertTimeStampToDate(items.dueDate)
+        items.dueDate = this.sharedService.convertISOToDate(items.dueDate)
         let actionData = {
           id: items.id
         }
@@ -121,61 +122,55 @@ priority:any={
   }
 
   prepareActionType(actionData: { id: any; }) {
-    let arr: any = []
-    if (this.getLoggedInUserRole == this.userRole.MANAGER) {
-      arr = [...arr,
-      {
-        ...actionData, actionType: this.actionType.DELETE
-      },
-      {
-        ...actionData, actionType: this.actionType.UPDATE
-      },
-      {
-        ...actionData, actionType: this.actionType.DETAIL
-      }]
-    } 
-    
-    if (this.getLoggedInUserRole == this.userRole.REGULARUSER  && this.router.url == '/user/assignments') {
-      arr = [...arr,
-      {
-        ...actionData, actionType: this.actionType.SUBMIT
-      },
-      {
-        ...actionData, actionType: this.actionType.DETAIL
-      }]
+    const arr: any[] = [];
+    const userRole = this.getLoggedInUserRole;
+    const url = this.router.url;
+
+    if (userRole === this.userRole.MANAGER) {
+        arr.push(
+            { ...actionData, actionType: this.actionType.DELETE },
+            { ...actionData, actionType: this.actionType.UPDATE }
+        );
     }
-    if ((this.getLoggedInUserRole == this.userRole.REGULARUSER) && this.router.url == '/user/invites'){
-      arr = [...arr,
-        {
-          ...actionData, actionType: this.actionType.SETTINGS
-        },
-        {
-          ...actionData, actionType: this.actionType.DETAIL
-        }]
+
+    if (userRole === this.userRole.REGULARUSER) {
+        if (url === '/user/assignments') {
+            arr.push({ ...actionData, actionType: this.actionType.SUBMIT });
+        } else if (url === '/user/invites') {
+            arr.push({ ...actionData, actionType: this.actionType.SETTINGS });
+        }
     }
-    
+
+    arr.push({ ...actionData, actionType: this.actionType.DETAIL });
     return arr
   }
 
-  createAssignment(evetType: string) {
+  createAssignment(eventType: string) {
     const dialogRef = this.dialog.open(AddAssignmentComponent, {
       width: '40%',
       disableClose: true,
       data: {
-        evetType
+        eventType
       }
     });
-
   }
 
-  updateAssignmentDetail(id: any) { }
+  updateAssignment(id: any) {
+    console.log('id:', id)
+    const dialogRef = this.dialog.open(AddAssignmentComponent, {
+      width: '40%',
+      data: {
+        eventType: 'update',
+        id,
+      }
+    });
+  }
 
   openDeleteAssignmentModal(id: any) {
     const dialogRef = this.dialog.open(ConfirmBoxComponent, {
       width: '25%',
       disableClose: true,
     }).afterClosed().subscribe(data => {
-      console.log('data:', data)
       if (data == true) {
         this.deleteAssignment(id)
       }
@@ -190,7 +185,20 @@ priority:any={
     this.router.navigate(['user', 'submitAssignment', id]);
   }
 
-  assignmentSetting(id:any){
-
+  assignmentSetting(id: any) {
+    const dialogRef = this.dialog.open(ConfirmInviteComponent, {
+      width: '25%',
+      disableClose: true,
+    }).afterClosed().subscribe(data => {
+      this.handleInvite(id,data)
+    });
   }
+  handleInvite(id:any,status:any){
+    let invite = status == this.inviteStatus.ACCEPTED ? this.inviteStatus.ACCEPTED : this.inviteStatus.REJECTED
+    this.dbService.update('assignments', id,{inviteStatus:invite}).then(()=>{
+      this.toastrService.success('Invitation status changed');
+    }).catch((error)=>this.toastrService.error(error.message))
+  }
+
+
 }

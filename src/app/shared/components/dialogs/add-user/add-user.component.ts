@@ -35,7 +35,7 @@ export class AddUserComponent {
   imageUrl: any;
   editFile: boolean = true;
   removeUpload: boolean = false;
-  isReadOnly: boolean = true
+  isReadOnly: boolean = false
   userType: any = ''
   selectedRole: any
   parent: any = ''
@@ -72,7 +72,6 @@ export class AddUserComponent {
       this.isReadOnly = true
       this.initializeForm();
       this.getUserData()
-
     } else {
       this.initializeForm();
     }

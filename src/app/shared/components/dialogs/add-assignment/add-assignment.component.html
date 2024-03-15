@@ -1,6 +1,6 @@
 <div class="container">
   <div class="headerUserlist">
-    <h1>Add Assignment</h1>
+    <h1>{{data.eventType == 'create' ? 'Add Assignment' : 'Update Assignment'}}</h1>
     <mat-icon (click)="closeDialog()">cancel</mat-icon>
   </div>
 
@@ -22,14 +22,6 @@
         [appearance]="'outline'"
         >
       </app-common-date-picker>
-      <!-- <app-common-input
-        [control]="'dueDate'"
-        [type]="'date'"
-        [label]="'Due Date'"
-        [class]="'formControl'"
-        [error]="getErrorValidator('dueDate', 'Due Date')"
-        [form]="addAssignmentForm">
-      </app-common-input> -->
       <app-common-select
         [label]="'Priority'"
         [control]="'priority'"
