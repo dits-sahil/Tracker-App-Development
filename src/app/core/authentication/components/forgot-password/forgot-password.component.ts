@@ -37,7 +37,7 @@ export class ForgotPasswordComponent {
     this.authService.sendForgotPasswordEmail(this.forgotPasswordForm.value.email).subscribe((res:any)=>{
       if(res){
       window.location = res.link;
-      this.toastrService.success('Email address is correct');
+      this.toastrService.success('Redirecting to reset password link !!!');
       }
     },(error)=>{
       this.dialogRef.close();
