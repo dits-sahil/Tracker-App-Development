@@ -3,5 +3,7 @@ export class ActionType{
    UPDATE:"Update",
    DELETE:"Delete",
    DETAIL:"Detail",
+   SUBMIT:"Submit",
+   SETTINGS:"Settings"
   }
 }

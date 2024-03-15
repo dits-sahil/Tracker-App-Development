@@ -16,7 +16,9 @@ export class CommonUsersTableComponent {
   @Output() viewDetail: any = new EventEmitter();
   @Output() updateDetail: any = new EventEmitter();
   @Output() deleteUser: any = new EventEmitter();
-
+  @Output() submitAssignment: any = new EventEmitter();
+  @Output() assignmentSetting: any = new EventEmitter();
+  
   public get actionType(): any {
     return Actions
   }
@@ -35,8 +37,16 @@ export class CommonUsersTableComponent {
     this.updateDetail.emit(val)
 
   }
+  
+  submitAssignments(val: any) {
+    this.submitAssignment.emit(val)
+
+  }
   userDelete(val: any) {
     this.deleteUser.emit(val)
+  }
 
+  assignmentSettings(val: any) {
+    this.assignmentSetting.emit(val)
   }
 }

@@ -12,10 +12,15 @@ export class AccountComponentsComponent {
   @Input() UserDetails: any
   role: any;
   currentUserId: any
+  UserName: any;
+  userDetails:any
 
-  constructor(private router: Router, private loacalService: StorageService, private auth: AuthService) { }
+  constructor(private router: Router, private loacalService: StorageService, private authService: AuthService) { }
+ngOnInit(){
+
+}
 
   logout() {
-    this.auth.logout();
+    this.authService.logout();
   }
 }

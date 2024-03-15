@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserComponent } from './user.component';
-import { AssignmentTableListComponent } from './components/assignment-table-list/assignment-table-list.component';
 import { DashboardComponent } from 'src/app/shared/components/dashboard/dashboard.component';
-import { ViewAssignmentComponent } from './components/view-assignment/view-assignment.component';
+import { AssignmentComponent } from '../admin/components/assignment/assignment.component';
+import { UserAssignmentDetailsComponent } from './components/user-assignment-details/user-assignment-details.component';
+import { SubmitAssignmentComponent } from './components/submit-assignment/submit-assignment.component';
 
 const routes: Routes = [
 
@@ -15,11 +16,21 @@ const routes: Routes = [
         component: DashboardComponent
       },
       {
-        path: 'assignments', component: AssignmentTableListComponent,
+        path: 'assignments', 
+        component: AssignmentComponent,
       },
       {
-        path: 'viewAssignment/:index', component: ViewAssignmentComponent,
-      }
+        path:'assignmentDetails/:id',
+        component:UserAssignmentDetailsComponent
+      },
+      {
+        path:'submitAssignment/:id',
+        component:SubmitAssignmentComponent
+      },
+      {
+        path: 'invites', 
+        component: AssignmentComponent,
+      },
     ]
   },
 ];

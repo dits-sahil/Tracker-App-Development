@@ -16,6 +16,12 @@
               <div *ngIf="items.actionType == actionType.key.UPDATE">
                 <app-common-icon  [matTooltip]="actionType.key.UPDATE" class="actionButton" [name]="'edit'" [color]="'success'" (action)="updateUserDetail(items.id)" ></app-common-icon>
               </div>
+              <div *ngIf="items.actionType == actionType.key.SUBMIT">
+                <app-common-icon  [matTooltip]="actionType.key.SUBMIT" class="actionButton" [name]="'assignment'" [color]="'primary'" (action)="submitAssignments(items.id)" ></app-common-icon>
+              </div>
+              <div *ngIf="items.actionType == actionType.key.SETTINGS">
+                <app-common-icon  [matTooltip]="actionType.key.SETTINGS" class="actionButton" [name]="'settings'" [color]="'primary'" (action)="assignmentSettings(items.id)" ></app-common-icon>
+              </div>
             </ng-container>
           </div>
 

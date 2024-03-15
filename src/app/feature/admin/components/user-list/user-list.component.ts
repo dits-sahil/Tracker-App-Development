@@ -48,6 +48,7 @@ export class UserListComponent extends SpinnerComponent {
   createUser(evetType: string) {
     const dialogRef = this.dialog.open(AddUserComponent, {
       width: '40%',
+      disableClose: true,
       data: {
         evetType,
         userRole: this.loggedInUserRole
@@ -57,6 +58,7 @@ export class UserListComponent extends SpinnerComponent {
   updateUserDetail(id: any) {
     const dialogRef = this.dialog.open(AddUserComponent, {
       width: '40%',
+      disableClose: true,
       data: {
         id,
         evetType: 'update',
@@ -125,6 +127,7 @@ export class UserListComponent extends SpinnerComponent {
   openDeleteUserModal(id: any) {
     const dialogRef = this.dialog.open(ConfirmBoxComponent, {
       width: '25%',
+      disableClose: true,
     }).afterClosed().subscribe(data => {
       if (data == true) {
         this.deleteUser(id)

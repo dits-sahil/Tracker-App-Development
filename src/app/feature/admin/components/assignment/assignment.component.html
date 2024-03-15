@@ -5,7 +5,7 @@
   </div>
   <div class="userEvent">
     <app-common-users-table (viewDetail)="getAssignmentDetail($event)" (updateDetail)="updateAssignment($event)"
-      (deleteUser)="openDeleteAssignmentModal($event)"
+      (deleteUser)="openDeleteAssignmentModal($event)" (submitAssignment)="submitAssignment($event)" (assignmentSetting)="assignmentSetting($event)"
       [label]="'No data availble.'"  [tableData]="assignments"
       [columnHeader]="columnHeader"></app-common-users-table>
   </div>

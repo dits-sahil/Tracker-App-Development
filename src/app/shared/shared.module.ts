@@ -22,6 +22,7 @@ import { DetailComponent } from './components/detail/detail.component';
 import { AddAssignmentComponent } from './components/dialogs/add-assignment/add-assignment.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { CommonTextareaComponent } from './components/common-textarea/common-textarea.component';
+import { ChangeAssignmentStatusComponent } from './components/dialogs/change-assignment-status/change-assignment-status.component';
 import { CommonDatePickerComponent } from './components/common-datepicker/common-date-picker.component';
 
 @NgModule({
@@ -43,6 +44,7 @@ import { CommonDatePickerComponent } from './components/common-datepicker/common
     DetailComponent,
     AddAssignmentComponent,
     CommonTextareaComponent,
+    ChangeAssignmentStatusComponent,
     CommonDatePickerComponent,
   ],
   imports: [
@@ -67,6 +69,7 @@ import { CommonDatePickerComponent } from './components/common-datepicker/common
     ConfirmBoxComponent,
     DetailComponent,
     NgxSpinnerModule,
+    ChangeAssignmentStatusComponent,
     AddAssignmentComponent,
     CommonDatePickerComponent
   ],
