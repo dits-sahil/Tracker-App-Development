@@ -4,7 +4,8 @@
     <app-common-button (click)="createAssignment('create')" *ngIf="this.userRole.MANAGER ==this.getLoggedInUserRole"> + Add Assignment</app-common-button>
   </div>
   <div class="userEvent">
-    <app-common-users-table (viewDetail)="getAssignmentDetail($event)"
+    <app-common-users-table (viewDetail)="getAssignmentDetail($event)" (updateDetail)="updateAssignmentDetail($event)" 
+      (deleteUser)="openDeleteAssignmentModal($event)"
       [label]="'No data availble.'"  [tableData]="assignments"
       [columnHeader]="columnHeader"></app-common-users-table>
   </div>

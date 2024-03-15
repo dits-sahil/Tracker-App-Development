@@ -8,13 +8,13 @@
           <div *ngIf="columnName == 'actions'; else loopData" class="actionModule">
             <ng-container *ngFor="let items of element[columnName]">
               <div *ngIf="items.actionType == actionType.key.DELETE">
-                <app-common-icon [name]="'delete'" [color]="'warn'" [matTooltip]="actionType.key.DELETE" class="dangerBtn" (action)="userDelete(items.uid)"></app-common-icon>
+                <app-common-icon [name]="'delete'" [color]="'warn'" [matTooltip]="actionType.key.DELETE" class="dangerBtn" (action)="userDelete(items.id)"></app-common-icon>
               </div>
               <div *ngIf="items.actionType == actionType.key.DETAIL">
-                <app-common-icon [color]="'primary'"  [name]="'info'" [matTooltip]="actionType.key.DETAIL" class="actionButton" (action)="showDetails(items.uid)" ></app-common-icon>
+                <app-common-icon [color]="'primary'"  [name]="'info'" [matTooltip]="actionType.key.DETAIL" class="actionButton" (action)="showDetails(items.id)" ></app-common-icon>
               </div>
               <div *ngIf="items.actionType == actionType.key.UPDATE">
-                <app-common-icon  [matTooltip]="actionType.key.UPDATE" class="actionButton" [name]="'edit'" [color]="'success'" (action)="updateUserDetail(items.uid)" ></app-common-icon>
+                <app-common-icon  [matTooltip]="actionType.key.UPDATE" class="actionButton" [name]="'edit'" [color]="'success'" (action)="updateUserDetail(items.id)" ></app-common-icon>
               </div>
             </ng-container>
           </div>

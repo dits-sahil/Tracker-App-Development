@@ -1,18 +1,33 @@
 <div class="container">
-    <div class="headerUserlist">
-      <h1>Add Assignment</h1>
-      <mat-icon (click)="closeDialog()">cancel</mat-icon>
+  <div class="headerUserlist">
+    <h1>Add Assignment</h1>
+    <mat-icon (click)="closeDialog()">cancel</mat-icon>
   </div>
-  
-    <form [formGroup]="addAssignmentForm">
-        <app-common-input></app-common-input>
-        <app-common-input></app-common-input>
-        <app-common-input></app-common-input>
-        <app-common-input></app-common-input>
-        <app-common-input></app-common-input>
+
+  <form >
+    <app-common-input [control]="'title'" [type]="'text'" [label]="'Title'" [class]="'formControl'"
+      [error]="getErrorValidator('title', 'Title')" [form]="addAssignmentForm"></app-common-input>
+    <app-common-input [control]="'dueDate'" [type]="'date'" [label]="'Due Date'" [class]="'formControl'"
+      [error]="getErrorValidator('dueDate', 'Due Date')" [form]="addAssignmentForm"></app-common-input>
+      <app-common-select
+      [label]="'Priority'"
+      [control]="'priority'"
+      [form]="addAssignmentForm"
+      [List]="priorityList"
+      [error]="getErrorValidator('Ppiority', 'Priority')"
+      (selectedId)="getPriority($event)"
+    ></app-common-select>
+    <app-common-select
+      [label]="'Assigned To'"
+      [control]="'assignedTo'"
+      [form]="addAssignmentForm"
+      [List]="userList"
+      [error]="getErrorValidator('assignedTo', 'Assigned To')"
+      (selectedId)="getassigned($event)"
+    ></app-common-select>
+      <app-common-textarea [control]="'description'" [type]="'text'" [label]="'Description'" [form]="addAssignmentForm" [error]="getErrorValidator('description', 'Description')" ></app-common-textarea>
     <div class="sumbitData">
-      <button type="submit"  class="primaryButton" (click)="assignmentAction()">Save</button>
+      <button type="submit" class="primaryButton" (click)="assignmentAction()">Save</button>
     </div>
-    </form>
-  </div>
-  
+  </form>
+</div>

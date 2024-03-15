@@ -21,6 +21,7 @@ import { ConfirmBoxComponent } from './components/dialogs/confirm-box/confirm-bo
 import { DetailComponent } from './components/detail/detail.component';
 import { AssignmentListComponent } from './components/dialogs/assignment-list/assignment-list.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { CommonTextareaComponent } from './components/common-textarea/common-textarea.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ConfirmBoxComponent,
     DetailComponent,
     AssignmentListComponent,
+    CommonTextareaComponent,
   ],
   imports: [
     CommonModule,
