@@ -8,4 +8,7 @@ export class SharedService {
   public showHideSidebar = new Subject<any>();
 
   constructor() { }
+  convertDateToTimeStamp(date:Date){
+    return new Date(date).getTime()
+  }
 }

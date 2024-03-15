@@ -1,0 +1,10 @@
+<form [formGroup]="form">
+  <mat-form-field class="d-block" [appearance]="appearance">
+    <mat-label>{{label}}</mat-label>
+    <input matInput  readonly [min]="minDate" [max]="maxDate" format="MM/dd/yyyy" [matDatepicker]="picker" [formControlName]="control"  >
+
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker ></mat-datepicker>
+    <mat-error *ngIf="error">{{error}}</mat-error>
+  </mat-form-field>
+</form>

@@ -23,6 +23,7 @@ export class ValidationService {
       case 'role':
       case 'name':
       case 'parent':
+      case 'priority':
         if (control.hasError('minlength')) {
           return 'Not a valid min length';
         }

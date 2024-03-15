@@ -19,9 +19,10 @@ import { CommonIconComponent } from './components/common-icon/common-icon.compon
 import { FilterComponent } from './components/filter/filter.component';
 import { ConfirmBoxComponent } from './components/dialogs/confirm-box/confirm-box.component';
 import { DetailComponent } from './components/detail/detail.component';
-import { AssignmentListComponent } from './components/dialogs/assignment-list/assignment-list.component';
+import { AddAssignmentComponent } from './components/dialogs/add-assignment/add-assignment.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { CommonTextareaComponent } from './components/common-textarea/common-textarea.component';
+import { CommonDatePickerComponent } from './components/common-datepicker/common-date-picker.component';
 
 @NgModule({
   declarations: [
@@ -40,8 +41,9 @@ import { CommonTextareaComponent } from './components/common-textarea/common-tex
     FilterComponent,
     ConfirmBoxComponent,
     DetailComponent,
-    AssignmentListComponent,
+    AddAssignmentComponent,
     CommonTextareaComponent,
+    CommonDatePickerComponent,
   ],
   imports: [
     CommonModule,
@@ -64,7 +66,9 @@ import { CommonTextareaComponent } from './components/common-textarea/common-tex
     FilterComponent,
     ConfirmBoxComponent,
     DetailComponent,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    AddAssignmentComponent,
+    CommonDatePickerComponent
   ],
 })
 export class SharedModule { }
