@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable, of } from 'rxjs';
 import { userRoleConfig } from 'src/app/core/constant/User.config';
 import { ActionType } from 'src/app/core/constant/actionKeys';
+import { Common } from 'src/app/core/constant/commonKeys';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { FirebaseService } from 'src/app/core/services/firebase.service';
 import { AddAssignmentComponent } from 'src/app/shared/components/dialogs/add-assignment/add-assignment.component';
@@ -31,9 +32,20 @@ export class AssignmentComponent extends SpinnerComponent {
       'createdOn': 'Created On',
       'actions': 'Action'
     };
+    inviteColumns: any = {
+    'title': 'Title',
+    'priority': 'Priority',
+    'dueDate': 'Due Date',
+    'actions': 'Action'
+  }
+priority:any={
+  0:'Pending',
+  1:'In progress',
+  2:'Complete'
+}
 
   constructor(public override spinner: NgxSpinnerService, private route: ActivatedRoute, private router: Router,
-     private dbService: FirebaseService, private authService: AuthService,public dialog: MatDialog,private toastrService: ToastrService) {
+    private dbService: FirebaseService, private authService: AuthService, public dialog: MatDialog, private toastrService: ToastrService) {
     super(spinner)
   }
 
@@ -53,9 +65,9 @@ export class AssignmentComponent extends SpinnerComponent {
       this.router.navigate(['admin', 'assignmentDetails', id]);
     } else if (this.userRole.MANAGER == this.getLoggedInUserRole) {
       this.router.navigate(['manager', 'assignmentDetails', id]);
-    }  else if (this.userRole.REGULARUSER == this.getLoggedInUserRole) {
+    } else if (this.userRole.REGULARUSER == this.getLoggedInUserRole) {
       this.router.navigate(['user', 'assignmentDetails', id]);
-    } 
+    }
   }
 
   get getLoggedInUserRole() {
@@ -63,6 +75,9 @@ export class AssignmentComponent extends SpinnerComponent {
   }
   get getLoggedInUserId() {
     return this.authService.loggedInUserId();
+  }
+  get inviteStatus() {
+    return Common.inviteStatus;
   }
 
   getAllAssignments(): Observable<any> {
@@ -75,8 +90,12 @@ export class AssignmentComponent extends SpinnerComponent {
       return this.dbService.getAll('assignments', 'assignedTo', userId, 'equalTo');
     } if (this.router.url == '/user/assignments') {
       delete this.columnHeader.assignedTo
-      return this.dbService.getAll('assignments','assignedTo',this.getLoggedInUserId,'equalTo');
-    } else {
+      return this.dbService.getAll('assignments', 'assignedTo', this.getLoggedInUserId, 'equalTo');
+    } if (this.router.url == '/user/invites') {
+      this.columnHeader = this.inviteColumns;
+      return this.dbService.getAll('assignments', 'inviteStatus', this.inviteStatus.PENDING, 'equalTo');
+    }
+    else {
       return of(null)
     }
 
@@ -87,6 +106,7 @@ export class AssignmentComponent extends SpinnerComponent {
     this.showLoader();
     this.getAllAssignments().subscribe((data: any) => {
       let dbData = data.map((items: any) => {
+        items.priority=this.priority[items.priority]
         let actionData = {
           id: items.id
         }
@@ -95,7 +115,7 @@ export class AssignmentComponent extends SpinnerComponent {
         return items
       })
       this.assignments = dbData
- 
+
       this.hideLoader();
     });
   }
@@ -109,11 +129,31 @@ export class AssignmentComponent extends SpinnerComponent {
       },
       {
         ...actionData, actionType: this.actionType.UPDATE
+      },
+      {
+        ...actionData, actionType: this.actionType.DETAIL
+      }]
+    } 
+    
+    if (this.getLoggedInUserRole == this.userRole.REGULARUSER  && this.router.url == '/user/assignments') {
+      arr = [...arr,
+      {
+        ...actionData, actionType: this.actionType.SUBMIT
+      },
+      {
+        ...actionData, actionType: this.actionType.DETAIL
       }]
     }
-    arr = [...arr, {
-      ...actionData, actionType: this.actionType.DETAIL
-    }]
+    if ((this.getLoggedInUserRole == this.userRole.REGULARUSER) && this.router.url == '/user/invites'){
+      arr = [...arr,
+        {
+          ...actionData, actionType: this.actionType.SETTINGS
+        },
+        {
+          ...actionData, actionType: this.actionType.DETAIL
+        }]
+    }
+    
     return arr
   }
 
@@ -128,7 +168,7 @@ export class AssignmentComponent extends SpinnerComponent {
 
   }
 
-  updateAssignmentDetail(id: any) {}
+  updateAssignmentDetail(id: any) { }
 
   openDeleteAssignmentModal(id: any) {
     const dialogRef = this.dialog.open(ConfirmBoxComponent, {
@@ -146,4 +186,11 @@ export class AssignmentComponent extends SpinnerComponent {
     this.dbService.delete('assignments', id)
   }
 
+  submitAssignment(id: any) {
+    this.router.navigate(['user', 'submitAssignment', id]);
+  }
+
+  assignmentSetting(id:any){
+
+  }
 }

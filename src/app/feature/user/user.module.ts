@@ -8,6 +8,7 @@ import { AssignmentTableListComponent } from './components/assignment-table-list
 import { UiModule } from 'src/app/ui/ui.module';
 import { ViewAssignmentComponent } from './components/view-assignment/view-assignment.component';
 import { UserAssignmentDetailsComponent } from './components/user-assignment-details/user-assignment-details.component';
+import { SubmitAssignmentComponent } from './components/submit-assignment/submit-assignment.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { UserAssignmentDetailsComponent } from './components/user-assignment-det
     UserComponent,
     AssignmentTableListComponent,
     ViewAssignmentComponent,
-    UserAssignmentDetailsComponent
+    UserAssignmentDetailsComponent,
+    SubmitAssignmentComponent
   ],
   imports: [
     CommonModule,

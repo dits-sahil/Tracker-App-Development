@@ -4,6 +4,7 @@ import { UserComponent } from './user.component';
 import { DashboardComponent } from 'src/app/shared/components/dashboard/dashboard.component';
 import { AssignmentComponent } from '../admin/components/assignment/assignment.component';
 import { UserAssignmentDetailsComponent } from './components/user-assignment-details/user-assignment-details.component';
+import { SubmitAssignmentComponent } from './components/submit-assignment/submit-assignment.component';
 
 const routes: Routes = [
 
@@ -19,12 +20,16 @@ const routes: Routes = [
         component: AssignmentComponent,
       },
       {
-        path:'assignments/:id',
-        component:AssignmentComponent,
-      },
-      {
         path:'assignmentDetails/:id',
         component:UserAssignmentDetailsComponent
+      },
+      {
+        path:'submitAssignment/:id',
+        component:SubmitAssignmentComponent
+      },
+      {
+        path: 'invites', 
+        component: AssignmentComponent,
       },
     ]
   },

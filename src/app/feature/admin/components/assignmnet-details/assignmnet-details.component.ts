@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { userRoleConfig } from 'src/app/core/constant/User.config';
 import { FirebaseService } from 'src/app/core/services/firebase.service';
 
@@ -10,7 +11,7 @@ import { FirebaseService } from 'src/app/core/services/firebase.service';
 })
 export class AssignmnetDetailsComponent {
 
-  constructor(private route: ActivatedRoute, private dbService: FirebaseService) {
+  constructor(private route: ActivatedRoute, private dbService: FirebaseService,private toastrService: ToastrService) {
     this.assignmentId = route.snapshot.params['id']
   }
  
@@ -22,8 +23,13 @@ export class AssignmnetDetailsComponent {
   }
 
   getAssignmentDetail(id: any) {
-    this.dbService.getDataById('assignments', this.assignmentId).subscribe((assignmentData: any) => {
+    this.dbService.getDataById('assignments', this.assignmentId).subscribe({
+      next: (assignmentData: any) => {
       this.assignmentData = assignmentData;
+      },
+      error:(err:any)=> {
+        this.toastrService.error(err.message)
+      }
     })
   }
 
