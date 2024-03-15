@@ -111,20 +111,21 @@ export class AssignmentComponent extends SpinnerComponent {
     return arr
   }
 
-  createAssignment(evetType: string) {
+  createAssignment(eventType: string) {
     const dialogRef = this.dialog.open(AddAssignmentComponent, {
       width: '40%',
       data: {
-        evetType
+        eventType
       }
     });
   }
 
   updateAssignment(id: any) {
+    console.log('id:', id)
     const dialogRef = this.dialog.open(AddAssignmentComponent, {
       width: '40%',
       data: {
-        evetType:'update',
+        eventType:'update',
         id,
       }
     });
