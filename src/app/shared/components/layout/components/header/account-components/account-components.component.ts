@@ -1,7 +1,5 @@
 import { Component, Input, SimpleChange, SimpleChanges } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { StorageService } from 'src/app/core/services/storage.service';
 
 @Component({
   selector: 'app-account-components',
@@ -9,18 +7,14 @@ import { StorageService } from 'src/app/core/services/storage.service';
   styleUrls: ['./account-components.component.scss']
 })
 export class AccountComponentsComponent {
-  @Input() UserDetails: any
-  role: any;
-  currentUserId: any
-  UserName: any;
-  userDetails: any
+  @Input() userDetails: any
+ 
 
-  constructor(private router: Router, private loacalService: StorageService, private authService: AuthService) { }
+  constructor(private authService: AuthService) { }
   ngOnInit() {
-
   }
   loggedUser(){
-    this.UserDetails = this.authService.loggedInUser()
+    this.userDetails = this.authService.loggedInUser()
   }
 
   logout() {

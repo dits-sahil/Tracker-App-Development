@@ -55,7 +55,6 @@ export class SubmitAssignmentComponent extends SpinnerComponent {
       submitedData: this.submitAssignmentForm.value,
       assignmentStatus:this.assignmentStatus.COMPLETE
     }
-    console.log('assignment',assignment)
     this.dbService.update('assignments',this.assignmentId,assignment)
 
   }

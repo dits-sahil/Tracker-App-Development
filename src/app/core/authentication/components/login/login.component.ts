@@ -70,6 +70,7 @@ export class LoginComponent extends SpinnerComponent  {
     this.dbService.getDataById('users',userId).subscribe((res:any)=>{
       let finalData = res
       finalData = { ...finalData, accessToken }
+      this.firebaseService.setProfileDetails(finalData)
       this.storageService.setStorage('user', finalData)
       this.router.navigate(['/', 'home']);
       this.toastrService.success('User logged in successfuly');

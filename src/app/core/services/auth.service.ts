@@ -33,8 +33,10 @@ export class AuthService {
   db = getFirestore();
   functions = getFunctions(this.app, 'europe-west1');
   private messageSubject = new Subject<any>();
+  private profileDetails = new Subject<any>();
 
-  constructor(private readonly dbService: FirebaseService, private readonly toastrService: ToastrService, private router: Router, private http: HttpClient) {
+  constructor(private readonly dbService: FirebaseService, private readonly toastrService: ToastrService, private router: Router,
+     private http: HttpClient) {
     onAuthStateChanged(this.auth, async (user: any) => {
       if (user) {
 
@@ -140,4 +142,13 @@ export class AuthService {
   deleteUser(uid:any): Observable<any>{
     return this.http.post('http://localhost:3000/deleteUser', { uid });
   }
+
+  setProfileDetails(val: any) {
+    this.profileDetails.next(val);
+  }
+
+  getProfileDetails() {
+    return this.profileDetails.asObservable();
+  }
+
 }

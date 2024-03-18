@@ -1,1 +1,56 @@
-<p>profile works!</p>
+<div class="userListWrapper">
+    <div class="userDetails">
+        <h3>Update Profile</h3>
+    </div>
+    <mat-card>
+        <mat-card-content><div class="userEvent">
+            <form [formGroup]="profileForm">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2">
+                        <div class="uploadImg">
+                            <img id="blah" width="200" [src]="profileImage" alt="image" />
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-10">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                                <h4 class="">Basic Information</h4>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 col-md-6">
+                                <app-common-input [control]="'name'" [type]="'text'" [label]="'Name'"
+                                    [class]="'formControl'" [error]="getErrorValidator('name', 'Name')"
+                                    [form]="profileForm"></app-common-input>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <app-common-select [label]="'Select Gender'" [control]="'gender'"
+                                    [form]="profileForm" [List]="gender"(selectedId)="getGender($event)"
+                                    [error]="getErrorValidator('gender', 'Gender')"></app-common-select>
+                            </div>
+                            <div class="col-xs-12 col-md-12">
+                                <h4 class="">Contact Information</h4>
+                            </div>
+                            <div class="col-xs-12 col-xs-6 col-md-6">
+                                <app-common-input [control]="'phoneNumber'" [type]="'number'"
+                                    [label]="'Phone Number'" [class]="'formControl'"
+                                    [error]="getErrorValidator('phoneNumber', 'Phone Number')"
+                                    [form]="profileForm"></app-common-input>
+                            </div>
+                            <div class="col-xs-12 col-xs-6 col-md-6">
+                                <app-common-input [control]="'email'" [type]="'email'" [label]="'Email'"
+                                    [class]="'formControl'" [readonly]="isReadOnly"
+                                    [error]="getErrorValidator('email', 'Email')" [form]="profileForm"
+                                    [readonly]="isReadOnly"></app-common-input>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="mainButton">
+                    <app-common-button [className]="['themeBtn']"
+                        (click)="updateuserDetails()">Save</app-common-button>
+                </div>
+            </form>
+        </div></mat-card-content>
+    </mat-card>
+  
+</div>

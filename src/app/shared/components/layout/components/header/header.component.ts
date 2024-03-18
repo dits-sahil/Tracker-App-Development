@@ -15,7 +15,7 @@ import { StorageService } from 'src/app/core/services/storage.service';
 export class HeaderComponent {
   headerDetails: any;
   userName!: string;
-  UserDetails: any;
+  userDetails: any;
   storageDetails: any;
   role: any;
   inputIsExpand: boolean | undefined;
@@ -23,19 +23,26 @@ export class HeaderComponent {
   patientId!: string | null;
   dashboardHamburger: boolean = true;
   constructor(private loacalService: StorageService, private auth: AuthService, private shared: SharedService, private router: Router, private route: ActivatedRoute) {
-    let profile: any = loacalService.getStorage(StorageKeys.keys.USERDETAIL);
-profile = JSON.parse(profile)
-    this.UserDetails = profile;
-    this.userName = this.UserDetails?.name;
-    this.role = profile.role;
-    this.headerDetails = profile;
+   
+   
   }
 
   public get userRoleConfig(): any {
     return userRoleConfig
   }
 
+  getUserDetail(){
+    this.auth.getProfileDetails().subscribe((res:any) => {
+    let profile =res;
+    this.userName =profile.name;
+    this.role = profile.role;
+    this.headerDetails = profile;
+    console.log('res:', res)
+     } )
+  }
+
   ngOnInit() {
+    this.getUserDetail();
     // if (window.innerWidth < 991) {
       if (window.innerWidth >= 768 && window.innerWidth < 991 ) {
       this.inputIsExpand = false

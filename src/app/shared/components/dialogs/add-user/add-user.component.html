@@ -3,9 +3,7 @@
     <h1>{{data.evetType == 'create' ? 'Add User' : 'Update user'}}</h1>
     <mat-icon (click)="closeDialog()">cancel</mat-icon>
 </div>
-
   <form [formGroup]="addUserForm">
-
     <app-common-input
       [control]="'name'"
       [type]="'text'"

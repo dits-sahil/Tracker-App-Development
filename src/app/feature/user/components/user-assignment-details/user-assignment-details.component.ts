@@ -30,7 +30,6 @@ export class UserAssignmentDetailsComponent extends SpinnerComponent {
     this.showLoader()
     this.dbService.getDataById('assignments', this.assignmentId).subscribe((assignmentData: any) => {
       this.assignmentData = assignmentData;
-      console.log('assignmentData:', assignmentData)
       this.dbService.getDataById('users', this.assignmentData?.createdBy).subscribe((userData: any) => {
         this.userData = userData;
       })
