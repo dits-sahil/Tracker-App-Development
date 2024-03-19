@@ -1,14 +1,14 @@
-<div class="userListWrapper">
+<div class="userListWrapper submitDataModule">
     <mat-card>
         <mat-card-content>
+          <div class="userDetails ">
+            <h3>{{assignmentData?.title}}</h3>
+          </div>
             <div class="row">
-                <div class="col-sm-6 px-5">
-                    <div class="userDetails">
-                        <h3>{{assignmentData?.title}}</h3>
-                    </div>
+                <div class="col-sm-6 px-5 description">
                     <p> <span>Description:</span> {{assignmentData?.description}}</p>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 px-5">
                     <app-common-textarea [class]="'w-100'" [control]="'assignment'" [type]="'text'"
                         [label]="'Assignment'" [form]="submitAssignmentForm">
                     </app-common-textarea>
