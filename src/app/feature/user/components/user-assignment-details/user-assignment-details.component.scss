@@ -1,6 +1,6 @@
+@import '../../../../../assets/scss/variable';
 .userListWrapper{
     background-color: #f7f7f7f7;
-    // box-shadow: 2px 2px 10px rgba(0 0 0 / 30%);
     border: 1px solid #ccc;
     padding: 20px;
     border-radius: 5px;
@@ -20,11 +20,20 @@
         line-height: 32px;
       }
     }
-    .row {
-      padding: 15px;
-    }
-    span {
-      font-weight:600;
+    .userEvent{
+      p{
+        display: flex;
+        span{
+         padding-right: 10px;
+          color: var( --primary-color);
+          font-weight: 500;
+          font-size: 16px;
+        }
+      }
+      .submitWrapperList{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
     }
   }
-  

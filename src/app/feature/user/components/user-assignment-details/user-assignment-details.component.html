@@ -1,34 +1,56 @@
-<div class="userListWrapper">
+<div class="userListWrapper submitDataModule">
     <div class="userDetails">
         <h3>{{assignmentData?.title}}</h3>
     </div>
     <mat-card>
-        <mat-card-content><div class="userEvent">
+        <mat-card-content>
+          <div class="userEvent">
             <div class="row">
-                <div class="col-sm-4">
-                    <p> <span>Due Date:</span> {{assignmentData?.dueDate}}</p>
+                <div class="col-sm-4 mb-3">
+                    <p> <span>Due Date :</span> {{assignmentData?.dueDate}}</p>
                 </div>
-                <div class="col-sm-4">
-                    <p> <span>Priority:</span> {{assignmentData?.priority}}</p>
+                <div class="col-sm-4 mb-3">
+                    <p> <span>Priority :</span> {{assignmentData?.priority}}</p>
                 </div>
-                <div class="col-sm-4">
-                    <p> <span>Created By:</span> {{userData?.name}}</p>
+                <div class="col-sm-4 mb-3">
+                    <p> <span>Created By :</span> {{userData?.name}}</p>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-4">
-                    <p> <span>Created On:</span> {{assignmentData?.createdOn}}</p>
+                <div class="col-sm-4 mb-3">
+                    <p> <span>Created On :</span> {{assignmentData?.createdOn}}</p>
                 </div>
-                <div class="col-sm-4">
-                    <p> <span>Status:</span> {{assignmentData?.status}}</p>
+                <div class="col-sm-4 mb-3">
+                    <p> <span>Status :</span> {{assignmentData?.status}}</p>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                    <p> <span>Description:</span> {{assignmentData?.description}}</p>
+                    <p> <span>Description </span> {{assignmentData?.description}}</p>
+                </div>
+            </div>
+        </div></mat-card-content>
+    </mat-card>
+      <div class="userDetails">
+        <h3>Submitted List</h3>
+      </div>
+      <mat-card>
+        <mat-card-content>
+          <div class="userEvent">
+            <div class="submitWrapperList mb-5">
+                    <p> <span>Due Date :</span> {{assignmentData?.dueDate}}</p>
+                <button class="primaryButton">Submit</button>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 mb-3">
+                    <p> <span>Created On :</span> {{assignmentData?.createdOn}}</p>
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <p> <span>Status :</span> {{assignmentData?.status}}</p>
                 </div>
             </div>
         </div></mat-card-content>
       </mat-card>
-    
 </div>
+<!-- Sumitted View -->
+

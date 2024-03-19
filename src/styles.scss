@@ -21,3 +21,10 @@ body {
 ::ng-deep .mat-app-background {
   background-color: #fff !important;
 }
+.submitDataModule{
+ .mat-mdc-card{
+  box-shadow: none !important;
+  padding: 20px;
+  border-radius: 5px !important;
+ }
+}
