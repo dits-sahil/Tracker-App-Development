@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FirebaseService } from 'src/app/core/services/firebase.service';
-import { ChangeAssignmentStatusComponent } from 'src/app/shared/components/dialogs/change-assignment-status/change-assignment-status.component';
 import { SpinnerComponent } from 'src/app/shared/components/spinner/spinner.component';
 
 @Component({
@@ -30,8 +28,10 @@ export class UserAssignmentDetailsComponent extends SpinnerComponent {
     this.showLoader()
     this.dbService.getDataById('assignments', this.assignmentId).subscribe((assignmentData: any) => {
       this.assignmentData = assignmentData;
+      console.log('assignmentData:', assignmentData)
       this.dbService.getDataById('users', this.assignmentData?.createdBy).subscribe((userData: any) => {
         this.userData = userData;
+        console.log('userData:', userData)
       })
       this.hideLoader();
     });
